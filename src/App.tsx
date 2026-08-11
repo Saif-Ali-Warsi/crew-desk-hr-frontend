@@ -1,9 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
+import AppLayout from "./layouts/AppLayout";
+AppLayout;
 
 function App() {
   return (
@@ -11,15 +12,9 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage></LoginPage>}></Route>
         <Route element={<ProtectedRoute></ProtectedRoute>}>
-          <Route
-            path="/dashboard"
-            element={
-              <>
-                <Header companyName="CrewDesk HR."></Header>
-                <DashboardPage></DashboardPage>
-              </>
-            }
-          ></Route>
+          <Route element={<AppLayout />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Route>
         </Route>
         <Route
           path="*"
