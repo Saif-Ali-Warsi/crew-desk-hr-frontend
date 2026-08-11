@@ -1,31 +1,43 @@
 import { useEffect, useState } from "react";
 import { getEmployees } from "../api/employees";
-import type { Employee } from "../types/employee";
+import type { Employee, EmployeePagination } from "../types/employee";
 
 function EmployeesPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState<EmployeePagination | null>(null);
 
   useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const result = await getEmployees(1, 10, search);
+    const timer = setTimeout(() => {
+      setLoading(true);
 
-        if (result.success) {
-          setEmployees(result.data.items);
+      const fetchEmployees = async () => {
+        try {
+          const result = await getEmployees(page, 10, search);
+
+          if (result.success) {
+            setEmployees(result.data.items);
+            setPagination(result.data.pagination);
+            setError(null);
+          }
+        } catch (error) {
+          console.error("Failed to fetch employees:", error);
+          setError("Failed to load employees.");
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error("Failed to fetch employees:", error);
-        setError("Failed to load employees.");
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchEmployees();
-  }, [search]);
+      fetchEmployees();
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [search, page]);
 
   if (loading) {
     return (
@@ -119,7 +131,10 @@ function EmployeesPage() {
             type="text"
             placeholder="Search employees..."
             value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => {
+              setSearch(event.target.value);
+              setPage(1);
+            }}
             className="w-full rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
           />
         </div>
@@ -196,6 +211,29 @@ function EmployeesPage() {
           </div>
         </div>
       )}
+
+  <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+  <button
+    disabled={!pagination?.hasPrevious}
+    onClick={() => setPage((currentPage) => currentPage - 1)}
+    className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+  >
+    Previous
+  </button>
+
+  <span className="text-sm text-gray-700">
+    Page <span className="font-semibold text-gray-900">{pagination?.page ?? 1}</span> of{" "}
+    <span className="font-semibold text-gray-900">{pagination?.totalPages ?? 1}</span>
+  </span>
+
+  <button
+    disabled={!pagination?.hasNext}
+    onClick={() => setPage((currentPage) => currentPage + 1)}
+    className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+  >
+    Next
+  </button>
+</div>
     </div>
   );
 }
