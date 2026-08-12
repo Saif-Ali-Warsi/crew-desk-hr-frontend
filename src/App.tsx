@@ -10,6 +10,7 @@ import JobsPage from "./pages/JobsPage";
 import AttendancePage from "./pages/AttendancePage";
 import LeavesPage from "./pages/LeavesPage";
 import EmployeeDetailsPage from "./pages/EmployeeDetailsPage";
+import CreateEmployeePage from "./pages/CreateEmployeePage";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
             <Route path="/leaves" element={<LeavesPage />} />
 
             <Route path="/employees/:id" element={<EmployeeDetailsPage />} />
+
+            <Route path="/employee/new" element={<CreateEmployeePage />} />
           </Route>
         </Route>
         <Route

@@ -3,6 +3,7 @@ import { login } from "../api/auth";
 import { setAccessToken } from "../utils/authStorage";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ function LoginForm() {
 
   const { setUser } = useAuth();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const validate = () => {
     const newErrors: {
@@ -54,13 +55,16 @@ function LoginForm() {
         password,
       });
 
+      
       if (result.success) {
         setAccessToken(result.data.accessToken);
         setUser(result.data.user);
-        navigate("/dashboard")
+        navigate("/dashboard");
+        toast.success("Login successful");
       }
+      
     } catch (error) {
-      console.error("Login failed:", error);
+      toast.error("Invalid username or password");
     } finally {
       setLoading(false);
     }
