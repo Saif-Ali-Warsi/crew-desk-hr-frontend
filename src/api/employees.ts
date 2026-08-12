@@ -59,3 +59,29 @@ export const createEmployee = async (
 
   return response.data;
 };
+
+export const updateEmployee = async (
+  employeeId: string,
+  payload: Partial<CreateEmployeePayload>
+): Promise<{
+  success: boolean;
+  message: string;
+}> => {
+  const response = await api.put(
+    `/employee/${employeeId}`,
+    payload
+  );
+
+  return response.data;
+};
+
+export const deleteEmployee = async (
+  employeeId: string
+): Promise<{
+  success: boolean;
+  message: string;
+}> => {
+  const response = await api.delete(`/employee/${employeeId}`);
+
+  return response.data;
+};

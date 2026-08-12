@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getEmployeeById } from "../api/employees";
 import type { Employee } from "../types/employee";
+import { Link } from "react-router-dom";
+import { deleteEmployee } from "../api/employees";
+
 
 function EmployeeDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -9,6 +12,8 @@ function EmployeeDetailsPage() {
   const [employee, setEmployee] = useState<Employee | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) {
@@ -34,6 +39,27 @@ function EmployeeDetailsPage() {
 
     fetchEmployee();
   }, [id]);
+
+  const handleDelete = async () => {
+  if (!id) {
+    return;
+  }
+
+  const confirmed = window.confirm(
+    "Are you sure you want to delete this employee?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  try {
+    await deleteEmployee(id);
+    navigate("/employees");
+  } catch (error) {
+    console.error("Failed to delete employee:", error);
+  }
+};
 
   if (loading) {
     return (
@@ -107,7 +133,7 @@ function EmployeeDetailsPage() {
       </div>
 
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-        <div className="flex flex-col gap-4 border-b border-gray-100 bg-gray-50/50 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative flex flex-col gap-4 border-b border-gray-100 bg-gray-50/50 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-indigo-600 text-xl font-bold text-white shadow-sm">
               {employee.firstName?.[0]}
@@ -122,6 +148,18 @@ function EmployeeDetailsPage() {
               </p>
             </div>
           </div>
+
+           <button className="absolute -top-1 right-6 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:bg-red-50 hover:text-red-600" onClick={handleDelete}>
+             Delete
+            </button>
+
+           <Link to={`/employees/${employee.id}/edit`}>
+            <button className="absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+             Edit
+            </button>
+          </Link>
+
+          
 
           <span
             className={`inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-semibold capitalize ${
