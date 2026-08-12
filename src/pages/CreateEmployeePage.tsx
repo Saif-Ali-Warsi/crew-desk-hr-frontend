@@ -16,10 +16,64 @@ function CreateEmployeePage() {
     employmentType: "FULL_TIME",
   });
 
+  const [errors, setErrors] = useState<{
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    designation?: string;
+    joiningDate?: string;
+    employmentType?: string;
+  }>({});
+
+  const validate = () => {
+    const newErrors: {
+      firstName?: string;
+      lastName?: string;
+      email?: string;
+      designation?: string;
+      joiningDate?: string;
+      employmentType?: string;
+    } = {};
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First name is required.";
+    }
+
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last name is required.";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+
+    if (!formData.designation.trim()) {
+      newErrors.designation = "Designation is required.";
+    }
+
+    if (!formData.joiningDate) {
+      newErrors.joiningDate = "Joining date is required.";
+    }
+
+    if (!formData.employmentType) {
+      newErrors.employmentType = "Employment type is required.";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!validate()) {
+      return;
+    }
 
     setLoading(true);
 
@@ -63,8 +117,15 @@ function CreateEmployeePage() {
                   firstName: event.target.value,
                 })
               }
-              className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
+                  errors.firstName
+                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                }`}
             />
+            {errors.firstName && (
+              <p className="text-xs text-red-600">{errors.firstName}</p>
+            )}
           </div>
 
           <div>
@@ -81,8 +142,15 @@ function CreateEmployeePage() {
                   lastName: event.target.value,
                 })
               }
-              className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
+                  errors.lastName
+                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                }`}
             />
+             {errors.lastName && (
+              <p className="text-xs text-red-600">{errors.lastName}</p>
+            )}
           </div>
         </div>
 
@@ -101,8 +169,15 @@ function CreateEmployeePage() {
                   email: event.target.value,
                 })
               }
-              className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
+                  errors.email
+                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                }`}
             />
+               {errors.email && (
+              <p className="text-xs text-red-600">{errors.email}</p>
+            )}
           </div>
 
           <div>
@@ -111,7 +186,7 @@ function CreateEmployeePage() {
             </label>
             <input
               type="text"
-              placeholder="+1 (555) 000-0000"
+              placeholder="+1 (555) 000-0000 (Optional)"
               value={formData.phone}
               onChange={(event) =>
                 setFormData({
@@ -121,6 +196,7 @@ function CreateEmployeePage() {
               }
               className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
             />
+            
           </div>
         </div>
 
@@ -139,8 +215,15 @@ function CreateEmployeePage() {
                   designation: event.target.value,
                 })
               }
-              className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
+                  errors.designation
+                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                }`}
             />
+               {errors.designation && (
+              <p className="text-xs text-red-600">{errors.designation}</p>
+            )}
           </div>
 
           <div>
@@ -156,8 +239,15 @@ function CreateEmployeePage() {
                   joiningDate: event.target.value,
                 })
               }
-              className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
+                  errors.joiningDate
+                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                }`}
             />
+            {errors.joiningDate && (
+              <p className="text-xs text-red-600">{errors.joiningDate}</p>
+            )}
           </div>
         </div>
 
@@ -174,13 +264,20 @@ function CreateEmployeePage() {
                   .value as CreateEmployeePayload["employmentType"],
               })
             }
-            className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
+                  errors.employmentType
+                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                }`}
           >
             <option value="FULL_TIME">Full Time</option>
             <option value="PART_TIME">Part Time</option>
             <option value="CONTRACT">Contract</option>
             <option value="INTERN">Intern</option>
           </select>
+           {errors.employmentType && (
+              <p className="text-xs text-red-600">{errors.employmentType}</p>
+            )}
         </div>
 
         <div className="pt-3">
