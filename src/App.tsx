@@ -9,6 +9,7 @@ import CandidatesPage from "./pages/CandidatesPage";
 import JobsPage from "./pages/JobsPage";
 import AttendancePage from "./pages/AttendancePage";
 import LeavesPage from "./pages/LeavesPage";
+import EmployeeDetailsPage from "./pages/EmployeeDetailsPage";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
             <Route path="/attendance" element={<AttendancePage />} />
 
             <Route path="/leaves" element={<LeavesPage />} />
+
+            <Route path="/employees/:id" element={<EmployeeDetailsPage />} />
           </Route>
         </Route>
         <Route

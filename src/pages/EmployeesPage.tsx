@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getEmployees } from "../api/employees";
 import type { Employee, EmployeePagination } from "../types/employee";
+import { Link } from "react-router-dom";
 
 function EmployeesPage() {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -184,7 +185,9 @@ function EmployeesPage() {
                     className="hover:bg-gray-50 transition-colors"
                   >
                     <td className="px-6 py-4 font-medium text-gray-900">
-                      {employee.firstName} {employee.lastName}
+                      <Link to={`/employees/${employee.id}`}>
+                        {employee.firstName} {employee.lastName}
+                      </Link>
                     </td>
                     <td className="px-6 py-4 text-gray-500">
                       {employee.employeeCode}
@@ -212,28 +215,34 @@ function EmployeesPage() {
         </div>
       )}
 
-  <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-  <button
-    disabled={!pagination?.hasPrevious}
-    onClick={() => setPage((currentPage) => currentPage - 1)}
-    className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
-  >
-    Previous
-  </button>
+      <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+        <button
+          disabled={!pagination?.hasPrevious}
+          onClick={() => setPage((currentPage) => currentPage - 1)}
+          className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+        >
+          Previous
+        </button>
 
-  <span className="text-sm text-gray-700">
-    Page <span className="font-semibold text-gray-900">{pagination?.page ?? 1}</span> of{" "}
-    <span className="font-semibold text-gray-900">{pagination?.totalPages ?? 1}</span>
-  </span>
+        <span className="text-sm text-gray-700">
+          Page{" "}
+          <span className="font-semibold text-gray-900">
+            {pagination?.page ?? 1}
+          </span>{" "}
+          of{" "}
+          <span className="font-semibold text-gray-900">
+            {pagination?.totalPages ?? 1}
+          </span>
+        </span>
 
-  <button
-    disabled={!pagination?.hasNext}
-    onClick={() => setPage((currentPage) => currentPage + 1)}
-    className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
-  >
-    Next
-  </button>
-</div>
+        <button
+          disabled={!pagination?.hasNext}
+          onClick={() => setPage((currentPage) => currentPage + 1)}
+          className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }

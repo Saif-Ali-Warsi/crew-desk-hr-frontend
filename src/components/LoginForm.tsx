@@ -2,6 +2,7 @@ import { useState } from "react";
 import { login } from "../api/auth";
 import { setAccessToken } from "../utils/authStorage";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,8 @@ function LoginForm() {
   }>({});
 
   const { setUser } = useAuth();
+
+  const navigate = useNavigate()
 
   const validate = () => {
     const newErrors: {
@@ -54,6 +57,7 @@ function LoginForm() {
       if (result.success) {
         setAccessToken(result.data.accessToken);
         setUser(result.data.user);
+        navigate("/dashboard")
       }
     } catch (error) {
       console.error("Login failed:", error);
