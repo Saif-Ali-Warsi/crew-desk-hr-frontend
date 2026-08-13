@@ -13,6 +13,7 @@ import EmployeeDetailsPage from "./pages/EmployeeDetailsPage";
 import CreateEmployeePage from "./pages/CreateEmployeePage";
 import EditEmployeePage from "./pages/EditEmployeePage";
 import CandidateDetailsPage from "./pages/CandidateDetailsPage";
+import CreateCandidatePage from "./pages/CreateCandidatePage";
 
 function App() {
   return (
@@ -40,6 +41,8 @@ function App() {
             <Route path="/employees/:id/edit" element={<EditEmployeePage />} />
 
             <Route path="/candidates/:id" element={<CandidateDetailsPage />} />
+
+            <Route path="/candidates/new" element={<CreateCandidatePage />} />
           </Route>
         </Route>
         <Route

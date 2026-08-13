@@ -162,7 +162,7 @@ function CandidatesPage() {
             <option value="HIRED">Hired</option>
             <option value="REJECTED">Rejected</option>
           </select>
-          <Link to="/candidate/new">
+          <Link to="/candidates/new">
             <button className="cursor-pointer w-max inline-flex tx-center items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-green-600 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white">
               + Add Candidate
             </button>

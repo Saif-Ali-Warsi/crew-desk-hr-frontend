@@ -1,7 +1,7 @@
 import api from "./axios";
 import type {
   CandidatesResponse,
-  CandidateStatus, Candidate
+  CandidateStatus, Candidate, EmploymentType
 } from "../types/candidate";
 
 export const getCandidates = async (
@@ -37,6 +37,33 @@ export const getCandidateById = async (
     message: string;
     data: Candidate;
   }>(`/candidates/${candidateId}`);
+
+  return response.data;
+};
+
+export interface CreateCandidatePayload {
+  jobId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  designation?: string;
+  employmentType?: EmploymentType;
+  joiningDate?: string;
+  resumeUrl?: string;
+}
+
+export const createCandidate = async (
+  payload: CreateCandidatePayload
+): Promise<{
+  success: boolean;
+  message: string;
+  data: Candidate;
+}> => {
+  const response = await api.post(
+    "/candidates",
+    payload
+  );
 
   return response.data;
 };
