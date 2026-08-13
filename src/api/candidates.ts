@@ -1,0 +1,42 @@
+import api from "./axios";
+import type {
+  CandidatesResponse,
+  CandidateStatus, Candidate
+} from "../types/candidate";
+
+export const getCandidates = async (
+  page = 1,
+  limit = 10,
+  search = "",
+  status?: CandidateStatus
+): Promise<CandidatesResponse> => {
+  const response = await api.get<CandidatesResponse>(
+    "/candidates",
+    {
+      params: {
+        page,
+        limit,
+        search,
+        status,
+      },
+    }
+  );
+
+  return response.data;
+};
+
+export const getCandidateById = async (
+  candidateId: string
+): Promise<{
+  success: boolean;
+  message: string;
+  data: Candidate;
+}> => {
+  const response = await api.get<{
+    success: boolean;
+    message: string;
+    data: Candidate;
+  }>(`/candidates/${candidateId}`);
+
+  return response.data;
+};

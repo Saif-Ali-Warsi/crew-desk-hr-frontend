@@ -1,71 +1,38 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getEmployeeById } from "../api/employees";
-import type { Employee } from "../types/employee";
-import { Link } from "react-router-dom";
-import { deleteEmployee } from "../api/employees";
-import ConfirmModal from "../components/ConfirmModel";
+import { useParams } from "react-router-dom";
+import type { Candidate } from "../types/candidate";
+import { getCandidateById } from "../api/candidates";
 
-function EmployeeDetailsPage() {
+function CandidateDetailsPage() {
   const { id } = useParams<{ id: string }>();
 
-  const [employee, setEmployee] = useState<Employee | null>(null);
+  const [candidate, setCandidate] = useState<Candidate | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState<string | null>(
-    null,
-  );
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) {
-      setError("Employee ID is missing.");
+      setError("Candidate ID is missing.");
       setLoading(false);
       return;
     }
 
-    const fetchEmployee = async () => {
+    const fetchCandidate = async () => {
       try {
-        const result = await getEmployeeById(id);
+        const result = await getCandidateById(id);
 
         if (result.success) {
-          setEmployee(result.data);
+          setCandidate(result.data);
         }
       } catch (error) {
-        console.error("Failed to fetch employee:", error);
-        setError("Failed to load employee.");
+        console.error("Failed to fetch candidate:", error);
+        setError("Failed to load candidate.");
       } finally {
         setLoading(false);
       }
     };
-
-    fetchEmployee();
+    fetchCandidate();
   }, [id]);
-
-  const handleDeleteClick = (id: string) => {
-    setSelectedEmployeeId(id);
-    setIsDeleteModalOpen(true);
-  };
-
-  const handleConfirmDelete = async () => {
-    if (!selectedEmployeeId) return;
-
-    try {
-      setIsDeleting(true);
-      await deleteEmployee(selectedEmployeeId);
-
-      setIsDeleteModalOpen(false);
-      setSelectedEmployeeId(null);
-      navigate("/employees");
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsDeleting(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -95,13 +62,13 @@ function EmployeeDetailsPage() {
   if (error) {
     return (
       <div className="mx-auto max-w-4xl rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-        <p className="font-semibold">Failed to load employee details</p>
+        <p className="font-semibold">Failed to load candidate details</p>
         <p className="mt-1">{error}</p>
       </div>
     );
   }
 
-  if (!employee) {
+  if (!candidate) {
     return (
       <div className="mx-auto flex min-h-[360px] max-w-4xl flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-white p-8 text-center">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 text-gray-400">
@@ -120,10 +87,10 @@ function EmployeeDetailsPage() {
           </svg>
         </div>
         <h3 className="mt-4 text-base font-semibold text-gray-900">
-          Employee not found
+          Candidate not found
         </h3>
         <p className="mt-1 text-sm text-gray-500">
-          The employee record you are looking for does not exist or has been
+          The Candidate record you are looking for does not exist or has been
           removed.
         </p>
       </div>
@@ -134,7 +101,7 @@ function EmployeeDetailsPage() {
     <div className="mx-auto max-w-4xl space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-          Employee Profile
+          Candidate Profile
         </h1>
       </div>
 
@@ -142,69 +109,60 @@ function EmployeeDetailsPage() {
         <div className="relative flex flex-col gap-4 border-b border-gray-100 bg-gray-50/50 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-indigo-600 text-xl font-bold text-white shadow-sm">
-              {employee.firstName?.[0]}
-              {employee.lastName?.[0]}
+              {candidate.firstName?.[0]}
+              {candidate.lastName?.[0]}
             </div>
             <div>
               <h2 className="text-xl font-bold text-gray-900">
-                {employee.firstName} {employee.lastName}
+                {candidate.firstName} {candidate.lastName}
               </h2>
               <p className="text-sm font-medium text-gray-500">
-                {employee.designation}
+                {candidate.designation}
               </p>
             </div>
           </div>
 
-          <button
+          {/* <button
             className="absolute -top-1 right-6 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:bg-red-50 hover:text-red-600"
-            onClick={() => handleDeleteClick(employee.id)}
+            onClick={() => handleDeleteClick(candidate.id)}
           >
             Delete
           </button>
 
           <ConfirmModal
             isOpen={isDeleteModalOpen}
-            title="Delete Employee"
-            message="Are you sure you want to delete this employee? This action cannot be undone."
+            title="Delete Candidate"
+            message="Are you sure you want to delete this candidate? This action cannot be undone."
             confirmLabel="Delete"
             isLoading={isDeleting}
             onConfirm={handleConfirmDelete}
             onClose={() => setIsDeleteModalOpen(false)}
           />
 
-          <Link to={`/employees/${employee.id}/edit`}>
+          <Link to={`/candidates/${candidate.id}/edit`}>
             <button className="absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               Edit
             </button>
-          </Link>
+          </Link> */}
 
           <span
             className={`inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-semibold capitalize ${
-              employee.status?.toLowerCase() === "active"
+              candidate.status?.toLowerCase() === "active"
                 ? "bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20"
                 : "bg-gray-100 text-gray-600 ring-1 ring-inset ring-gray-500/10"
             }`}
           >
-            {employee.status}
+            {candidate.status}
           </span>
         </div>
 
         <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2">
           <div>
             <dt className="text-xs font-medium uppercase tracking-wider text-gray-400">
-              Employee Code
-            </dt>
-            <dd className="mt-1 text-sm font-semibold text-gray-900">
-              {employee.employeeCode}
-            </dd>
-          </div>
-
-          <div>
-            <dt className="text-xs font-medium uppercase tracking-wider text-gray-400">
               Email Address
             </dt>
             <dd className="mt-1 text-sm font-medium text-gray-900">
-              {employee.email}
+              {candidate.email}
             </dd>
           </div>
 
@@ -213,25 +171,16 @@ function EmployeeDetailsPage() {
               Phone Number
             </dt>
             <dd className="mt-1 text-sm font-medium text-gray-900">
-              {employee.phone ?? "N/A"}
+              {candidate.phone ?? "N/A"}
             </dd>
           </div>
 
           <div>
             <dt className="text-xs font-medium uppercase tracking-wider text-gray-400">
-              Employment Type
+              Candidate Type
             </dt>
             <dd className="mt-1 text-sm font-medium text-gray-900 capitalize">
-              {employee.employmentType}
-            </dd>
-          </div>
-
-          <div>
-            <dt className="text-xs font-medium uppercase tracking-wider text-gray-400">
-              Joining Date
-            </dt>
-            <dd className="mt-1 text-sm font-medium text-gray-900">
-              {new Date(employee.joiningDate).toLocaleDateString()}
+              {candidate.employmentType}
             </dd>
           </div>
         </div>
@@ -240,4 +189,4 @@ function EmployeeDetailsPage() {
   );
 }
 
-export default EmployeeDetailsPage;
+export default CandidateDetailsPage;

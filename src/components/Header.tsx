@@ -13,7 +13,7 @@ function Header({ companyName, onMenuToggle }: HeaderProps) {
       <button
         onClick={onMenuToggle}
         type="button"
-        className="rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 md:hidden"
+        className="cursor-pointer rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 md:hidden"
         aria-label="Open sidebar"
       >
         <svg
@@ -36,7 +36,7 @@ function Header({ companyName, onMenuToggle }: HeaderProps) {
       {user && (
         <button
           onClick={logout}
-          className="rounded-md bg-gray-100 px-3.5 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-red-50 hover:text-red-600"
+          className="cursor-pointer rounded-md bg-gray-100 px-3.5 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-red-50 hover:text-red-600"
         >
           Logout
         </button>
