@@ -67,3 +67,19 @@ export const createCandidate = async (
 
   return response.data;
 };
+
+export const updateCandidate = async (
+  candidateId: string,
+  payload: Partial<CreateCandidatePayload>
+): Promise<{
+  success: boolean;
+  message: string;
+  data: Candidate;
+}> => {
+  const response = await api.put(
+    `/candidates/${candidateId}`,
+    payload
+  );
+
+  return response.data;
+};

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import type { Candidate } from "../types/candidate";
 import { getCandidateById } from "../api/candidates";
+
 
 function CandidateDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -137,13 +138,13 @@ function CandidateDetailsPage() {
             isLoading={isDeleting}
             onConfirm={handleConfirmDelete}
             onClose={() => setIsDeleteModalOpen(false)}
-          />
+          /> */}
 
           <Link to={`/candidates/${candidate.id}/edit`}>
             <button className="absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               Edit
             </button>
-          </Link> */}
+          </Link>
 
           <span
             className={`inline-flex w-fit items-center rounded-full px-3 py-1 text-xs font-semibold capitalize ${
