@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getJobs } from "../api/jobs";
 import type { Job } from "../types/job";
+import { toast } from "react-toastify";
 
 import {
   createCandidate,
@@ -100,9 +101,11 @@ function CreateCandidatePage() {
 
       if (result.success) {
         navigate("/candidates");
+        toast.success("Candidate created successfully.");
       }
     } catch (error) {
       console.error("Failed to create candidate:", error);
+      toast.error("Failed to create Candidate");
     } finally {
       setLoading(false);
     }

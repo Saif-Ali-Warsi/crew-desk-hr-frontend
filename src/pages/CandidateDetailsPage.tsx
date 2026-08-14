@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import type { Candidate } from "../types/candidate";
-import { getCandidateById } from "../api/candidates";
-
+import {
+  deleteCandidate,
+  getCandidateById,
+  hireCandidate,
+} from "../api/candidates";
+import ConfirmModal from "../components/ConfirmModel";
+import { toast } from "react-toastify";
 
 function CandidateDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -10,6 +15,14 @@ function CandidateDetailsPage() {
   const [candidate, setCandidate] = useState<Candidate | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedCandidateId, setSelectedCandidateId] = useState<string | null>(
+    null,
+  );
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) {
@@ -34,6 +47,48 @@ function CandidateDetailsPage() {
     };
     fetchCandidate();
   }, [id]);
+
+  const handleDeleteClick = (id: string) => {
+    setSelectedCandidateId(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!selectedCandidateId) return;
+
+    try {
+      setIsDeleting(true);
+      await deleteCandidate(selectedCandidateId);
+
+      setIsDeleteModalOpen(false);
+      setSelectedCandidateId(null);
+      navigate("/candidates");
+      toast.success("Candidate deleted successfully");
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const handleHire = async () => {
+    if (!id) {
+      return;
+    }
+
+    try {
+      const result = await hireCandidate(id);
+
+      if (result.success) {
+        navigate(`/employees/${result.data.employee.id}`);
+        toast.success("Candidate hired successfully");
+      }
+    } catch (error) {
+      console.error("Failed to hire candidate:", error);
+      toast.success("Failed to hire candidate");
+    }
+  };
 
   if (loading) {
     return (
@@ -123,8 +178,8 @@ function CandidateDetailsPage() {
             </div>
           </div>
 
-          {/* <button
-            className="absolute -top-1 right-6 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:bg-red-50 hover:text-red-600"
+          <button
+            className="cursor-pointer absolute -top-1 right-6 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:bg-red-50 hover:text-red-600"
             onClick={() => handleDeleteClick(candidate.id)}
           >
             Delete
@@ -138,10 +193,10 @@ function CandidateDetailsPage() {
             isLoading={isDeleting}
             onConfirm={handleConfirmDelete}
             onClose={() => setIsDeleteModalOpen(false)}
-          /> */}
+          />
 
           <Link to={`/candidates/${candidate.id}/edit`}>
-            <button className="absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <button className="cursor-pointer absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
               Edit
             </button>
           </Link>
@@ -186,6 +241,30 @@ function CandidateDetailsPage() {
           </div>
         </div>
       </div>
+     {candidate.status !== "HIRED" && (
+      <div className="flex items-center justify-end border-t border-gray-100 bg-gray-50/50 px-6 py-4">
+        <button
+          type="button"
+          onClick={handleHire}
+          className="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+        >
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+            />
+          </svg>
+          Hire Candidate
+        </button>
+      </div>
+    )}
     </div>
   );
 }

@@ -9,6 +9,7 @@ import {
 
 import { getJobs } from "../api/jobs";
 import type { Job } from "../types/job";
+import { toast } from "react-toastify";
 
 function EditCandidatePage() {
   const { id } = useParams<{ id: string }>();
@@ -54,9 +55,11 @@ function EditCandidatePage() {
               : "",
             resumeUrl: candidate.resumeUrl ?? "",
           });
+         
         }
       } catch (error) {
         console.error("Failed to fetch candidate:", error);
+       
       } finally {
         setLoading(false);
       }
@@ -129,7 +132,7 @@ function EditCandidatePage() {
     }
 
     if (!formData.employmentType) {
-      newErrors.employmentType = "Employment type is required.";
+      newErrors.employmentType = "Candidate type is required.";
     }
 
     setErrors(newErrors);
@@ -157,9 +160,11 @@ function EditCandidatePage() {
 
       if (result.success) {
         navigate(`/candidates/${id}`);
+         toast.success("Candidate updated successfully")
       }
     } catch (error) {
       console.error("Failed to update candidate:", error);
+       toast.error("Failed to update candidate")
     } finally {
       setLoading(false);
     }

@@ -3,6 +3,7 @@ import type {
   CandidatesResponse,
   CandidateStatus, Candidate, EmploymentType
 } from "../types/candidate";
+import type { Employee } from "../types/employee";
 
 export const getCandidates = async (
   page = 1,
@@ -79,6 +80,36 @@ export const updateCandidate = async (
   const response = await api.put(
     `/candidates/${candidateId}`,
     payload
+  );
+
+  return response.data;
+};
+
+export const deleteCandidate = async (
+  candidateId: string
+): Promise<{
+  success: boolean;
+  message: string;
+}> => {
+  const response = await api.delete(
+    `/candidates/${candidateId}`
+  );
+
+  return response.data;
+};
+
+export const hireCandidate = async (
+  candidateId: string
+): Promise<{
+  success: boolean;
+  message: string;
+  data: {
+    candidate: Candidate;
+    employee: Employee;
+  };
+}> => {
+  const response = await api.post(
+    `/candidates/${candidateId}/hire`
   );
 
   return response.data;

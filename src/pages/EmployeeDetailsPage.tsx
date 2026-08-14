@@ -5,6 +5,7 @@ import type { Employee } from "../types/employee";
 import { Link } from "react-router-dom";
 import { deleteEmployee } from "../api/employees";
 import ConfirmModal from "../components/ConfirmModel";
+import { toast } from "react-toastify";
 
 function EmployeeDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -60,8 +61,10 @@ function EmployeeDetailsPage() {
       setIsDeleteModalOpen(false);
       setSelectedEmployeeId(null);
       navigate("/employees");
+      toast.success("Employee deleted successfully");
     } catch (error) {
       console.error(error);
+      toast.success("Failed to delete");
     } finally {
       setIsDeleting(false);
     }
