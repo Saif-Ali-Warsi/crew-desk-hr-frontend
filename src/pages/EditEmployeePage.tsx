@@ -5,6 +5,7 @@ import {
   updateEmployee,
   type CreateEmployeePayload,
 } from "../api/employees";
+import { toast } from "react-toastify";
 
 function EditEmployeePage() {
   const { id } = useParams<{ id: string }>();
@@ -121,9 +122,11 @@ function EditEmployeePage() {
 
       if (result.success) {
         navigate(`/employees/${id}`);
+        toast.success("Employee updated successfully")
       }
     } catch (error) {
       console.error("Failed to update employee:", error);
+        toast.error("Failed to update employee")
     } finally {
       setLoading(false);
     }

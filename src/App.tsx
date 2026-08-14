@@ -15,6 +15,9 @@ import EditEmployeePage from "./pages/EditEmployeePage";
 import CandidateDetailsPage from "./pages/CandidateDetailsPage";
 import CreateCandidatePage from "./pages/CreateCandidatePage";
 import EditCandidatePage from "./pages/EditCandidatePage";
+import CreateJobPage from "./pages/CreateJobPage";
+import JobDetailsPage from "./pages/JobDetailsPage";
+import EditJobPage from "./pages/EditJobPage";
 
 function App() {
   return (
@@ -28,8 +31,6 @@ function App() {
             <Route path="/employees" element={<EmployeesPage />} />
 
             <Route path="/candidates" element={<CandidatesPage />} />
-
-            <Route path="/jobs" element={<JobsPage />} />
 
             <Route path="/attendance" element={<AttendancePage />} />
 
@@ -45,7 +46,18 @@ function App() {
 
             <Route path="/candidates/new" element={<CreateCandidatePage />} />
 
-            <Route path="/candidates/:id/edit" element={<EditCandidatePage />} />
+            <Route
+              path="/candidates/:id/edit"
+              element={<EditCandidatePage />}
+            />
+
+            <Route path="/jobs" element={<JobsPage />} />
+
+            <Route path="/jobs/new" element={<CreateJobPage />} />
+
+            <Route path="/jobs/:id" element={<JobDetailsPage />} />
+
+            <Route path="/jobs/:id/edit" element={<EditJobPage />} />
           </Route>
         </Route>
         <Route

@@ -21,3 +21,12 @@ export interface JobsResponse {
     };
   };
 }
+
+export interface JobPagination {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+}

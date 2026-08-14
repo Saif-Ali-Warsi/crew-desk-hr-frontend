@@ -42,8 +42,13 @@ function DashboardPage() {
     );
   }
 
-  if (error) {
-    return <div>{error}</div>;
+    if (error) {
+    return (
+      <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+        <p className="font-semibold">Failed to load Dasboard</p>
+        <p className="mt-1">{error}</p>
+      </div>
+    );
   }
 
   if (!dashboard) {
