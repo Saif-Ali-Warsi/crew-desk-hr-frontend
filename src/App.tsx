@@ -19,6 +19,8 @@ import CreateJobPage from "./pages/CreateJobPage";
 import JobDetailsPage from "./pages/JobDetailsPage";
 import EditJobPage from "./pages/EditJobPage";
 import ApplyLeavePage from "./pages/ApplyLeavePage";
+import PublicJobPage from "./pages/PublicJobPage";
+import PublicJobApplyPage from "./pages/PublicJobApplyPage";
 
 function App() {
   return (
@@ -63,6 +65,11 @@ function App() {
             <Route path="/leaves/new" element={<ApplyLeavePage />} />
           </Route>
         </Route>
+        <Route path="/careers/jobs/:jobId" element={<PublicJobPage />} />
+        <Route
+          path="/careers/jobs/:jobId/apply"
+          element={<PublicJobApplyPage />}
+        />
         <Route
           path="*"
           element={<Navigate to="/dashboard" replace></Navigate>}

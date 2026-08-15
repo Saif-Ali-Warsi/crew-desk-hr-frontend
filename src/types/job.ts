@@ -6,6 +6,12 @@ export interface Job {
   status: "OPEN" | "CLOSED";
 }
 
+export interface JobResponse {
+  success: boolean;
+  message: string;
+  data: Job;
+}
+
 export interface JobsResponse {
   success: boolean;
   message: string;

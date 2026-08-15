@@ -1,5 +1,5 @@
 import api from "./axios";
-import type { Job, JobsResponse } from "../types/job";
+import type { Job, JobsResponse, JobResponse } from "../types/job";
 
 export const getJobs = async (
   page = 1,
@@ -75,6 +75,16 @@ export const deleteJob = async (
 }> => {
   const response = await api.delete(
     `/jobs/${jobId}`
+  );
+
+  return response.data;
+};
+
+export const getPublicJobById = async (
+  id: string
+): Promise<JobResponse> => {
+  const response = await api.get<JobResponse>(
+    `/careers/jobs/${id}`
   );
 
   return response.data;

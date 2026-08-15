@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import { getJobs } from "../api/jobs";
 import type { Job, JobPagination } from "../types/job";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-    const [search, setSearch] = useState("");
-    const [page, setPage] = useState(1);
-    const [pagination, setPagination] = useState<JobPagination | null>(null);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState<JobPagination | null>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -40,7 +41,18 @@ function JobsPage() {
     };
   }, [search, page]);
 
-    if (loading) {
+  const handleCopyJobLink = async (jobId: string) => {
+    const url = `${window.location.origin}/careers/jobs/${jobId}`;
+
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("Job link copied successfully.")
+    } catch (error) {
+      console.error("Failed to copy job link:", error);
+    }
+  };
+
+  if (loading) {
     return (
       <div className="space-y-6 animate-pulse">
         <div className="flex items-center justify-between">
@@ -105,7 +117,7 @@ function JobsPage() {
     );
   }
 
-   return (
+  return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
@@ -181,6 +193,7 @@ function JobsPage() {
                   <th className="px-6 py-3.5">Description</th>
                   <th className="px-6 py-3.5">Location</th>
                   <th className="px-6 py-3.5">Status</th>
+                  <th className="px-6 py-3.5">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 text-gray-700">
@@ -190,17 +203,13 @@ function JobsPage() {
                     className="hover:bg-gray-50 transition-colors"
                   >
                     <td className="px-6 py-4 font-medium text-gray-900">
-                      <Link to={`/jobs/${job.id}`}>
-                        {job.title}
-                      </Link>
+                      <Link to={`/jobs/${job.id}`}>{job.title}</Link>
                     </td>
-                    <td className="px-6 py-4 text-gray-500">
+                    <td className="max-w-xs truncate px-6 py-4 text-sm text-gray-500">
                       {job.description}
                     </td>
-                    <td className="px-6 py-4 text-gray-500">
-                      {job.location}
-                    </td>
-                    
+                    <td className="px-6 py-4 text-gray-500">{job.location}</td>
+
                     <td className="px-6 py-4">
                       <span
                         className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${
@@ -211,6 +220,17 @@ function JobsPage() {
                       >
                         {job.status}
                       </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleCopyJobLink(job.id)}
+                          className="cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
+                        >
+                          Copy Job Link
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
