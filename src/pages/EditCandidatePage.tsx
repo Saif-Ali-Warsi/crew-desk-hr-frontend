@@ -7,6 +7,7 @@ import {
   type CreateCandidatePayload,
 } from "../api/candidates";
 
+
 import { getJobs } from "../api/jobs";
 import type { Job } from "../types/job";
 import { toast } from "react-toastify";
@@ -25,6 +26,7 @@ function EditCandidatePage() {
     employmentType: "FULL_TIME",
     joiningDate: "",
     resumeUrl: "",
+   status: "APPLIED",
   });
 
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -54,6 +56,7 @@ function EditCandidatePage() {
               ? candidate.joiningDate.split("T")[0]
               : "",
             resumeUrl: candidate.resumeUrl ?? "",
+            status: candidate.status
           });
          
         }
@@ -392,6 +395,29 @@ function EditCandidatePage() {
               )}
             </div>
           </div>
+
+          <div>
+  <label className="block text-sm font-medium text-gray-700">
+    Candidate Status
+  </label>
+
+  <select
+    value={formData.status}
+    onChange={(event) =>
+      setFormData({
+        ...formData,
+        status: event.target.value as any,
+      })
+    }
+    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+  >
+    <option value="APPLIED">Applied</option>
+    <option value="SCREENING">Screening</option>
+    <option value="INTERVIEW">Interview</option>
+    <option value="OFFER">Offer</option>
+    <option value="REJECTED">Rejected</option>
+  </select>
+</div>
 
           <div className="pt-3">
             <button

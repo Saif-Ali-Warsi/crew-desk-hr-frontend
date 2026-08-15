@@ -5,6 +5,7 @@ import {
   deleteCandidate,
   getCandidateById,
   hireCandidate,
+  updateCandidate
 } from "../api/candidates";
 import ConfirmModal from "../components/ConfirmModel";
 import { toast } from "react-toastify";
@@ -72,6 +73,24 @@ function CandidateDetailsPage() {
       setIsDeleting(false);
     }
   };
+
+  const handleMoveToOffer = async () => {
+  if (!candidate) return;
+
+  try {
+    const result = await updateCandidate(candidate.id, {
+      status: "OFFER",
+    });
+
+    if (result.success) {
+      setCandidate(result.data);
+      toast.success("Candidate moved to Offer.");
+    }
+  } catch (error) {
+    console.error("Failed to move candidate to offer:", error);
+    toast.error("Failed to move candidate to Offer.");
+  }
+};
 
   const handleHire = async () => {
     if (!id) {
@@ -246,31 +265,106 @@ function CandidateDetailsPage() {
           </div>
         </div>
       </div>
-      {candidate.status !== "HIRED" && (
-        <div className="flex items-center justify-end border-t border-gray-100 bg-gray-50/50 px-6 py-4">
-          <button
-            type="button"
-            onClick={handleHire}
-            disabled={hiring}
-            className="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-emerald-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
-          >
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
-              />
-            </svg>
-            {hiring ? "Hiring..." : "Hire Candidate"}
-          </button>
-        </div>
-      )}
+    {candidate.status === "APPLIED" && (
+  <div className="flex items-center justify-between border-t border-gray-100 bg-amber-50 px-6 py-4">
+    <div>
+      <p className="text-sm font-semibold text-amber-800">
+        Candidate is currently in Applied stage
+      </p>
+
+      <p className="mt-1 text-xs text-amber-700">
+        Review the candidate details and complete the required employment
+        information before moving them to Offer.
+      </p>
+    </div>
+
+    <Link to={`/candidates/${candidate.id}/edit`}>
+      <button
+        type="button"
+        className="cursor-pointer rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
+      >
+        Edit Candidate
+      </button>
+    </Link>
+  </div>
+)}
+
+{candidate.status === "SCREENING" && (
+  <div className="flex items-center justify-between border-t border-gray-100 bg-blue-50 px-6 py-4">
+    <div>
+      <p className="text-sm font-semibold text-blue-800">
+        Candidate is in Screening stage
+      </p>
+
+      <p className="mt-1 text-xs text-blue-700">
+        Complete the screening process before moving the candidate to the
+        next stage.
+      </p>
+    </div>
+  </div>
+)}
+
+{candidate.status === "INTERVIEW" && (
+  <div className="flex items-center justify-between border-t border-gray-100 bg-purple-50 px-6 py-4">
+    <div>
+      <p className="text-sm font-semibold text-purple-800">
+        Candidate is in Interview stage
+      </p>
+
+      <p className="mt-1 text-xs text-purple-700">
+        Complete the interview process before moving the candidate to Offer.
+      </p>
+    </div>
+  </div>
+)}
+
+{candidate.status === "OFFER" && (
+  <div className="flex items-center justify-between border-t border-gray-100 bg-emerald-50 px-6 py-4">
+    <div>
+      <p className="text-sm font-semibold text-emerald-800">
+        Candidate is ready to be hired
+      </p>
+
+      <p className="mt-1 text-xs text-emerald-700">
+        The candidate has been moved to Offer and is ready to become an
+        employee.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      onClick={handleHire}
+      disabled={hiring}
+      className="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      {hiring ? "Hiring..." : "Hire Candidate"}
+    </button>
+  </div>
+)}
+
+{candidate.status === "HIRED" && (
+  <div className="border-t border-gray-100 bg-green-50 px-6 py-4">
+    <p className="text-sm font-semibold text-green-800">
+      Candidate has been hired successfully.
+    </p>
+
+    <p className="mt-1 text-xs text-green-700">
+      This candidate has already been converted into an employee.
+    </p>
+  </div>
+)}
+
+{candidate.status === "REJECTED" && (
+  <div className="border-t border-gray-100 bg-red-50 px-6 py-4">
+    <p className="text-sm font-semibold text-red-800">
+      Candidate application rejected
+    </p>
+
+    <p className="mt-1 text-xs text-red-700">
+      This candidate is no longer part of the active hiring process.
+    </p>
+  </div>
+)}
     </div>
   );
 }

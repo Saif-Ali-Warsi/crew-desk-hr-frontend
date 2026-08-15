@@ -49,3 +49,15 @@ export interface CandidatesResponse {
     pagination: CandidatePagination;
   };
 }
+export interface UpdateCandidatePayload {
+  jobId?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
+  designation?: string;
+  employmentType?: EmploymentType;
+  joiningDate?: string;
+  resumeUrl?: string;
+  status?: CandidateStatus;
+}

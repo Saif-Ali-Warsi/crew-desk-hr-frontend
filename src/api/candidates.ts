@@ -1,7 +1,7 @@
 import api from "./axios";
 import type {
   CandidatesResponse,
-  CandidateStatus, Candidate, EmploymentType
+  CandidateStatus, Candidate, EmploymentType, UpdateCandidatePayload
 } from "../types/candidate";
 import type { Employee } from "../types/employee";
 
@@ -52,6 +52,7 @@ export interface CreateCandidatePayload {
   employmentType?: EmploymentType;
   joiningDate?: string;
   resumeUrl?: string;
+  status?: CandidateStatus;
 }
 
 export const createCandidate = async (
@@ -71,7 +72,7 @@ export const createCandidate = async (
 
 export const updateCandidate = async (
   candidateId: string,
-  payload: Partial<CreateCandidatePayload>
+  payload: UpdateCandidatePayload
 ): Promise<{
   success: boolean;
   message: string;
