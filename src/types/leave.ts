@@ -21,3 +21,11 @@ export interface LeaveResponse {
   message: string;
   data: Leave[];
 }
+
+export interface ApplyLeavePayload {
+  employeeId: string;
+  leaveType: "CASUAL" | "SICK" | "EARNED" | "UNPAID";
+  startDate: string;
+  endDate: string;
+  reason: string;
+}

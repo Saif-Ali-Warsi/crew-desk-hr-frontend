@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getLeaves, approveLeave, rejectLeave } from "../api/leave";
 import type { Leave } from "../types/leave";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 
 function LeavesPage() {
   const [leaves, setLeaves] = useState<Leave[]>([]);
@@ -11,6 +13,8 @@ function LeavesPage() {
   const [processingLeaveId, setProcessingLeaveId] = useState<string | null>(
     null,
   );
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLeaves = async () => {
@@ -135,6 +139,14 @@ function LeavesPage() {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
           Leaves
         </h1>
+
+        <button
+  type="button"
+  onClick={() => navigate("/leaves/new")}
+  className="inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+>
+  + Apply Leave
+</button>
       </div>
 
       {leaves.length === 0 ? (

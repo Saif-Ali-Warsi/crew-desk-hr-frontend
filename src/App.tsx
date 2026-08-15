@@ -18,6 +18,7 @@ import EditCandidatePage from "./pages/EditCandidatePage";
 import CreateJobPage from "./pages/CreateJobPage";
 import JobDetailsPage from "./pages/JobDetailsPage";
 import EditJobPage from "./pages/EditJobPage";
+import ApplyLeavePage from "./pages/ApplyLeavePage";
 
 function App() {
   return (
@@ -33,8 +34,6 @@ function App() {
             <Route path="/candidates" element={<CandidatesPage />} />
 
             <Route path="/attendance" element={<AttendancePage />} />
-
-            <Route path="/leaves" element={<LeavesPage />} />
 
             <Route path="/employees/:id" element={<EmployeeDetailsPage />} />
 
@@ -58,6 +57,10 @@ function App() {
             <Route path="/jobs/:id" element={<JobDetailsPage />} />
 
             <Route path="/jobs/:id/edit" element={<EditJobPage />} />
+
+            <Route path="/leaves" element={<LeavesPage />} />
+
+            <Route path="/leaves/new" element={<ApplyLeavePage />} />
           </Route>
         </Route>
         <Route
