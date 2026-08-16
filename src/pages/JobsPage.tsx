@@ -42,7 +42,7 @@ function JobsPage() {
   }, [search, page]);
 
   const handleCopyJobLink = async (jobId: string) => {
-    const url = `${window.location.origin}/careers/jobs/${jobId}`;
+   const url = `${window.location.origin}/crew-desk-hr-frontend/#/careers/jobs/${jobId}`;
 
     try {
       await navigator.clipboard.writeText(url);
