@@ -42,13 +42,12 @@ function JobsPage() {
   }, [search, page]);
 
   const handleCopyJobLink = async (jobId: string) => {
-   const url = `${window.location.origin}/crew-desk-hr-frontend/#/careers/jobs/${jobId}`;
+    const url = `${window.location.origin}${window.location.pathname}#/careers/jobs/${jobId}`;
 
     try {
       await navigator.clipboard.writeText(url);
-      toast.success("Job link copied successfully.")
+      toast.success("Job link copied successfully.");
     } catch (error) {
-      
       console.error("Failed to copy job link:", error);
     }
   };
