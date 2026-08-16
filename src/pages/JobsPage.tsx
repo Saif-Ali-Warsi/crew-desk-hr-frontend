@@ -48,6 +48,7 @@ function JobsPage() {
       await navigator.clipboard.writeText(url);
       toast.success("Job link copied successfully.")
     } catch (error) {
+      
       console.error("Failed to copy job link:", error);
     }
   };
