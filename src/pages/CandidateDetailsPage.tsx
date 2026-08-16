@@ -159,7 +159,7 @@ const handleMarkAsVerified = async () => {
       }
     } catch (error) {
       console.error("Failed to hire candidate:", error);
-      toast.success("Failed to hire candidate");
+      toast.error("Failed to hire candidate");
     } finally {
       setHiring(false);
     }
@@ -401,6 +401,32 @@ const handleMarkAsVerified = async () => {
         className="cursor-pointer rounded-lg border border-emerald-600 bg-white px-4 py-2.5 text-sm font-semibold text-emerald-700 shadow-sm hover:bg-emerald-50"
       >
       {verifying ? "Verifying..." : "Mark as Verified"}
+      </button>
+    </div>
+  </div>
+)}
+
+{candidate.status === "VERIFIED" && (
+  <div className="border-t border-gray-100 bg-blue-50 px-6 py-4">
+    <div>
+      <p className="text-sm font-semibold text-blue-800">
+        Candidate is Verified
+      </p>
+
+      <p className="mt-1 text-xs text-blue-700">
+        The signed offer letter has been received and verified.
+        The candidate is now ready to be hired.
+      </p>
+    </div>
+
+    <div className="mt-4">
+      <button
+        type="button"
+        onClick={handleHire}
+        disabled={hiring}
+        className="cursor-pointer rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {hiring ? "Hiring..." : "Hire Candidate"}
       </button>
     </div>
   </div>
