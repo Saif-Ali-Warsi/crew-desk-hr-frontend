@@ -5,7 +5,8 @@ import {
   deleteCandidate,
   getCandidateById,
   hireCandidate,
-  updateCandidate
+  updateCandidate,
+  generateOfferLetter,
 } from "../api/candidates";
 import ConfirmModal from "../components/ConfirmModel";
 import { toast } from "react-toastify";
@@ -23,6 +24,9 @@ function CandidateDetailsPage() {
     null,
   );
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const [generatingOfferLetter, setGeneratingOfferLetter] = useState(false);
+  const [verifying, setVerifying] = useState(false);
 
   const navigate = useNavigate();
 
@@ -75,20 +79,67 @@ function CandidateDetailsPage() {
   };
 
   const handleMoveToOffer = async () => {
+    if (!candidate) return;
+
+    try {
+      const result = await updateCandidate(candidate.id, {
+        status: "OFFER",
+      });
+
+      if (result.success) {
+        setCandidate(result.data);
+        toast.success("Candidate moved to Offer.");
+      }
+    } catch (error) {
+      console.error("Failed to move candidate to offer:", error);
+      toast.error("Failed to move candidate to Offer.");
+    }
+  };
+
+ const handleGenerateOfferLetter = async () => {
   if (!candidate) return;
 
   try {
+    setGeneratingOfferLetter(true);
+
+    const pdf = await generateOfferLetter(candidate.id);
+
+    const pdfUrl = URL.createObjectURL(pdf);
+
+    window.open(pdfUrl, "_blank");
+
+    toast.success("Offer letter generated successfully.");
+
+    setTimeout(() => {
+      URL.revokeObjectURL(pdfUrl);
+    }, 60000);
+  } catch (error) {
+    console.error("Failed to generate offer letter:", error);
+    toast.error("Failed to generate offer letter.");
+  } finally {
+    setGeneratingOfferLetter(false);
+  }
+};
+
+const handleMarkAsVerified = async () => {
+  if (!candidate) return;
+
+  try {
+    setVerifying(true);
+
     const result = await updateCandidate(candidate.id, {
-      status: "OFFER",
+      status: "VERIFIED",
     });
 
     if (result.success) {
       setCandidate(result.data);
-      toast.success("Candidate moved to Offer.");
+      toast.success("Signed offer letter verified.");
     }
   } catch (error) {
-    console.error("Failed to move candidate to offer:", error);
-    toast.error("Failed to move candidate to Offer.");
+    console.error("Failed to verify candidate:", error);
+    toast.error("Failed to verify signed offer letter.");
+  } finally {
+    setVerifying(false);
   }
 };
 
@@ -265,106 +316,119 @@ function CandidateDetailsPage() {
           </div>
         </div>
       </div>
-    {candidate.status === "APPLIED" && (
-  <div className="flex items-center justify-between border-t border-gray-100 bg-amber-50 px-6 py-4">
-    <div>
-      <p className="text-sm font-semibold text-amber-800">
-        Candidate is currently in Applied stage
-      </p>
+      {candidate.status === "APPLIED" && (
+        <div className="flex items-center justify-between border-t border-gray-100 bg-amber-50 px-6 py-4">
+          <div>
+            <p className="text-sm font-semibold text-amber-800">
+              Candidate is currently in Applied stage
+            </p>
 
-      <p className="mt-1 text-xs text-amber-700">
-        Review the candidate details and complete the required employment
-        information before moving them to Offer.
-      </p>
-    </div>
+            <p className="mt-1 text-xs text-amber-700">
+              Review the candidate details and complete the required employment
+              information before moving them to Offer.
+            </p>
+          </div>
 
-    <Link to={`/candidates/${candidate.id}/edit`}>
-      <button
-        type="button"
-        className="cursor-pointer rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
-      >
-        Edit Candidate
-      </button>
-    </Link>
-  </div>
-)}
+          <Link to={`/candidates/${candidate.id}/edit`}>
+            <button
+              type="button"
+              className="cursor-pointer rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
+            >
+              Edit Candidate
+            </button>
+          </Link>
+        </div>
+      )}
 
-{candidate.status === "SCREENING" && (
-  <div className="flex items-center justify-between border-t border-gray-100 bg-blue-50 px-6 py-4">
-    <div>
-      <p className="text-sm font-semibold text-blue-800">
-        Candidate is in Screening stage
-      </p>
+      {candidate.status === "SCREENING" && (
+        <div className="flex items-center justify-between border-t border-gray-100 bg-blue-50 px-6 py-4">
+          <div>
+            <p className="text-sm font-semibold text-blue-800">
+              Candidate is in Screening stage
+            </p>
 
-      <p className="mt-1 text-xs text-blue-700">
-        Complete the screening process before moving the candidate to the
-        next stage.
-      </p>
-    </div>
-  </div>
-)}
+            <p className="mt-1 text-xs text-blue-700">
+              Complete the screening process before moving the candidate to the
+              next stage.
+            </p>
+          </div>
+        </div>
+      )}
 
-{candidate.status === "INTERVIEW" && (
-  <div className="flex items-center justify-between border-t border-gray-100 bg-purple-50 px-6 py-4">
-    <div>
-      <p className="text-sm font-semibold text-purple-800">
-        Candidate is in Interview stage
-      </p>
+      {candidate.status === "INTERVIEW" && (
+        <div className="flex items-center justify-between border-t border-gray-100 bg-purple-50 px-6 py-4">
+          <div>
+            <p className="text-sm font-semibold text-purple-800">
+              Candidate is in Interview stage
+            </p>
 
-      <p className="mt-1 text-xs text-purple-700">
-        Complete the interview process before moving the candidate to Offer.
-      </p>
-    </div>
-  </div>
-)}
+            <p className="mt-1 text-xs text-purple-700">
+              Complete the interview process before moving the candidate to
+              Offer.
+            </p>
+          </div>
+        </div>
+      )}
 
-{candidate.status === "OFFER" && (
-  <div className="flex items-center justify-between border-t border-gray-100 bg-emerald-50 px-6 py-4">
+      {candidate.status === "OFFER" && (
+  <div className="border-t border-gray-100 bg-emerald-50 px-6 py-4">
     <div>
       <p className="text-sm font-semibold text-emerald-800">
-        Candidate is ready to be hired
+        Candidate is in Offer stage
       </p>
 
       <p className="mt-1 text-xs text-emerald-700">
-        The candidate has been moved to Offer and is ready to become an
-        employee.
+        Generate the offer letter and send it to the candidate manually.
+        Once the signed offer letter is received and verified, the candidate
+        can be hired.
       </p>
     </div>
 
-    <button
-      type="button"
-      onClick={handleHire}
-      disabled={hiring}
-      className="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
-    >
-      {hiring ? "Hiring..." : "Hire Candidate"}
-    </button>
+    <div className="mt-4 flex flex-wrap items-center gap-3">
+      <button
+        type="button"
+        onClick={handleGenerateOfferLetter}
+        disabled={generatingOfferLetter}
+        className="cursor-pointer rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
+      >
+      {generatingOfferLetter ? "Generating..." : "Generate Offer Letter"}
+      </button>
+
+      <button
+        type="button"
+        onClick={handleMarkAsVerified}
+        disabled={verifying}
+        className="cursor-pointer rounded-lg border border-emerald-600 bg-white px-4 py-2.5 text-sm font-semibold text-emerald-700 shadow-sm hover:bg-emerald-50"
+      >
+      {verifying ? "Verifying..." : "Mark as Verified"}
+      </button>
+    </div>
   </div>
 )}
 
-{candidate.status === "HIRED" && (
-  <div className="border-t border-gray-100 bg-green-50 px-6 py-4">
-    <p className="text-sm font-semibold text-green-800">
-      Candidate has been hired successfully.
-    </p>
+      {candidate.status === "HIRED" && (
+        <div className="border-t border-gray-100 bg-green-50 px-6 py-4">
+          <p className="text-sm font-semibold text-green-800">
+            Candidate has been hired successfully.
+          </p>
 
-    <p className="mt-1 text-xs text-green-700">
-      This candidate has already been converted into an employee.
-    </p>
-  </div>
-)}
+          <p className="mt-1 text-xs text-green-700">
+            This candidate has already been converted into an employee.
+          </p>
+        </div>
+      )}
 
-{candidate.status === "REJECTED" && (
-  <div className="border-t border-gray-100 bg-red-50 px-6 py-4">
-    <p className="text-sm font-semibold text-red-800">
-      Candidate application rejected
-    </p>
+      {candidate.status === "REJECTED" && (
+        <div className="border-t border-gray-100 bg-red-50 px-6 py-4">
+          <p className="text-sm font-semibold text-red-800">
+            Candidate application rejected
+          </p>
 
-    <p className="mt-1 text-xs text-red-700">
-      This candidate is no longer part of the active hiring process.
-    </p>
-  </div>
-)}
+          <p className="mt-1 text-xs text-red-700">
+            This candidate is no longer part of the active hiring process.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

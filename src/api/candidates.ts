@@ -115,3 +115,17 @@ export const hireCandidate = async (
 
   return response.data;
 };
+
+export const generateOfferLetter = async (
+  candidateId: string
+): Promise<Blob> => {
+  const response = await api.post(
+    `/documents/offer-letter/${candidateId}`,
+    {},
+    {
+      responseType: "blob",
+    }
+  );
+
+  return response.data;
+};

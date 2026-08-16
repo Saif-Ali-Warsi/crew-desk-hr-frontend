@@ -3,6 +3,7 @@ export type CandidateStatus =
   | "SCREENING"
   | "INTERVIEW"
   | "OFFER"
+  | "VERIFIED"
   | "HIRED"
   | "REJECTED";
 
