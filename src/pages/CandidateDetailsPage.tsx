@@ -78,23 +78,7 @@ function CandidateDetailsPage() {
     }
   };
 
-  const handleMoveToOffer = async () => {
-    if (!candidate) return;
 
-    try {
-      const result = await updateCandidate(candidate.id, {
-        status: "OFFER",
-      });
-
-      if (result.success) {
-        setCandidate(result.data);
-        toast.success("Candidate moved to Offer.");
-      }
-    } catch (error) {
-      console.error("Failed to move candidate to offer:", error);
-      toast.error("Failed to move candidate to Offer.");
-    }
-  };
 
  const handleGenerateOfferLetter = async () => {
   if (!candidate) return;

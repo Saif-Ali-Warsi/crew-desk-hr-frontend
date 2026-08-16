@@ -4,8 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getJobById, updateJob } from "../api/jobs";
 import type { CreateJobPayload } from "../api/jobs";
 
-import { getJobs } from "../api/jobs";
-import type { Job } from "../types/job";
 import { toast } from "react-toastify";
 
 function EditJobPage() {
