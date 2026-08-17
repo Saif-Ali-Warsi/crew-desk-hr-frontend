@@ -16,7 +16,6 @@ function LoginForm() {
   }>({});
 
   const { setUser } = useAuth();
-
   const navigate = useNavigate();
 
   const validate = () => {
@@ -36,7 +35,6 @@ function LoginForm() {
     }
 
     setErrors(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
@@ -55,14 +53,12 @@ function LoginForm() {
         password,
       });
 
-      
       if (result.success) {
         setAccessToken(result.data.accessToken);
         setUser(result.data.user);
         navigate("/dashboard");
         toast.success("Login successful");
       }
-      
     } catch (error) {
       toast.error("Invalid username or password");
     } finally {
@@ -71,68 +67,78 @@ function LoginForm() {
   };
 
   return (
-    <>
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg border border-gray-100">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-              Sign in to your account
-            </h2>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-teal-400 via-teal-500 to-emerald-600 p-6 sm:p-12 transition-all duration-500">
+      <div className="flex w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl min-h-[550px] transition-all duration-300 hover:shadow-teal-900/20">
+        
+        <div className="flex w-full flex-col items-center justify-center bg-[#fff] p-8 sm:p-12 md:w-1/2">
+          <div className="w-full max-w-xs space-y-10">
+            
+            <div className="flex items-center justify-center space-x-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-teal-600 text-2xl font-black text-white shadow-md shadow-teal-600/30 transition-transform duration-300 hover:scale-105">
+                H
+              </div>
+              <span className="text-3xl font-black tracking-tight text-teal-800">
+                Help Desk HR
+              </span>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="group relative">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  placeholder="john@gmail.com"
+                  className={`block w-full border-b-2 py-2.5 text-sm font-semibold text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none ${
+                    errors.email
+                      ? "border-red-500"
+                      : "border-gray-200 focus:border-teal-600"
+                  }`}
+                />
+                {errors.email && (
+                  <p className="mt-1 text-xs font-bold text-red-600 animate-pulse">{errors.email}</p>
+                )}
+              </div>
+
+              <div className="group relative">
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  placeholder="••••••••"
+                  className={`block w-full border-b-2 py-2.5 text-sm font-semibold text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none ${
+                    errors.password
+                      ? "border-red-500"
+                      : "border-gray-200 focus:border-teal-600"
+                  }`}
+                />
+                {errors.password && (
+                  <p className="mt-1 text-xs font-bold text-red-600 animate-pulse">{errors.password}</p>
+                )}
+              </div>
+
+              <div className="flex justify-center pt-6">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="cursor-pointer rounded-full bg-teal-600 px-12 py-3 text-sm font-extrabold text-white shadow-lg shadow-teal-600/30 transition-all duration-300 hover:bg-teal-700 hover:shadow-xl hover:shadow-teal-600/40 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:opacity-70"
+                >
+                  {loading ? "Logging in.." : "Login"}
+                </button>
+              </div>
+            </form>
           </div>
+        </div>
 
-          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Email
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder="Enter email"
-                className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
-                  errors.email
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                }`}
-              />
-              {errors.email && (
-                <p className="text-xs text-red-600">{errors.email}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-
-              <input
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                placeholder="••••••••"
-                className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
-                  errors.email
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                }`}
-              />
-              {errors.password && (
-                <p className="text-xs text-red-600">{errors.password}</p>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              {loading ? "Logging in.." : "Login"}
-            </button>
-          </form>
+        <div className="hidden w-1/2 items-center justify-center bg-[#fff] p-8 md:flex transition-all duration-300">
+          <img
+            src="https://www.image2url.com/r2/default/images/1786891265146-fb6c9cab-0ffa-4722-bea5-a16d797c966c.jpg"
+            alt="Workspace Illustration"
+            className="max-h-full w-full object-contain transition-transform duration-500 hover:scale-105"
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
