@@ -5,7 +5,7 @@ interface HeaderProps {
   onMenuToggle: () => void;
 }
 
-function Header({ companyName, onMenuToggle }: HeaderProps) {
+function Header({ onMenuToggle }: HeaderProps) {
   const { user, logout } = useAuth();
 
   return (
