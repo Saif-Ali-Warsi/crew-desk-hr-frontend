@@ -188,10 +188,6 @@ function AttendancePage() {
     );
   }
 
-  if (attendance.length === 0) {
-    return <div>No attendance records found.</div>;
-  }
-
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">

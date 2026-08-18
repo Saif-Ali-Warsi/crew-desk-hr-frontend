@@ -21,12 +21,14 @@ import EditJobPage from "./pages/EditJobPage";
 import ApplyLeavePage from "./pages/ApplyLeavePage";
 import PublicJobPage from "./pages/PublicJobPage";
 import PublicJobApplyPage from "./pages/PublicJobApplyPage";
+import SignupPage from "./pages/SignUpPage";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/register" element={<SignupPage />}></Route>
         <Route element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />

@@ -4,11 +4,13 @@ import { setAccessToken } from "../utils/authStorage";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import logo from "../assets/logo.png";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [errors, setErrors] = useState<{
     email?: string;
@@ -26,7 +28,7 @@ function LoginForm() {
 
     if (!email.trim()) {
       newErrors.email = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
+    } else if (!/\S+@\S+\.\S+/.test(email.trim())) {
       newErrors.email = "Please enter a valid email address.";
     }
 
@@ -35,10 +37,43 @@ function LoginForm() {
     }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleEmailChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = event.target.value;
+
+    setEmail(value);
+
+    if (errors.email) {
+      setErrors((prev) => ({
+        ...prev,
+        email: undefined,
+      }));
+    }
+  };
+
+  const handlePasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const value = event.target.value;
+
+    setPassword(value);
+
+    if (errors.password) {
+      setErrors((prev) => ({
+        ...prev,
+        password: undefined,
+      }));
+    }
+  };
+
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
 
     if (!validate()) {
@@ -49,88 +84,152 @@ function LoginForm() {
 
     try {
       const result = await login({
-        email,
+        email: email.trim(),
         password,
       });
 
       if (result.success) {
         setAccessToken(result.data.accessToken);
         setUser(result.data.user);
-        navigate("/dashboard");
+
         toast.success("Login successful");
+
+        navigate("/dashboard");
       }
-    } catch (error) {
-      toast.error("Invalid username or password");
+    } catch (error: any) {
+      console.error("Login failed:", error);
+
+      toast.error(
+        error.response?.data?.message ||
+          "Invalid email or password.",
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-teal-400 via-teal-500 to-emerald-600 p-6 sm:p-12 transition-all duration-500">
-      <div className="flex w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl min-h-[550px] transition-all duration-300 hover:shadow-teal-900/20">
-        
-        <div className="flex w-full flex-col items-center justify-center bg-[#fff] p-8 sm:p-12 md:w-1/2">
-          <div className="w-full max-w-xs space-y-10">
-            
-            <div className="flex items-center justify-center space-x-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-teal-600 text-2xl font-black text-white shadow-md shadow-teal-600/30 transition-transform duration-300 hover:scale-105">
-                H
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-teal-400 via-teal-500 to-emerald-600 p-6 sm:p-12">
+      <div className="flex min-h-[550px] w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl">
+
+        {/* Login Form */}
+        <div className="flex w-full flex-col items-center justify-center p-8 sm:p-12 md:w-1/2">
+          <div className="w-full max-w-xs">
+
+            {/* Logo */}
+            <div className="mb-10 flex items-center justify-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center">
+                <img
+                  src={logo}
+                  alt="Crew Desk HR"
+                  className="h-full w-full object-contain"
+                />
               </div>
-              <span className="text-3xl font-black tracking-tight text-teal-800">
-                Help Desk HR
+
+              <span className="text-3xl font-black tracking-tight text-teal-500">
+                Crew Desk HR
               </span>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="group relative">
+            {/* Heading */}
+            <div className="mb-8">
+              <h1 className="text-center text-2xl font-bold text-gray-900">
+                Welcome back
+              </h1>
+
+              <p className="mt-2 text-center text-sm text-gray-500">
+                Sign in to continue to your HR dashboard.
+              </p>
+            </div>
+
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
+              {/* Email */}
+              <div>
                 <input
                   type="email"
                   value={email}
-                  onChange={(event) => setEmail(event.target.value)}
+                  onChange={handleEmailChange}
                   placeholder="john@gmail.com"
+                  autoComplete="email"
                   className={`block w-full border-b-2 py-2.5 text-sm font-semibold text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none ${
                     errors.email
                       ? "border-red-500"
                       : "border-gray-200 focus:border-teal-600"
                   }`}
                 />
+
                 {errors.email && (
-                  <p className="mt-1 text-xs font-bold text-red-600 animate-pulse">{errors.email}</p>
+                  <p className="mt-1 text-xs font-bold text-red-600">
+                    {errors.email}
+                  </p>
                 )}
               </div>
 
-              <div className="group relative">
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder="••••••••"
-                  className={`block w-full border-b-2 py-2.5 text-sm font-semibold text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none ${
-                    errors.password
-                      ? "border-red-500"
-                      : "border-gray-200 focus:border-teal-600"
-                  }`}
-                />
+              {/* Password */}
+              <div>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={handlePasswordChange}
+                    placeholder="••••••••"
+                    autoComplete="current-password"
+                    className={`block w-full border-b-2 py-2.5 pr-10 text-sm font-semibold text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none ${
+                      errors.password
+                        ? "border-red-500"
+                        : "border-gray-200 focus:border-teal-600"
+                    }`}
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowPassword((current) => !current)
+                    }
+                    className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer text-xs font-semibold text-gray-500 hover:text-teal-600"
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </button>
+                </div>
+
                 {errors.password && (
-                  <p className="mt-1 text-xs font-bold text-red-600 animate-pulse">{errors.password}</p>
+                  <p className="mt-1 text-xs font-bold text-red-600">
+                    {errors.password}
+                  </p>
                 )}
               </div>
 
-              <div className="flex justify-center pt-6">
+              {/* Submit */}
+              <div className="flex justify-center pt-4">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="cursor-pointer rounded-full bg-teal-600 px-12 py-3 text-sm font-extrabold text-white shadow-lg shadow-teal-600/30 transition-all duration-300 hover:bg-teal-700 hover:shadow-xl hover:shadow-teal-600/40 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:opacity-70"
+                  className="cursor-pointer rounded-full bg-teal-600 px-12 py-3 text-sm font-extrabold text-white shadow-lg shadow-teal-600/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-teal-700 hover:shadow-xl hover:shadow-teal-600/40 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
                 >
-                  {loading ? "Logging in.." : "Login"}
+                  {loading ? "Logging in..." : "Login"}
+                </button>
+              </div>
+
+              {/* Signup */}
+              <div className="text-center text-sm text-gray-500">
+                Don't have an account?{" "}
+                <button
+                  type="button"
+                  onClick={() => navigate("/register")}
+                  className="cursor-pointer font-semibold text-teal-600 hover:text-teal-700"
+                >
+                  Create account
                 </button>
               </div>
             </form>
           </div>
         </div>
 
-        <div className="hidden w-1/2 items-center justify-center bg-[#fff] p-8 md:flex transition-all duration-300">
+        {/* Illustration */}
+        <div className="hidden w-1/2 items-center justify-center bg-white p-8 md:flex">
           <img
             src="https://www.image2url.com/r2/default/images/1786891265146-fb6c9cab-0ffa-4722-bea5-a16d797c966c.jpg"
             alt="Workspace Illustration"
