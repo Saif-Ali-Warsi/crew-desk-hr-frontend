@@ -2,6 +2,7 @@ import { useState } from "react";
 import { registerCompany } from "../api/auth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -122,9 +123,10 @@ function SignupPage() {
             {/* Logo */}
             <div className="flex items-center justify-center space-x-3">
               <div className="flex h-11 w-11 items-center justify-center font-black transition-transform duration-300 hover:scale-105">
-                <img
-                  src="src/assets/logo.png"
-                  alt="logo"
+              <img
+                  src={logo}
+                  alt="Crew Desk HR"
+                  className="h-full w-full object-contain"
                 />
               </div>
 

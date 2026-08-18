@@ -1,75 +1,120 @@
-# React + TypeScript + Vite
+<div align="center">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# CrewDesk HR
 
-Currently, two official plugins are available:
+### Modern HR Management System built with React 19
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+A full-featured Human Resource Management System designed to streamline employee management, recruitment, leave management, job postings, candidate hiring, and HR operations through a modern and responsive web interface.
 
-## React Compiler
+<br>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<p>
+  <a href="https://saif-ali-warsi.github.io/crew-desk-hr-frontend/" target="_blank">
+    <img src="https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-12daa8?style=for-the-badge" alt="Live Demo"/>
+  </a>
 
-## Expanding the ESLint configuration
+  <a href="https://github.com/Saif-Ali-Warsi/crew-desk-hr-frontend" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-Frontend-181717?style=for-the-badge&logo=github" alt="GitHub Repository"/>
+  </a>
+</p>
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+</div>
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+##  Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+<table>
+<tr>
+<td width="50%">
 
-```
+### 👥 Employee Management
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Employee Listing
+- Employee Details
+- Add Employee
+- Edit Employee
+- Employee Status
+- Employee Code Generation
+- Employee Profile Management
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+</td>
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+<td width="50%">
 
-```
+###  Leave Management
+
+- Leave Requests
+- Apply Leave
+- Leave Types
+- Leave Status
+- Approve Leave
+- Reject Leave
+- Leave History
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+###  Recruitment
+
+- Job Management
+- Create Job
+- Job Listing
+- Public Job Links
+- Candidate Applications
+- Candidate Management
+- Candidate Search
+- Candidate Status Tracking
+
+</td>
+
+<td width="50%">
+
+###  Hiring & Documents
+
+- Candidate Screening
+- Interview Stage
+- Offer Stage
+- Offer Letter Generation
+- Offer Letter Download
+- Signed Offer Verification
+- Candidate Hiring
+- Employee Conversion
+
+</td>
+</tr>
+</table>
+
+---
+
+# Recruitment Flow
+
+CrewDesk HR provides a complete candidate recruitment workflow:
+
+```text
+Public Job
+    ↓
+Candidate Applies
+    ↓
+APPLIED
+    ↓
+SCREENING
+    ↓
+INTERVIEW
+    ↓
+OFFER
+    ↓
+Offer Letter Generated
+    ↓
+Signed Offer Letter Received
+    ↓
+VERIFIED
+    ↓
+Hire Candidate
+    ↓
+HIRED
+    ↓
+Employee Created
