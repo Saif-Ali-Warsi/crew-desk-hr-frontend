@@ -31,7 +31,14 @@ function Header({ companyName, onMenuToggle }: HeaderProps) {
         </svg>
       </button>
 
-      <h1 className="text-lg font-bold text-gray-900">{companyName}</h1>
+      <div className="flex items-center justify-center space-x-1">
+        <div className="flex h-11 w-11 items-center justify-center font-black transition-transform duration-300 hover:scale-105">
+          <img src="src/assets/logo.png" alt="logo" />
+        </div>
+        <span className="text-2xl font-black tracking-tight text-teal-500">
+          Crew Desk HR
+        </span>
+      </div>
 
       {user && (
         <button

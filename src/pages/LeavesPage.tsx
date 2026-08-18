@@ -4,7 +4,6 @@ import type { Leave } from "../types/leave";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-
 function LeavesPage() {
   const [leaves, setLeaves] = useState<Leave[]>([]);
   const [loading, setLoading] = useState(true);
@@ -140,13 +139,15 @@ function LeavesPage() {
           Leaves
         </h1>
 
-        <button
-  type="button"
-  onClick={() => navigate("/leaves/new")}
-  className="inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
->
-  + Apply Leave
-</button>
+        {leaves.length > 0 && (
+          <button
+            type="button"
+            onClick={() => navigate("/leaves/new")}
+            className="inline-flex items-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+          >
+            + Apply Leave
+          </button>
+        )}
       </div>
 
       {leaves.length === 0 ? (

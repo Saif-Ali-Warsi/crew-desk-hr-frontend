@@ -41,3 +41,31 @@ export const getMe = async (): Promise<MeResponse> => {
 
   return response.data;
 };
+
+
+export interface RegisterPayload {
+  companyName: string;
+  email: string;
+  password: string;
+}
+
+export interface RegisterResponse {
+  success: boolean;
+  message: string;
+  data: {
+    companyId: string;
+    companyName: string;
+    email: string;
+  };
+}
+
+export const registerCompany = async (
+  payload: RegisterPayload
+): Promise<RegisterResponse> => {
+  const response = await api.post<RegisterResponse>(
+    "/auth/register",
+    payload
+  );
+
+  return response.data;
+};
