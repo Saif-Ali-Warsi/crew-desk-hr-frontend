@@ -9,7 +9,7 @@ function Header({ onMenuToggle }: HeaderProps) {
   const { user, logout } = useAuth();
 
   return (
-    <header className="flex h-16 w-full items-center justify-between border-b border-gray-200 bg-white px-6">
+    <header className="flex h-16 w-full items-center justify-between border-b border-gray-200 bg-white sm:px-4 md:px-6">
       <button
         onClick={onMenuToggle}
         type="button"
@@ -32,7 +32,7 @@ function Header({ onMenuToggle }: HeaderProps) {
       </button>
 
       <div className="flex items-center justify-center space-x-1">
-        <div className="flex h-11 w-11 items-center justify-center font-black transition-transform duration-300 hover:scale-105">
+        <div className="flex h-10 w-10 items-center justify-center font-black transition-transform duration-300 hover:scale-105">
           <img src="src/assets/logo.png" alt="logo" />
         </div>
         <span className="text-2xl font-black tracking-tight text-teal-500">
@@ -41,12 +41,10 @@ function Header({ onMenuToggle }: HeaderProps) {
       </div>
 
       {user && (
-        <button
-          onClick={logout}
-          className="cursor-pointer rounded-md bg-gray-100 px-3.5 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-red-50 hover:text-red-600"
-        >
-          Logout
-        </button>
+      
+        <div onClick={logout} className="flex h-10 w-10 p-2 items-center justify-center font-black transition-transform duration-300 hover:scale-105">
+          <img src="https://www.image2url.com/r2/default/images/1787236730051-8e048b16-d81c-4709-b1b3-f21ee9969dbd.png" alt="logo" />
+        </div>
       )}
     </header>
   );

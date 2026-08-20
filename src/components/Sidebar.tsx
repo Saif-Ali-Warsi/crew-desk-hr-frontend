@@ -25,7 +25,7 @@ return (
     )}
 
     <aside
-      className={`relative overflow-hidden fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-gray-100 bg-white p-4 transition-transform duration-300 ease-in-out md:static md:translate-x-0 ${
+      className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-gray-100 bg-white p-4 transition-transform duration-300 ease-in-out md:static md:translate-x-0 overflow-hidden ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >

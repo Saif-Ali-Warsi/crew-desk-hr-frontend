@@ -45,7 +45,6 @@ function EmployeesPage() {
       <div className="space-y-6 animate-pulse">
         <div className="flex items-center justify-between">
           <div className="h-8 w-40 rounded-lg bg-gray-200" />
-          <div className="h-10 w-64 rounded-md bg-gray-200" />
         </div>
 
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
@@ -111,7 +110,7 @@ function EmployeesPage() {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
           Employees
         </h1>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative w-full max-w-xs">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
@@ -136,12 +135,12 @@ function EmployeesPage() {
                 setSearch(event.target.value);
                 setPage(1);
               }}
-              className="w-full rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full bg-white rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
             />
           </div>
           <Link to="/employee/new">
             <button className="cursor-pointer w-max inline-flex tx-center items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-green-600 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white">
-              + Add Employee
+              + Add
             </button>
           </Link>
         </div>
@@ -221,7 +220,7 @@ function EmployeesPage() {
         </div>
       )}
 
-      <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+      <div className="flex items-center justify-between py-3">
         <button
           disabled={!pagination?.hasPrevious}
           onClick={() => setPage((currentPage) => currentPage - 1)}
