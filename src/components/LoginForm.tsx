@@ -110,7 +110,6 @@ function LoginForm() {
  return (
   <div className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-teal-400 via-teal-500 to-emerald-600 p-6 sm:p-12 overflow-hidden">
     
-    {/* Background Image Layer with Fade/Opacity Effect */}
     <div 
       className="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none"
       style={{
@@ -118,14 +117,11 @@ function LoginForm() {
       }}
     />
 
-    {/* Main Card (z-10 ensures form stays above the background image) */}
     <div className="relative z-10 flex min-h-[550px] w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl">
 
-      {/* Login Form */}
       <div className="flex w-full flex-col items-center justify-center p-8 sm:p-12 md:w-1/2">
         <div className="w-full max-w-xs">
 
-          {/* Logo */}
           <div className="mb-10 flex items-center justify-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center">
               <img
@@ -140,7 +136,6 @@ function LoginForm() {
             </span>
           </div>
 
-          {/* Heading */}
           <div className="mb-8">
             <h1 className="text-center text-2xl font-bold text-gray-900">
               Welcome back
@@ -155,7 +150,6 @@ function LoginForm() {
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-            {/* Email */}
             <div>
               <input
                 type="email"
@@ -177,7 +171,6 @@ function LoginForm() {
               )}
             </div>
 
-            {/* Password */}
             <div>
               <div className="relative">
                 <input
@@ -211,7 +204,6 @@ function LoginForm() {
               )}
             </div>
 
-            {/* Submit */}
             <div className="flex justify-center pt-4">
               <button
                 type="submit"
@@ -222,7 +214,6 @@ function LoginForm() {
               </button>
             </div>
 
-            {/* Signup */}
             <div className="text-center text-sm text-gray-500">
               Don't have an account?{" "}
               <button
@@ -237,7 +228,6 @@ function LoginForm() {
         </div>
       </div>
 
-      {/* Illustration */}
       <div className="hidden w-1/2 items-center justify-center bg-white p-8 md:flex">
         <img
           src="https://www.image2url.com/r2/default/images/1786891265146-fb6c9cab-0ffa-4722-bea5-a16d797c966c.jpg"

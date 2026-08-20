@@ -133,7 +133,7 @@ function CandidatesPage() {
           Candidates
         </h1>
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-3">
         <div className="relative w-full max-w-xs sm:w-auto">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
@@ -158,13 +158,13 @@ function CandidatesPage() {
                 setSearch(event.target.value);
                 setPage(1);
               }}
-              className="w-full rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full bg-white rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
             />
           </div>
 
           <select
             value={status}
-            className="w-full sm:w-auto rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            className="w-full bg-white sm:w-auto rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
             onChange={(event) => {
               setStatus(event.target.value as CandidateStatus | "");
               setPage(1);
