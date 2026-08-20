@@ -33,7 +33,7 @@ function Header({ onMenuToggle }: HeaderProps) {
 
       <div className="flex items-center justify-center space-x-1">
         <div className="flex h-10 w-10 items-center justify-center font-black transition-transform duration-300 hover:scale-105">
-          <img src="src/assets/logo.png" alt="logo" />
+          <img src="https://www.image2url.com/r2/default/images/1787239332865-2edc4dd1-17a6-49a8-8f65-394a957ccbd9.png" alt="logo" />
         </div>
         <span className="text-2xl font-black tracking-tight text-teal-500">
           Crew Desk HR

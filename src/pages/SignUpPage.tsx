@@ -2,7 +2,6 @@ import { useState } from "react";
 import { registerCompany } from "../api/auth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -115,7 +114,7 @@ function SignupPage() {
 return (
   <div className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-teal-400 via-teal-500 to-emerald-600 p-6 sm:p-12 transition-all duration-500 overflow-hidden">
     
-    {/* Background Image Layer with Fade/Opacity Effect */}
+
     <div 
       className="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none"
       style={{
@@ -123,18 +122,18 @@ return (
       }}
     />
 
-    {/* Main Card (z-10 sits above the background image) */}
+
     <div className="relative z-10 flex w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl min-h-[550px] transition-all duration-300 hover:shadow-teal-900/20">
 
-      {/* Signup Form */}
+
       <div className="flex w-full flex-col items-center justify-center bg-[#fff] p-8 sm:p-12 md:w-1/2">
         <div className="w-full max-w-xs space-y-8">
 
-          {/* Logo */}
+
           <div className="flex items-center justify-center space-x-3">
             <div className="flex h-11 w-11 items-center justify-center font-black transition-transform duration-300 hover:scale-105">
               <img
-                src={logo}
+                src="https://www.image2url.com/r2/default/images/1787239332865-2edc4dd1-17a6-49a8-8f65-394a957ccbd9.png"
                 alt="Crew Desk HR"
                 className="h-full w-full object-contain"
               />
@@ -160,7 +159,7 @@ return (
             className="space-y-5"
           >
 
-            {/* Company Name */}
+
             <div className="group relative">
               <input
                 type="text"
@@ -182,7 +181,6 @@ return (
               )}
             </div>
 
-            {/* Email */}
             <div className="group relative">
               <input
                 type="email"
@@ -204,7 +202,6 @@ return (
               )}
             </div>
 
-            {/* Password */}
             <div className="group relative">
               <input
                 type="password"
@@ -226,7 +223,6 @@ return (
               )}
             </div>
 
-            {/* Confirm Password */}
             <div className="group relative">
               <input
                 type="password"
@@ -248,7 +244,6 @@ return (
               )}
             </div>
 
-            {/* Submit */}
             <div className="flex justify-center pt-4">
               <button
                 type="submit"
@@ -261,7 +256,6 @@ return (
               </button>
             </div>
 
-            {/* Login Link */}
             <div className="text-center text-sm text-gray-500">
               Already have an account?{" "}
               <button
@@ -276,7 +270,6 @@ return (
         </div>
       </div>
 
-      {/* Illustration */}
       <div className="hidden w-1/2 items-center justify-center bg-[#fff] p-8 md:flex transition-all duration-300">
         <img
           src="https://www.image2url.com/r2/default/images/1786891265146-fb6c9cab-0ffa-4722-bea5-a16d797c966c.jpg"

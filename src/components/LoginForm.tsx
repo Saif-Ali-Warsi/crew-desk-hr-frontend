@@ -4,7 +4,6 @@ import { setAccessToken } from "../utils/authStorage";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import logo from "../assets/logo.png";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -130,7 +129,7 @@ function LoginForm() {
           <div className="mb-10 flex items-center justify-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center">
               <img
-                src={logo}
+                src="https://www.image2url.com/r2/default/images/1787239332865-2edc4dd1-17a6-49a8-8f65-394a957ccbd9.png"
                 alt="Crew Desk HR"
                 className="h-full w-full object-contain"
               />
@@ -164,7 +163,7 @@ function LoginForm() {
                 onChange={handleEmailChange}
                 placeholder="john@gmail.com"
                 autoComplete="email"
-                className={`block w-full border-b-2 py-2.5 text-sm font-semibold text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none ${
+                className={`block w-full border-b-2 py-2.5 px-2.5 text-sm font-semibold text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none ${
                   errors.email
                     ? "border-red-500"
                     : "border-gray-200 focus:border-teal-600"
@@ -187,7 +186,7 @@ function LoginForm() {
                   onChange={handlePasswordChange}
                   placeholder="••••••••"
                   autoComplete="current-password"
-                  className={`block w-full border-b-2 py-2.5 pr-10 text-sm font-semibold text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none ${
+                  className={`block w-full border-b-2 py-2.5 px-2.5 pr-10 text-sm font-semibold text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none ${
                     errors.password
                       ? "border-red-500"
                       : "border-gray-200 focus:border-teal-600"
