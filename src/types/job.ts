@@ -1,9 +1,17 @@
+export interface Company {
+  name: string;
+  logo: string | null;
+  website: string | null;
+}
+
 export interface Job {
   id: string;
   title: string;
   description: string;
   location: string | null;
   status: "OPEN" | "CLOSED";
+  createdAt?: string;
+  company?: Company;
 }
 
 export interface JobResponse {
