@@ -210,67 +210,7 @@ function AttendancePage() {
         </h1>
 
         <div className="flex items-center gap-3">
-          <div className="relative flex sm:flex-row sm:items-center gap-3 max-w-md">
-            <select
-              value={selectedEmployeeId}
-              onChange={(event) => setSelectedEmployeeId(event.target.value)}
-              className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3.5 pr-10 text-sm font-medium text-slate-700 shadow-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
-            >
-              <option value="">Select employee</option>
-              {availableEmployees.map((employee) => (
-                <option key={employee.id} value={employee.id}>
-                  {employee.firstName} {employee.lastName}
-                </option>
-              ))}
-            </select>
-
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400">
-              <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-          </div>
-          <button
-            type="button"
-            disabled={
-              !selectedEmployeeId || clockingInEmployeeId === selectedEmployeeId
-            }
-            onClick={() => handleClockIn(selectedEmployeeId)}
-            className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none"
-          >
-            {clockingInEmployeeId === selectedEmployeeId ? (
-              <>
-                <svg
-                  className="-ml-1 mr-2 h-4 w-4 animate-spin text-slate-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                Clocking In...
-              </>
-            ) : (
-              "Clock In"
-            )}
-          </button>
-        </div>
-        <div className="flex items-center gap-3">
+       
           <div className="flex items-center rounded-lg border border-gray-200 bg-white p-1 shadow-xs">
             <button
               type="button"
@@ -307,6 +247,68 @@ function AttendancePage() {
                   viewMode === "card" ? "opacity-100" : "opacity-50"
                 }`}
               />
+            </button>
+          </div>
+             <div className="flex items-center gap-3">
+            <div className="relative flex sm:flex-row sm:items-center gap-3 max-w-md">
+              <select
+                value={selectedEmployeeId}
+                onChange={(event) => setSelectedEmployeeId(event.target.value)}
+                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3.5 pr-10 text-sm font-medium text-slate-700 shadow-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+              >
+                <option value="">Select Employee</option>
+                {availableEmployees.map((employee) => (
+                  <option key={employee.id} value={employee.id}>
+                    {employee.firstName} {employee.lastName}
+                  </option>
+                ))}
+              </select>
+
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400">
+                <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+            <button
+              type="button"
+              disabled={
+                !selectedEmployeeId ||
+                clockingInEmployeeId === selectedEmployeeId
+              }
+              onClick={() => handleClockIn(selectedEmployeeId)}
+              className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none"
+            >
+              {clockingInEmployeeId === selectedEmployeeId ? (
+                <>
+                  <svg
+                    className="-ml-1 mr-2 h-4 w-4 animate-spin text-slate-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Clocking In...
+                </>
+              ) : (
+                "Clock In"
+              )}
             </button>
           </div>
         </div>
