@@ -229,7 +229,7 @@ function EmployeesPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-sm">
               <thead className="bg-gray-50 border-b border-gray-200 text-xs uppercase font-semibold text-gray-500">
-                <tr>
+                <tr className="text-white bg-teal-600">
                   <th className="px-6 py-3.5">Name</th>
                   <th className="px-6 py-3.5">Code</th>
                   <th className="px-6 py-3.5">Email</th>
@@ -239,6 +239,7 @@ function EmployeesPage() {
               </thead>
               <tbody className="divide-y divide-gray-200 text-gray-700">
                 {employees.map((employee) => (
+                  
                   <tr
                     key={employee.id}
                     className="hover:bg-gray-50 transition-colors"
@@ -345,7 +346,7 @@ function EmployeesPage() {
         <button
           disabled={!pagination?.hasNext}
           onClick={() => setPage((currentPage) => currentPage - 1)}
-          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 text-white bg-teal-600 px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
         >
           Next
         </button>

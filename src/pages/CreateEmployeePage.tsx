@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createEmployee, type CreateEmployeePayload } from "../api/employees";
 import { toast } from "react-toastify";
+import Ripples from "react-ripples";
+
+const SafeRipples = Ripples as React.ComponentType<any>;
 
 function CreateEmployeePage() {
   const navigate = useNavigate();
@@ -118,10 +121,10 @@ function CreateEmployeePage() {
                 })
               }
               className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
-                  errors.firstName
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                }`}
+                errors.firstName
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              }`}
             />
             {errors.firstName && (
               <p className="text-xs text-red-600">{errors.firstName}</p>
@@ -143,12 +146,12 @@ function CreateEmployeePage() {
                 })
               }
               className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
-                  errors.lastName
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                }`}
+                errors.lastName
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              }`}
             />
-             {errors.lastName && (
+            {errors.lastName && (
               <p className="text-xs text-red-600">{errors.lastName}</p>
             )}
           </div>
@@ -170,12 +173,12 @@ function CreateEmployeePage() {
                 })
               }
               className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
-                  errors.email
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                }`}
+                errors.email
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              }`}
             />
-               {errors.email && (
+            {errors.email && (
               <p className="text-xs text-red-600">{errors.email}</p>
             )}
           </div>
@@ -196,7 +199,6 @@ function CreateEmployeePage() {
               }
               className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
             />
-            
           </div>
         </div>
 
@@ -216,12 +218,12 @@ function CreateEmployeePage() {
                 })
               }
               className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
-                  errors.designation
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                }`}
+                errors.designation
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              }`}
             />
-               {errors.designation && (
+            {errors.designation && (
               <p className="text-xs text-red-600">{errors.designation}</p>
             )}
           </div>
@@ -240,10 +242,10 @@ function CreateEmployeePage() {
                 })
               }
               className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
-                  errors.joiningDate
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                }`}
+                errors.joiningDate
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+              }`}
             />
             {errors.joiningDate && (
               <p className="text-xs text-red-600">{errors.joiningDate}</p>
@@ -265,36 +267,42 @@ function CreateEmployeePage() {
               })
             }
             className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
-                  errors.employmentType
-                    ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-                }`}
+              errors.employmentType
+                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+            }`}
           >
             <option value="FULL_TIME">Full Time</option>
             <option value="PART_TIME">Part Time</option>
             <option value="CONTRACT">Contract</option>
             <option value="INTERN">Intern</option>
           </select>
-           {errors.employmentType && (
-              <p className="text-xs text-red-600">{errors.employmentType}</p>
-            )}
+          {errors.employmentType && (
+            <p className="text-xs text-red-600">{errors.employmentType}</p>
+          )}
         </div>
 
-        <div className="pt-3">
-          <button
-            type="submit"
-            disabled={loading}
-            className="inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-indigo-400"
+        <div className="pt-3 flex items-center justify-end">
+          <SafeRipples
+            color="#ffffff27"
+            during={1200}
+            className="overflow-hidden"
           >
-            {loading ? (
-              <>
-                <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                Creating...
-              </>
-            ) : (
-              "Create Employee"
-            )}
-          </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="cursor-pointer inline-flex  items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700 focus:outline-none disabled:cursor-not-allowed disabled:bg-indigo-400"
+            >
+              {loading ? (
+                <>
+                  <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  Creating...
+                </>
+              ) : (
+                "Create Employee"
+              )}
+            </button>
+          </SafeRipples>
         </div>
       </form>
     </div>
