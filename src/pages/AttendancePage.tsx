@@ -343,7 +343,7 @@ function AttendancePage() {
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left text-sm">
               <thead className="border-b border-gray-200 bg-gray-50 text-xs font-semibold uppercase text-gray-500">
-                <tr>
+                <tr className="text-white bg-teal-600">
                   <th className="px-6 py-3.5">Employee</th>
                   <th className="px-6 py-3.5">Status</th>
                   <th className="px-6 py-3.5">Clock In</th>

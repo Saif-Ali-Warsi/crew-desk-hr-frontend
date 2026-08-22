@@ -242,7 +242,7 @@ function JobsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-sm">
               <thead className="bg-gray-50 border-b border-gray-200 text-xs uppercase font-semibold text-gray-500">
-                <tr>
+                <tr className="text-white bg-teal-600">
                   <th className="px-6 py-3.5">Title</th>
                   <th className="px-6 py-3.5">Description</th>
                   <th className="px-6 py-3.5">Location</th>

@@ -42,7 +42,7 @@ function Header({ onMenuToggle }: HeaderProps) {
 
       {user && (
       
-        <div onClick={logout} className="flex h-10 w-10 p-2 items-center justify-center font-black transition-transform duration-300 hover:scale-105">
+        <div onClick={logout} className="cursor-pointer flex h-10 w-10 p-2 items-center justify-center font-black transition-transform duration-300 hover:scale-105">
           <img src="https://www.image2url.com/r2/default/images/1787236730051-8e048b16-d81c-4709-b1b3-f21ee9969dbd.png" alt="logo" />
         </div>
       )}

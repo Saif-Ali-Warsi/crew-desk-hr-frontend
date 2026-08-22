@@ -2,6 +2,9 @@ import { useState } from "react";
 import { registerCompany } from "../api/auth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Ripples from "react-ripples";
+
+const SafeRipples = Ripples as React.ComponentType<any>;
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -175,7 +178,7 @@ return (
               />
 
               {errors.companyName && (
-                <p className="mt-1 text-xs font-bold text-red-600 animate-pulse">
+                <p className="mt-1 text-xs font-bold text-red-500 animate-pulse">
                   {errors.companyName}
                 </p>
               )}
@@ -196,7 +199,7 @@ return (
               />
 
               {errors.email && (
-                <p className="mt-1 text-xs font-bold text-red-600 animate-pulse">
+                <p className="mt-1 text-xs font-bold text-red-500 animate-pulse">
                   {errors.email}
                 </p>
               )}
@@ -217,7 +220,7 @@ return (
               />
 
               {errors.password && (
-                <p className="mt-1 text-xs font-bold text-red-600 animate-pulse">
+                <p className="mt-1 text-xs font-bold text-red-500 animate-pulse">
                   {errors.password}
                 </p>
               )}
@@ -238,14 +241,19 @@ return (
               />
 
               {errors.confirmPassword && (
-                <p className="mt-1 text-xs font-bold text-red-600 animate-pulse">
+                <p className="mt-1 text-xs font-bold text-red-500 animate-pulse">
                   {errors.confirmPassword}
                 </p>
               )}
             </div>
 
             <div className="flex justify-center pt-4">
-              <button
+              <SafeRipples
+                  color="#ffffff27"
+                  during={1200}
+                  className="rounded-full overflow-hidden"
+                >
+ <button
                 type="submit"
                 disabled={loading}
                 className="cursor-pointer rounded-full bg-teal-600 px-12 py-3 text-sm font-extrabold text-white shadow-lg shadow-teal-600/30 transition-all duration-300 hover:bg-teal-700 hover:shadow-xl hover:shadow-teal-600/40 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
@@ -254,6 +262,9 @@ return (
                   ? "Creating account.."
                   : "Create Account"}
               </button>
+
+                </SafeRipples>
+             
             </div>
 
             <div className="text-center text-sm text-gray-500">
@@ -274,7 +285,7 @@ return (
         <img
           src="https://www.image2url.com/r2/default/images/1786891265146-fb6c9cab-0ffa-4722-bea5-a16d797c966c.jpg"
           alt="Workspace Illustration"
-          className="max-h-full w-full object-contain transition-transform duration-500 hover:scale-105"
+          className="animate-pulse max-h-full w-full object-contain transition-transform duration-500 hover:scale-105"
         />
       </div>
     </div>
