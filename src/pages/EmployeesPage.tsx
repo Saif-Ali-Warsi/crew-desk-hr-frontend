@@ -345,7 +345,7 @@ function EmployeesPage() {
 
         <button
           disabled={!pagination?.hasNext}
-          onClick={() => setPage((currentPage) => currentPage - 1)}
+          onClick={() => setPage((currentPage) => currentPage + 1)}
           className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 text-white bg-teal-600 px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
         >
           Next
