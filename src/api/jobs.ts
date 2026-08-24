@@ -89,3 +89,23 @@ export const getPublicJobById = async (
 
   return response.data;
 };
+
+export interface JobQRCodeResponse {
+  success: boolean;
+  message: string;
+  data: {
+    jobId: string;
+    jobUrl: string;
+    qrCode: string;
+  };
+}
+
+export const getJobQRCode = async (
+  jobId: string
+): Promise<JobQRCodeResponse> => {
+  const response = await api.get<JobQRCodeResponse>(
+    `/qr/jobs/${jobId}`
+  );
+
+  return response.data;
+};
