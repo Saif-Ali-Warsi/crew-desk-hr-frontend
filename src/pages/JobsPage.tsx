@@ -3,11 +3,18 @@ import { getJobs } from "../api/jobs";
 import type { Job, JobPagination } from "../types/job";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { getJobQRCode } from "../api/jobs";
 
 function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [qrCode, setQrCode] = useState<string | null>(null);
+  const [qrJobUrl, setQrJobUrl] = useState<string>("");
+  const [qrJobTitle, setQrJobTitle] = useState<string>("");
+  const [isQrLoading, setIsQrLoading] = useState(false);
+
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState<JobPagination | null>(null);
@@ -64,6 +71,35 @@ function JobsPage() {
     } catch (error) {
       console.error("Failed to copy job link:", error);
     }
+  };
+
+  const handleGenerateQRCode = async (job: Job) => {
+    try {
+      setIsQrLoading(true);
+
+      const response = await getJobQRCode(job.id);
+
+      setQrCode(response.data.qrCode);
+      setQrJobUrl(response.data.jobUrl);
+      setQrJobTitle(job.title);
+    } catch (error) {
+      console.error("Failed to generate QR code", error);
+    } finally {
+      setIsQrLoading(false);
+    }
+  };
+
+  const handleDownloadQRCode = () => {
+    if (!qrCode) return;
+
+    const link = document.createElement("a");
+
+    link.href = qrCode;
+    link.download = `${qrJobTitle.replace(/\s+/g, "-").toLowerCase()}-qr.png`;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   if (loading) {
@@ -271,7 +307,8 @@ function JobsPage() {
                     <td className="px-6 py-4">
                       <span
                         className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${
-                          job.status?.toLowerCase() === "open" || job.status?.toLowerCase() === "active"
+                          job.status?.toLowerCase() === "open" ||
+                          job.status?.toLowerCase() === "active"
                             ? "bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20"
                             : "bg-gray-100 text-gray-600 ring-1 ring-inset ring-gray-500/10"
                         }`}
@@ -288,6 +325,10 @@ function JobsPage() {
                         >
                           Copy Job Link
                         </button>
+
+                        <button type="button"  onClick={() => handleGenerateQRCode(job)} className="cursor-pointer w-full sm:w-auto text-center rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all">
+                  QR Code
+                </button>
                       </div>
                     </td>
                   </tr>
@@ -318,7 +359,8 @@ function JobsPage() {
                   </div>
                   <span
                     className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${
-                      job.status?.toLowerCase() === "open" || job.status?.toLowerCase() === "active"
+                      job.status?.toLowerCase() === "open" ||
+                      job.status?.toLowerCase() === "active"
                         ? "bg-green-50 text-green-700 ring-1 ring-inset ring-green-600/20"
                         : "bg-gray-100 text-gray-600 ring-1 ring-inset ring-gray-500/10"
                     }`}
@@ -332,7 +374,7 @@ function JobsPage() {
                 </p>
               </div>
 
-              <div className="pt-4 mt-3 border-t border-gray-100 flex items-center justify-end">
+              <div className="pt-4 mt-3 gap-3 border-t border-gray-100 flex items-center justify-end">
                 <button
                   type="button"
                   onClick={() => handleCopyJobLink(job.id)}
@@ -340,11 +382,79 @@ function JobsPage() {
                 >
                   Copy Job Link
                 </button>
+
+                <button type="button"  onClick={() => handleGenerateQRCode(job)} className="cursor-pointer w-full sm:w-auto text-center rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all">
+                  QR Code
+                </button>
               </div>
             </div>
           ))}
         </div>
       )}
+
+            {qrCode && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm transition-all duration-200">
+    <div className="relative w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-slate-900/5 transition-all">
+      
+
+      <button
+        type="button"
+        className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors"
+        onClick={() => setQrCode(null)}
+      >
+        <span className="sr-only">Close modal</span>
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      {/* Header */}
+      <div className="text-center">
+        <h2 className="text-lg font-bold text-slate-900">Job QR Code</h2>
+        {qrJobTitle && (
+          <p className="mt-1 text-xs font-semibold text-[#009689]">
+            {qrJobTitle}
+          </p>
+        )}
+      </div>
+
+      {/* QR Code Container */}
+      <div className="my-5 flex flex-col items-center justify-center rounded-xl border border-slate-100 bg-slate-50/70 p-4">
+        <img
+          src={qrCode}
+          alt={`QR Code for ${qrJobTitle}`}
+          className="h-48 w-48 rounded-lg object-contain shadow-xs bg-white p-2 border border-slate-200"
+        />
+        <p className="mt-3 text-center text-xs text-slate-500">
+          Scan this QR code to apply for this job.
+        </p>
+      </div>
+
+      {/* Actions */}
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={handleDownloadQRCode}
+          className="flex-1 inline-flex justify-center items-center gap-2 rounded-xl bg-[#009689] px-4 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-[#007a70] transition-colors focus:ring-2 focus:ring-[#009689]/20"
+        >
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Download QR
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setQrCode(null)}
+          className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+        >
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+)}
 
       <div className="flex items-center justify-between py-3">
         <button
