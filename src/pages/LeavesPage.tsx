@@ -172,7 +172,7 @@ function LeavesPage() {
             <button
               type="button"
               onClick={() => setViewMode("table")}
-              className={`flex h-8 w-8 items-center justify-center rounded-md transition-all ${
+              className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "table"
                   ? "bg-indigo-50 border border-indigo-200 shadow-xs"
                   : "hover:bg-gray-100"
@@ -190,7 +190,7 @@ function LeavesPage() {
             <button
               type="button"
               onClick={() => setViewMode("card")}
-              className={`flex h-8 w-8 items-center justify-center rounded-md transition-all ${
+              className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "card"
                   ? "bg-indigo-50 border border-indigo-200 shadow-xs"
                   : "hover:bg-gray-100"
