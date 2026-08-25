@@ -405,7 +405,7 @@ function JobsPage() {
                 <button
                   type="button"
                   onClick={() => handleCopyJobLink(job.id)}
-                  className="cursor-pointer w-full sm:w-auto text-center rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all"
+                  className="cursor-pointer w-full sm:w-auto text-center rounded-lg border border-gray-200 text-white border-teal-600 bg-teal-600 px-3 py-1.5 text-xs font-medium hover:border-gray-300 transition-all"
                 >
                   Copy Job Link
                 </button>
@@ -414,7 +414,7 @@ function JobsPage() {
                   type="button"
                   disabled={isQrLoading && activeJobId === job.id}
                   onClick={() => handleGenerateQRCode(job)}
-                  className="cursor-pointer w-full sm:w-auto text-center rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="cursor-pointer w-full sm:w-auto text-center rounded-lg border border-gray-200 text-white border-teal-600 bg-teal-600 px-3 py-1.5 text-xs font-medium hover:border-gray-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isQrLoading && activeJobId === job.id
                     ? "Generating..."
