@@ -122,7 +122,7 @@ function DashboardPage() {
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {/* 1. Employees Card */}
         <Link to="/employees">
-          <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:shadow-md hover:border-slate-300">
+          <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:bg-teal-50 hover:shadow-md hover:border-slate-100">
             <div>
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
@@ -164,7 +164,7 @@ function DashboardPage() {
 
         {/* 2. Total Jobs Card */}
         <Link to="/jobs">
-          <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:shadow-md hover:border-slate-300">
+          <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:bg-teal-50 hover:shadow-md hover:border-slate-100">
             <div>
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
@@ -206,7 +206,7 @@ function DashboardPage() {
 
         {/* 3. Candidates Card */}
         <Link to="/candidates">
-          <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:shadow-md hover:border-slate-300">
+          <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:bg-teal-50 hover:shadow-md hover:border-slate-100">
             <div>
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
@@ -237,7 +237,7 @@ function DashboardPage() {
 
         {/* 4. Today's Attendance Card */}
         <Link to="/attendance">
-          <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:shadow-md hover:border-slate-300">
+          <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:bg-teal-50 hover:shadow-md hover:border-slate-100">
             <div>
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
@@ -282,7 +282,7 @@ function DashboardPage() {
 
         {/* 5. Leaves Overview Card */}
         <Link to="/leaves">
-          <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:shadow-md hover:border-slate-300 sm:col-span-2 lg:col-span-2">
+          <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:bg-teal-50 hover:shadow-md hover:border-slate-100 sm:col-span-2 lg:col-span-2">
             <div>
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">

@@ -157,7 +157,7 @@ function EmployeesPage() {
             <button
               type="button"
               onClick={() => setViewMode("table")}
-              className={`flex h-8 w-8 items-center justify-center rounded-md transition-all ${
+              className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "table"
                   ? "bg-teal-50 border border-teal-200 shadow-xs"
                   : "hover:bg-gray-100"
@@ -175,7 +175,7 @@ function EmployeesPage() {
             <button
               type="button"
               onClick={() => setViewMode("card")}
-              className={`flex h-8 w-8 items-center justify-center rounded-md transition-all ${
+              className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "card"
                   ? "bg-teal-50 border border-teal-200 shadow-xs"
                   : "hover:bg-gray-100"
