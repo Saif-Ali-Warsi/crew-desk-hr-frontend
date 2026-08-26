@@ -1,3 +1,4 @@
+import { useAuth } from "../context/AuthContext";
 import { NavLink } from "react-router-dom";
 import Ripples from "react-ripples";
 
@@ -9,14 +10,25 @@ interface SidebarProps {
 }
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
-  const navigationItems = [
-    { label: "Dashboard", path: "/dashboard" },
-    { label: "Employees", path: "/employees" },
-    { label: "Candidates", path: "/candidates" },
-    { label: "Jobs", path: "/jobs" },
-    { label: "Attendance", path: "/attendance" },
-    { label: "Leaves", path: "/leaves" },
-  ];
+  
+const { user } = useAuth();
+
+  const role = user?.role;
+
+  const navigationItems =
+    role === "SUPER_ADMIN"
+      ? [
+          { label: "Dashboard", path: "/dashboard" },
+          { label: "Companies", path: "/companies" },
+        ]
+      : [
+          { label: "Dashboard", path: "/dashboard" },
+          { label: "Employees", path: "/employees" },
+          { label: "Candidates", path: "/candidates" },
+          { label: "Jobs", path: "/jobs" },
+          { label: "Attendance", path: "/attendance" },
+          { label: "Leaves", path: "/leaves" },
+        ];
 
   return (
     <>
@@ -62,6 +74,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                         : "scale-0 bg-teal-400 group-hover:scale-100"
                     }`}
                   />
+
                   <SafeRipples
                     color="#ffffff27"
                     during={1200}

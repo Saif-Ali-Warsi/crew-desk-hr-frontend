@@ -22,6 +22,7 @@ import ApplyLeavePage from "./pages/ApplyLeavePage";
 import PublicJobPage from "./pages/PublicJobPage";
 import PublicJobApplyPage from "./pages/PublicJobApplyPage";
 import SignupPage from "./pages/SignUpPage";
+import CompaniesPage from "./pages/CompaniesPage";
 
 function App() {
   return (
@@ -32,6 +33,10 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<AppLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
+
+            <Route element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]} />}>
+              <Route path="/companies" element={<CompaniesPage />} />
+            </Route>
 
             <Route path="/employees" element={<EmployeesPage />} />
 
