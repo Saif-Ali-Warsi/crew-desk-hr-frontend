@@ -6,7 +6,7 @@ interface HeaderProps {
 }
 
 function Header({ companyName, onMenuToggle }: HeaderProps) {
-  const { user, logout, loading } = useAuth();
+  const { user, logout } = useAuth();
 
   const getGreeting = () => {
     const hour = new Date().getHours();
