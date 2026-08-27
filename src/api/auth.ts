@@ -69,3 +69,26 @@ export const registerCompany = async (
 
   return response.data;
 };
+
+export interface UpdateProfilePayload {
+  firstName: string;
+  lastName: string;
+  username: string;
+}
+
+export interface UpdateProfileResponse {
+  success: boolean;
+  message: string;
+  data: User;
+}
+
+export const updateProfile = async (
+  payload: UpdateProfilePayload
+): Promise<UpdateProfileResponse> => {
+  const response = await api.patch<UpdateProfileResponse>(
+    "/auth/profile",
+    payload
+  );
+
+  return response.data;
+};
