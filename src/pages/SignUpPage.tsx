@@ -133,19 +133,18 @@ return (
         <div className="w-full max-w-xs space-y-8">
 
 
-          <div className="flex items-center justify-center space-x-3">
-            <div className="flex h-11 w-11 items-center justify-center font-black transition-transform duration-300 hover:scale-105">
-              <img
-                src="https://www.image2url.com/r2/default/images/1787239332865-2edc4dd1-17a6-49a8-8f65-394a957ccbd9.png"
-                alt="Crew Desk HR"
-                className="h-full w-full object-contain"
-              />
-            </div>
-
-            <span className="text-3xl font-black tracking-tight text-teal-500">
-              Crew Desk HR
-            </span>
+         <div className="flex items-center justify-center gap-2.5">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 p-1.5 shadow-xs ring-1 ring-teal-500/10 transition-transform duration-300 hover:scale-105">
+            <img 
+              src="https://www.image2url.com/r2/default/images/1787239332865-2edc4dd1-17a6-49a8-8f65-394a957ccbd9.png" 
+              alt="Crew Desk HR Logo" 
+              className="h-full w-full object-contain"
+            />
           </div>
+          <span className="text-xl font-extrabold tracking-tight text-slate-900">
+            Crew Desk <span className="text-[#009689]">HR</span>
+          </span>
+        </div>
 
           <div>
             <h1 className="text-center text-2xl font-bold text-gray-900">

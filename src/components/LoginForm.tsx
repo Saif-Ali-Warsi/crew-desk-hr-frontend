@@ -115,17 +115,16 @@ function LoginForm() {
       <div className="relative z-10 flex min-h-[550px] w-full max-w-5xl overflow-hidden rounded-3xl bg-white shadow-2xl">
         <div className="flex w-full flex-col items-center justify-center p-8 sm:p-12 md:w-1/2">
           <div className="w-full max-w-xs">
-            <div className="mb-10 flex items-center justify-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center">
+            <div className="mb-10 flex items-center justify-center gap-2.5">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 p-1.5 shadow-xs ring-1 ring-teal-500/10 transition-transform duration-300 hover:scale-105">
                 <img
                   src="https://www.image2url.com/r2/default/images/1787239332865-2edc4dd1-17a6-49a8-8f65-394a957ccbd9.png"
-                  alt="Crew Desk HR"
+                  alt="Crew Desk HR Logo"
                   className="h-full w-full object-contain"
                 />
               </div>
-
-              <span className="text-3xl font-black tracking-tight text-teal-500">
-                Crew Desk HR
+              <span className="text-xl font-extrabold tracking-tight text-slate-900">
+                Crew Desk <span className="text-[#009689]">HR</span>
               </span>
             </div>
 
