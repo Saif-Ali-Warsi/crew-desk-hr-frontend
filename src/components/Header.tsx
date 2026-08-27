@@ -60,7 +60,7 @@ function Header({ onMenuToggle }: HeaderProps) {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-[#009689]" />
             </span>
-            <span>{getGreeting()}</span>
+            <span>{getGreeting()} {user.firstName}</span>
           </div>
 
           <div className="h-4 w-px bg-slate-200 hidden sm:block" />
