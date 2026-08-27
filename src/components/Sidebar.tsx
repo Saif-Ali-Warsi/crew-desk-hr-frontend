@@ -28,6 +28,7 @@ const { user } = useAuth();
           { label: "Jobs", path: "/jobs" },
           { label: "Attendance", path: "/attendance" },
           { label: "Leaves", path: "/leaves" },
+          { label: "Settings", path: "/settings" },
         ];
 
   return (
