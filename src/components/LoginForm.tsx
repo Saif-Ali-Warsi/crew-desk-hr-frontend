@@ -5,6 +5,8 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Ripples from "react-ripples";
+import { applyLanguage } from "../utils/language";
+import i18n from "../i18n";
 
 const SafeRipples = Ripples as React.ComponentType<any>;
 
@@ -13,6 +15,8 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  
 
   const [errors, setErrors] = useState<{
     email?: string;
@@ -89,6 +93,12 @@ function LoginForm() {
         setUser(result.data.user);
 
         toast.success("Login successful");
+
+        i18n.changeLanguage(result.data.user.language);
+applyLanguage(result.data.user.language);
+
+document.documentElement.dir =
+  result.data.user.direction?.toLowerCase() || "ltr";
 
         navigate("/dashboard");
       }

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { updateProfile } from "../api/auth";
+import type { UserLanguage } from "../types/auth";
+import { applyLanguage } from "../utils/language";
 
 function SettingsPage() {
   const { user, setUser } = useAuth();
@@ -10,11 +12,15 @@ function SettingsPage() {
     lastName: "",
     username: "",
     email: "",
+    language: "EN" as UserLanguage,
   });
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [feedback, setFeedback] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [feedback, setFeedback] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -23,6 +29,7 @@ function SettingsPage() {
         lastName: user.lastName || "",
         username: user.username || "",
         email: user.email || "",
+       language: user.language || "EN",
       });
       setLoading(false);
     }
@@ -36,6 +43,19 @@ function SettingsPage() {
     }));
   };
 
+  const handleLanguageChange = async (
+  event: React.ChangeEvent<HTMLSelectElement>
+) => {
+  const language = event.target.value as "EN" | "AR";
+
+  setFormData((prev) => ({
+    ...prev,
+    language,
+  }));
+
+  await applyLanguage(language);
+};
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -47,11 +67,15 @@ function SettingsPage() {
         firstName: formData.firstName,
         lastName: formData.lastName,
         username: formData.username,
+        language: formData.language,
       });
 
       if (result.success) {
         setUser(result.data);
-        setFeedback({ type: "success", text: result.message || "Profile updated successfully." });
+        setFeedback({
+          type: "success",
+          text: result.message || "Profile updated successfully.",
+        });
       }
     } catch (error: any) {
       setFeedback({
@@ -63,7 +87,9 @@ function SettingsPage() {
     }
   };
 
-  const initials = `${formData.firstName[0] || ""}${formData.lastName[0] || ""}`.toUpperCase() || "U";
+  const initials =
+    `${formData.firstName[0] || ""}${formData.lastName[0] || ""}`.toUpperCase() ||
+    "U";
   const userRoleDisplay = user?.role ? user.role.replace(/_/g, " ") : "Member";
   const companyDisplayName =
     user?.role === "SUPER_ADMIN"
@@ -86,7 +112,8 @@ function SettingsPage() {
           Account Settings
         </h1>
         <p className="mt-1 text-sm text-slate-500">
-          Manage your personal identity, credentials, and organizational details.
+          Manage your personal identity, credentials, and organizational
+          details.
         </p>
       </div>
 
@@ -107,7 +134,9 @@ function SettingsPage() {
                   {userRoleDisplay}
                 </span>
                 <span className="text-xs text-slate-400">•</span>
-                <span className="text-xs font-medium text-slate-500">{formData.email}</span>
+                <span className="text-xs font-medium text-slate-500">
+                  {formData.email}
+                </span>
               </div>
             </div>
           </div>
@@ -123,12 +152,32 @@ function SettingsPage() {
               }`}
             >
               {feedback.type === "success" ? (
-                <svg className="h-5 w-5 shrink-0 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="h-5 w-5 shrink-0 text-teal-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               ) : (
-                <svg className="h-5 w-5 shrink-0 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="h-5 w-5 shrink-0 text-red-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               )}
               <span>{feedback.text}</span>
@@ -168,7 +217,7 @@ function SettingsPage() {
                 />
               </div>
 
-              <div className="md:col-span-2">
+              <div>
                 <label className="mb-1.5 block text-xs font-semibold text-slate-700">
                   Username
                 </label>
@@ -180,6 +229,22 @@ function SettingsPage() {
                   placeholder="Enter username"
                   className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-medium text-slate-900 outline-none transition-all hover:border-slate-300 focus:border-[#009689] focus:ring-4 focus:ring-teal-500/10"
                 />
+              </div>
+
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-slate-700">
+  Language
+</label>
+
+<select
+  name="language"
+  value={formData.language}
+  onChange={handleLanguageChange}
+  className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-medium text-slate-900 outline-none transition-all hover:border-slate-300 focus:border-[#009689] focus:ring-4 focus:ring-teal-500/10"
+>
+  <option value="EN">English</option>
+  <option value="AR">العربية</option>
+</select>
               </div>
             </div>
           </div>
@@ -201,8 +266,18 @@ function SettingsPage() {
                     className="w-full cursor-not-allowed rounded-xl border border-slate-200/80 bg-slate-50 px-3.5 py-2.5 text-sm font-medium text-slate-500"
                   />
                   <span className="absolute right-3 top-3 text-slate-400">
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      />
                     </svg>
                   </span>
                 </div>
@@ -242,9 +317,24 @@ function SettingsPage() {
             >
               {saving ? (
                 <>
-                  <svg className="h-4 w-4 animate-spin text-white" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  <svg
+                    className="h-4 w-4 animate-spin text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
                   </svg>
                   <span>Saving...</span>
                 </>

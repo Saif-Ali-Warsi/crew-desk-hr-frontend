@@ -10,6 +10,9 @@ import type { User } from "../types/auth";
 import { getAccessToken, removeAccessToken } from "../utils/authStorage";
 import { getMe } from "../api/auth";
 
+import i18n from "../i18n";
+import { applyLanguage } from "../utils/language";
+
 interface AuthContextValue {
   user: User | null;
   setUser: (user: User | null) => void;
@@ -27,27 +30,39 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const token = getAccessToken();
+useEffect(() => {
+  const token = getAccessToken();
 
-    if (!token) {
+  if (!token) {
+    setLoading(false);
+    return;
+  }
+
+  getMe()
+    .then((result) => {
+      if (result.success) {
+        setUser(result.data);
+      }
+    })
+    .catch((error) => {
+      console.error("Failed to restore authentication:", error);
+    })
+    .finally(() => {
       setLoading(false);
-      return;
-    }
+    });
+}, []);
 
-    getMe()
-      .then((result) => {
-        if (result.success) {
-          setUser(result.data);
-        }
-      })
-      .catch((error) => {
-        console.error("Failed to restore authentication:", error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+useEffect(() => {
+  if (!user) {
+    return;
+  }
+
+  i18n.changeLanguage(user.language);
+  applyLanguage(user.language);
+
+  document.documentElement.dir =
+    user.direction?.toLowerCase() || "ltr";
+}, [user]);
 
   const logout = () => {
     removeAccessToken();
