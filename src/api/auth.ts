@@ -1,7 +1,5 @@
 import type { User } from "../types/auth";
 import api from "./axios";
-import type { UserLanguage, UserDirection } from "../types/auth";
-
 
 
 interface LoginPayload {
