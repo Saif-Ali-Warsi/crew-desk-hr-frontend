@@ -1,10 +1,14 @@
 import i18n from "../i18n";
 
-export const applyLanguage = async (language: "EN" | "AR") => {
-  await i18n.changeLanguage(language);
+export type Language = "EN" | "AR";
 
-  localStorage.setItem("language", language);
+export const applyLanguage = (language: Language) => {
+  const direction = language === "AR" ? "rtl" : "ltr";
 
-  document.documentElement.lang = language === "AR" ? "ar" : "en";
-  document.documentElement.dir = language === "AR" ? "rtl" : "ltr";
+  i18n.changeLanguage(language);
+
+  document.documentElement.lang =
+    language === "AR" ? "ar" : "en";
+
+  document.documentElement.dir = direction;
 };

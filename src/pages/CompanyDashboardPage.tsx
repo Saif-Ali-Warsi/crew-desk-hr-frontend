@@ -32,7 +32,7 @@ function CompanyDashboardPage() {
         }
       } catch (error) {
         console.error("Failed to fetch dashboard:", error);
-        setError("Failed to load dashboard.");
+        setError(t("failedToLoadDashboard"));
       } finally {
         setLoading(false);
       }
@@ -62,7 +62,7 @@ function CompanyDashboardPage() {
   if (error) {
     return (
       <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700 shadow-xs">
-        <p className="font-semibold">Failed to load Dashboard</p>
+        <p className="font-semibold"> {t("failedToLoadDashboard")}</p>
         <p className="mt-1 text-xs opacity-90">{error}</p>
       </div>
     );
@@ -87,11 +87,10 @@ function CompanyDashboardPage() {
           </svg>
         </div>
         <h3 className="mt-4 text-base font-semibold text-slate-900">
-          No dashboard data available
+          {t("noDashboardData")}
         </h3>
         <p className="mt-1 max-w-sm text-xs text-slate-500">
-          There is currently no metric data to display. Please refresh or try
-          again later.
+          {t("noMetricData")}
         </p>
       </div>
     );
@@ -111,12 +110,12 @@ function CompanyDashboardPage() {
             {t("dashboard")}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
-            Real-time HR overview and key performance metrics.
+            {t("realTimeHrOverview")}
           </p>
         </div>
         <div className="inline-flex items-center gap-2 self-start rounded-full bg-[#009689]/10 px-3 py-1 text-xs font-semibold text-[#009689] sm:self-auto">
           <span className="h-2 w-2 rounded-full bg-[#009689] animate-pulse"></span>
-          {dashboard.activeEmployees} Active Team Members
+          {dashboard.activeEmployees} {t("activeTeamMembers")}
         </div>
       </div>
 
@@ -130,16 +129,16 @@ function CompanyDashboardPage() {
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-50/80 ring-1 ring-teal-600/10 p-2">
                     <img
                       src={CARD_ICONS.employees}
-                      alt="Employees"
+                      alt={t("employees")}
                       className="h-full w-full object-contain"
                     />
                   </div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                    Employees
+                    {t("employees")}
                   </p>
                 </div>
                 <span className="rounded-md bg-teal-50 px-2 py-0.5 text-[11px] font-semibold text-[#009689] ring-1 ring-inset ring-teal-600/20">
-                  Total
+                  {t("total")}
                 </span>
               </div>
               <p className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900">
@@ -148,13 +147,13 @@ function CompanyDashboardPage() {
             </div>
             <div className="mt-5 border-t border-slate-100 pt-3 flex items-center justify-between text-xs">
               <span className="text-slate-600">
-                Active:{" "}
+                {t("active")}:
                 <strong className="font-semibold text-emerald-600">
                   {dashboard.activeEmployees}
                 </strong>
               </span>
               <span className="text-slate-400">
-                Inactive:{" "}
+                {t("inactive")}:
                 <strong className="font-medium text-slate-500">
                   {dashboard.inactiveEmployees}
                 </strong>
@@ -172,16 +171,16 @@ function CompanyDashboardPage() {
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50/80 ring-1 ring-blue-600/10 p-2">
                     <img
                       src={CARD_ICONS.jobs}
-                      alt="Jobs"
+                      alt={t("jobs")}
                       className="h-full w-full object-contain"
                     />
                   </div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                    Total Jobs
+                    {t("totalJobs")}
                   </p>
                 </div>
                 <span className="rounded-md bg-blue-50 px-2 py-0.5 text-[11px] font-semibold text-blue-600 ring-1 ring-inset ring-blue-600/20">
-                  Postings
+                  {t("postings")}
                 </span>
               </div>
               <p className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900">
@@ -190,13 +189,13 @@ function CompanyDashboardPage() {
             </div>
             <div className="mt-5 border-t border-slate-100 pt-3 flex items-center justify-between text-xs">
               <span className="text-slate-600">
-                Open:{" "}
+                {t("open")}:
                 <strong className="font-semibold text-sky-600">
                   {dashboard.openJobs}
                 </strong>
               </span>
               <span className="text-slate-400">
-                Closed:{" "}
+                {t("closed")}:
                 <strong className="font-medium text-slate-500">
                   {dashboard.closedJobs}
                 </strong>
@@ -214,16 +213,16 @@ function CompanyDashboardPage() {
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50/80 ring-1 ring-indigo-600/10 p-2">
                     <img
                       src={CARD_ICONS.candidates}
-                      alt="Candidates"
+                      alt={t("candidates")}
                       className="h-full w-full object-contain"
                     />
                   </div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                    Candidates
+                    {t("candidates")}
                   </p>
                 </div>
                 <span className="rounded-md bg-indigo-50 px-2 py-0.5 text-[11px] font-semibold text-indigo-600 ring-1 ring-inset ring-indigo-600/20">
-                  Pipeline
+                  {t("pipeline")}
                 </span>
               </div>
               <p className="mt-4 text-3xl font-extrabold tracking-tight text-slate-900">
@@ -231,7 +230,7 @@ function CompanyDashboardPage() {
               </p>
             </div>
             <div className="mt-5 border-t border-slate-100 pt-3 text-xs text-slate-500">
-              Total active applicants in recruitment pipeline
+              {t("totalActiveApplicants")}
             </div>
           </div>
         </Link>
@@ -245,16 +244,16 @@ function CompanyDashboardPage() {
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50/80 ring-1 ring-emerald-600/10 p-2">
                     <img
                       src={CARD_ICONS.attendance}
-                      alt="Attendance"
+                      alt={t("attendance")}
                       className="h-full w-full object-contain"
                     />
                   </div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                    Today's Attendance
+                    {t("todaysAttendance")}
                   </p>
                 </div>
                 <span className="rounded-md bg-emerald-50 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 ring-1 ring-inset ring-emerald-600/20">
-                  Present
+                  {t("present")}
                 </span>
               </div>
               <div className="mt-4 flex items-baseline gap-2">
@@ -268,7 +267,7 @@ function CompanyDashboardPage() {
             </div>
             <div className="mt-5 border-t border-slate-100 pt-3 space-y-1">
               <div className="flex justify-between text-[11px] font-medium text-slate-500">
-                <span>Turnout Rate</span>
+                <span>{t("turnoutRate")}</span>
                 <span>{attendancePercentage}%</span>
               </div>
               <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
@@ -290,16 +289,16 @@ function CompanyDashboardPage() {
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50/80 ring-1 ring-amber-600/10 p-2">
                     <img
                       src={CARD_ICONS.leaves}
-                      alt="Leaves"
+                      alt={t("leaves")}
                       className="h-full w-full object-contain"
                     />
                   </div>
                   <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                    Leaves Overview
+                    {t("leavesOverview")}
                   </p>
                 </div>
                 <span className="rounded-md bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-700 ring-1 ring-inset ring-amber-600/20">
-                  Time Off
+                  {t("timeOff")}
                 </span>
               </div>
 
@@ -307,7 +306,7 @@ function CompanyDashboardPage() {
                 <div className="rounded-xl border border-amber-100 bg-amber-50/60 p-4 py-2 transition-colors hover:bg-amber-50">
                   <div className="flex items-center justify-between">
                     <p className="text-xs font-medium text-amber-800">
-                      Pending Requests
+                      {t("pendingRequests")}
                     </p>
                     <span className="h-2 w-2 rounded-full bg-amber-500"></span>
                   </div>
@@ -315,14 +314,14 @@ function CompanyDashboardPage() {
                     {dashboard.pendingLeaves}
                   </p>
                   <p className="mt-1 text-[11px] text-amber-700/80">
-                    Requires action
+                    {t("requiresAction")}
                   </p>
                 </div>
 
                 <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 p-4 py-2 transition-colors hover:bg-emerald-50">
                   <div className="flex items-center justify-between">
                     <p className="text-xs font-medium text-emerald-800">
-                      Approved Requests
+                      {t("approvedRequests")}
                     </p>
                     <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
                   </div>
@@ -330,7 +329,7 @@ function CompanyDashboardPage() {
                     {dashboard.approvedLeaves}
                   </p>
                   <p className="mt-1 text-[11px] text-emerald-700/80">
-                    Approved this cycle
+                    {t("approvedThisCycle")}
                   </p>
                 </div>
               </div>

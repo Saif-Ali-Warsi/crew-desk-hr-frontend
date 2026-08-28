@@ -7,6 +7,8 @@ export type UserRole =
 
 export type UserLanguage = "EN" | "AR";
 
+export type UserDirection = "LTR" | "RTL";
+
 export interface User {
   id: string;
   email: string;
@@ -17,7 +19,9 @@ export interface User {
   firstName?: string;
   lastName?: string;
 
-  language: UserLanguage;
+  language: "EN" | "AR";
+  direction: "LTR" | "RTL";
+  
 
   company?: {
     id: string;

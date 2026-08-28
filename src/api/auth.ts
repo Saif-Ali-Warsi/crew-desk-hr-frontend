@@ -1,6 +1,6 @@
 import type { User } from "../types/auth";
 import api from "./axios";
-import type { UserLanguage } from "../types/auth";
+import type { UserLanguage, UserDirection } from "../types/auth";
 
 
 
@@ -75,7 +75,7 @@ export interface UpdateProfilePayload {
   firstName: string;
   lastName: string;
   username: string;
-  language: UserLanguage;
+  language: "EN" | "AR";
 }
 
 export interface UpdateProfileResponse {
