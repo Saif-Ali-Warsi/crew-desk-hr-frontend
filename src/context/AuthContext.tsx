@@ -10,6 +10,10 @@ import type { User } from "../types/auth";
 import { getAccessToken, removeAccessToken } from "../utils/authStorage";
 import { getMe } from "../api/auth";
 
+import i18n from "../i18n";
+import { applyLanguage } from "../utils/language";
+
+
 interface AuthContextValue {
   user: User | null;
   setUser: (user: User | null) => void;
@@ -39,6 +43,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
       .then((result) => {
         if (result.success) {
           setUser(result.data);
+
+            i18n.changeLanguage(result.data.language);
+      applyLanguage(result.data.language);
         }
       })
       .catch((error) => {

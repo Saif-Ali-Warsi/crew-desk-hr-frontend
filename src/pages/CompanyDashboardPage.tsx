@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getDashboard } from "../api/dashboard";
 import type { DashboardData } from "../types/dashboard";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const CARD_ICONS = {
   employees:
@@ -19,6 +20,7 @@ function CompanyDashboardPage() {
   const [dashboard, setDashboard] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -106,7 +108,7 @@ function CompanyDashboardPage() {
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-slate-900">
-            Dashboard
+            {t("dashboard")}
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">
             Real-time HR overview and key performance metrics.

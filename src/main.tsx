@@ -4,6 +4,7 @@ import App from "./App.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import { HashRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import "./i18n";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

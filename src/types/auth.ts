@@ -5,20 +5,23 @@ export type UserRole =
   | "ASSOCIATE_HR"
   | "JUNIOR_HR";
 
-export interface UserCompany {
-  id: string;
-  name: string;
-  logo?: string | null;
-}
+export type UserLanguage = "EN" | "AR";
 
 export interface User {
   id: string;
-  firstName: string;
-  lastName: string;
-  username?: string | null;
   email: string;
   role: UserRole;
-  companyId?: string | null;
-  isActive: boolean;
-  company?: UserCompany | null;
+  companyId: string;
+
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+
+  language: UserLanguage;
+
+  company?: {
+    id: string;
+    name: string;
+    logo?: string | null;
+  };
 }
