@@ -1,6 +1,7 @@
 import { useAuth } from "../context/AuthContext";
 import { NavLink } from "react-router-dom";
 import Ripples from "react-ripples";
+import { useTranslation } from "react-i18next";
 
 const SafeRipples = Ripples as React.ComponentType<any>;
 
@@ -10,25 +11,25 @@ interface SidebarProps {
 }
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
-  
-const { user } = useAuth();
+  const { user } = useAuth();
+  const { t } = useTranslation();
 
   const role = user?.role;
 
   const navigationItems =
     role === "SUPER_ADMIN"
       ? [
-          { label: "Dashboard", path: "/dashboard" },
-          { label: "Companies", path: "/companies" },
+          { label: "dashboard", path: "/dashboard" },
+          { label: "companies", path: "/companies" },
         ]
       : [
-          { label: "Dashboard", path: "/dashboard" },
-          { label: "Employees", path: "/employees" },
-          { label: "Candidates", path: "/candidates" },
-          { label: "Jobs", path: "/jobs" },
-          { label: "Attendance", path: "/attendance" },
-          { label: "Leaves", path: "/leaves" },
-          { label: "Settings", path: "/settings" },
+          { label: "dashboard", path: "/dashboard" },
+          { label: "employees", path: "/employees" },
+          { label: "candidates", path: "/candidates" },
+          { label: "jobs", path: "/jobs" },
+          { label: "attendance", path: "/attendance" },
+          { label: "leaves", path: "/leaves" },
+          { label: "settings", path: "/settings" },
         ];
 
   return (
@@ -81,7 +82,7 @@ const { user } = useAuth();
                     during={1200}
                     className="rounded-full overflow-hidden"
                   >
-                    <span>{item.label}</span>
+                    <span>{t(item.label)}</span>
                   </SafeRipples>
                 </>
               )}

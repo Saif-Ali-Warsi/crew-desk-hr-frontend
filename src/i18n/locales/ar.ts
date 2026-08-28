@@ -7,6 +7,7 @@ export const ar = {
     attendance: "الحضور",
     leaves: "الإجازات",
     settings: "الإعدادات",
+    companies: "الشركات",
 
     welcome: "مرحباً",
     goodMorning: "صباح الخير",
@@ -58,5 +59,9 @@ export const ar = {
     failedToLoadDashboard: "فشل تحميل لوحة التحكم",
     noDashboardData: "لا توجد بيانات متاحة للوحة التحكم",
     noMetricData: "لا توجد حالياً بيانات للمؤشرات لعرضها. يرجى تحديث الصفحة أو المحاولة مرة أخرى لاحقاً.",
+
+    openSidebar: "فتح القائمة الجانبية",
+    logout: "تسجيل الخروج",
+    user: "المستخدم",
   },
 };

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 
 interface HeaderProps {
@@ -7,21 +8,26 @@ interface HeaderProps {
 
 function Header({ companyName, onMenuToggle }: HeaderProps) {
   const { user, logout } = useAuth();
+  const { t } = useTranslation();
+
+  const firstName = user?.firstName?.trim() || "";
+  const lastName = user?.lastName?.trim() || "";
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return "Good Morning";
-    if (hour < 17) return "Good Afternoon";
-    return "Good Evening";
+
+    if (hour < 12) return t("goodMorning");
+    if (hour < 17) return t("goodAfternoon");
+
+    return t("goodEvening");
   };
 
   const activeCompanyName =
     user?.company?.name || companyName || "CrewDeskHR LLC";
-  const activeCompanyLogo = user?.company?.logo;
-  const userRoleDisplay = user?.role ? user.role.replace(/_/g, " ") : "Member";
 
-  const firstName = user?.firstName || "";
-  const lastName = user?.lastName || "";
+  const activeCompanyLogo = user?.company?.logo;
+
+  const userRoleDisplay = user?.role ? user.role.replace(/_/g, " ") : "Member";
 
   return (
     <header className="sticky top-0 z-40 flex h-16 w-full items-center justify-between border-b border-slate-200/80 bg-teal-50/60 px-4 backdrop-blur-md transition-all sm:px-6">
@@ -30,7 +36,7 @@ function Header({ companyName, onMenuToggle }: HeaderProps) {
           onClick={onMenuToggle}
           type="button"
           className="cursor-pointer rounded-xl p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors md:hidden"
-          aria-label="Open sidebar"
+          aria-label={t("openSidebar")}
         >
           <svg
             className="h-6 w-6"
@@ -58,6 +64,7 @@ function Header({ companyName, onMenuToggle }: HeaderProps) {
               className="h-full w-full object-contain"
             />
           </div>
+
           <div className="flex flex-col">
             <span className="text-lg font-extrabold tracking-tight text-slate-900 leading-none">
               {activeCompanyName.includes(" ") ? (
@@ -85,8 +92,10 @@ function Header({ companyName, onMenuToggle }: HeaderProps) {
           <div className="hidden items-center gap-2 rounded-full border border-teal-100 bg-teal-50/50 px-3.5 py-1.5 text-xs font-semibold text-teal-800 shadow-xs sm:flex">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75" />
+
               <span className="relative inline-flex h-2 w-2 rounded-full bg-[#009689]" />
             </span>
+
             <span>{getGreeting()}</span>
           </div>
 
@@ -95,14 +104,18 @@ function Header({ companyName, onMenuToggle }: HeaderProps) {
           <div className="flex items-center gap-2.5 pl-1">
             {user?.role !== "SUPER_ADMIN" && (
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-white font-bold text-xs ring-2 ring-teal-500/20 shadow-xs">
-              {firstName[0]} {lastName[0]}
+                {firstName.charAt(0).toUpperCase()}
+                {lastName.charAt(0).toUpperCase()}
               </div>
             )}
 
             <div className="hidden flex-col md:flex text-left">
               <span className="text-xs font-bold text-slate-900 leading-tight">
-                {firstName || lastName ? `${firstName} ${lastName}`.trim() : user.username || "User"}
+                {firstName || lastName
+                  ? `${firstName} ${lastName}`.trim()
+                  : user.username || t("user")}
               </span>
+
               <span className="text-[10px] font-medium tracking-wide text-teal-700 uppercase">
                 {userRoleDisplay}
               </span>
@@ -112,12 +125,13 @@ function Header({ companyName, onMenuToggle }: HeaderProps) {
           <button
             type="button"
             onClick={logout}
-            title="Logout"
+            title={t("logout")}
+            aria-label={t("logout")}
             className="group cursor-pointer flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200/80 bg-slate-50/50 p-2 shadow-xs transition-all hover:border-red-200 hover:bg-red-50 hover:shadow-sm active:scale-95"
           >
             <img
               src="https://www.image2url.com/r2/default/images/1787236730051-8e048b16-d81c-4709-b1b3-f21ee9969dbd.png"
-              alt="Logout"
+              alt={t("logout")}
               className="h-full w-full object-contain transition-transform group-hover:scale-110"
             />
           </button>
