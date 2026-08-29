@@ -292,5 +292,41 @@ export const en = {
       failedToCreate: "Failed to create Candidate",
       failedToFetchJobs: "Failed to fetch jobs",
     },
+
+    applyLeave: {
+      title: "Apply Leave",
+      description: "Submit a new leave request for an employee for approval.",
+
+      employee: "Employee",
+      loadingEmployees: "Loading employees...",
+      selectEmployee: "Select employee",
+
+      leaveType: "Leave Type",
+      selectLeaveType: "Select leave type",
+
+      casual: "Casual",
+      sick: "Sick",
+      earned: "Earned",
+      unpaid: "Unpaid",
+
+      startDate: "Start Date",
+      endDate: "End Date",
+
+      reason: "Reason",
+      reasonPlaceholder: "Provide a brief explanation for the leave...",
+
+      cancel: "Cancel",
+      applying: "Applying...",
+      applyLeave: "Apply Leave",
+
+      employeeRequired: "Employee is required.",
+      leaveTypeRequired: "Leave type is required.",
+      startDateRequired: "Start date is required.",
+      endDateRequired: "End date is required.",
+      endDateBeforeStart: "End date cannot be before start date.",
+      reasonRequired: "Reason is required.",
+      reasonMinLength: "Reason must be at least 5 characters.",
+      reasonMaxLength: "Reason cannot exceed 500 characters.",
+    },
   },
 };

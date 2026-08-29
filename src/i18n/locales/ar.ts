@@ -292,5 +292,41 @@ export const ar = {
       failedToCreate: "فشل إنشاء المرشح",
       failedToFetchJobs: "فشل تحميل الوظائف",
     },
+
+    applyLeave: {
+      title: "تقديم طلب إجازة",
+      description: "أرسل طلب إجازة جديدًا للموظف للموافقة عليه.",
+
+      employee: "الموظف",
+      loadingEmployees: "جارٍ تحميل الموظفين...",
+      selectEmployee: "اختر الموظف",
+
+      leaveType: "نوع الإجازة",
+      selectLeaveType: "اختر نوع الإجازة",
+
+      casual: "إجازة اعتيادية",
+      sick: "إجازة مرضية",
+      earned: "إجازة مستحقة",
+      unpaid: "إجازة بدون راتب",
+
+      startDate: "تاريخ البدء",
+      endDate: "تاريخ الانتهاء",
+
+      reason: "السبب",
+      reasonPlaceholder: "أدخل شرحًا مختصرًا لسبب الإجازة...",
+
+      cancel: "إلغاء",
+      applying: "جارٍ التقديم...",
+      applyLeave: "تقديم طلب الإجازة",
+
+      employeeRequired: "الموظف مطلوب.",
+      leaveTypeRequired: "نوع الإجازة مطلوب.",
+      startDateRequired: "تاريخ البدء مطلوب.",
+      endDateRequired: "تاريخ الانتهاء مطلوب.",
+      endDateBeforeStart: "لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ البدء.",
+      reasonRequired: "السبب مطلوب.",
+      reasonMinLength: "يجب ألا يقل السبب عن 5 أحرف.",
+      reasonMaxLength: "لا يمكن أن يتجاوز السبب 500 حرف.",
+    },
   },
 };
