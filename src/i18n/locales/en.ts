@@ -211,5 +211,43 @@ export const en = {
       active: "Active",
       inactive: "Inactive",
     },
+
+    employeeForm: {
+      title: "Add New Employee",
+      description: "Fill in the employee details below to create a new profile.",
+
+      firstName: "First Name",
+      lastName: "Last Name",
+      emailAddress: "Email Address",
+      phoneNumber: "Phone Number",
+      designation: "Designation",
+      joiningDate: "Joining Date",
+      employmentType: "Employment Type",
+
+      firstNamePlaceholder: "John",
+      lastNamePlaceholder: "Doe",
+      emailPlaceholder: "john.doe@example.com",
+      phonePlaceholder: "+1 (555) 000-0000 (Optional)",
+      designationPlaceholder: "Software Engineer",
+
+      fullTime: "Full Time",
+      partTime: "Part Time",
+      contract: "Contract",
+      intern: "Intern",
+
+      firstNameRequired: "First name is required.",
+      lastNameRequired: "Last name is required.",
+      emailRequired: "Email is required.",
+      validEmail: "Please enter a valid email address.",
+      designationRequired: "Designation is required.",
+      joiningDateRequired: "Joining date is required.",
+      employmentTypeRequired: "Employment type is required.",
+
+      creating: "Creating...",
+      createEmployee: "Create Employee",
+
+      employeeCreated: "Employee created successfully.",
+      failedToCreate: "Failed to create employee",
+    },
   },
 };

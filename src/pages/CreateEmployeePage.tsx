@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createEmployee, type CreateEmployeePayload } from "../api/employees";
@@ -7,6 +8,7 @@ import Ripples from "react-ripples";
 const SafeRipples = Ripples as React.ComponentType<any>;
 
 function CreateEmployeePage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<CreateEmployeePayload>({
@@ -39,29 +41,29 @@ function CreateEmployeePage() {
     } = {};
 
     if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required.";
+      newErrors.firstName = t("employeeForm.firstNameRequired");
     }
 
     if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required.";
+      newErrors.lastName = t("employeeForm.lastNameRequired");
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
+      newErrors.email = t("employeeForm.emailRequired");
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address.";
+      newErrors.email = t("employeeForm.validEmail");
     }
 
     if (!formData.designation.trim()) {
-      newErrors.designation = "Designation is required.";
+      newErrors.designation = t("employeeForm.designationRequired");
     }
 
     if (!formData.joiningDate) {
-      newErrors.joiningDate = "Joining date is required.";
+      newErrors.joiningDate = t("employeeForm.joiningDateRequired");
     }
 
     if (!formData.employmentType) {
-      newErrors.employmentType = "Employment type is required.";
+      newErrors.employmentType = t("employeeForm.employmentTypeRequired");
     }
 
     setErrors(newErrors);
@@ -85,11 +87,10 @@ function CreateEmployeePage() {
 
       if (result.success) {
         navigate("/employees");
-        toast.success("Employee created successfully.");
+        toast.success(t("employeeForm.employeeCreated"));
       }
     } catch (error) {
-      console.error("Failed to create employee:", error);
-      toast.error("Failed to create employee");
+      toast.error(t("employeeForm.failedToCreate"));
     } finally {
       setLoading(false);
     }
@@ -98,9 +99,12 @@ function CreateEmployeePage() {
   return (
     <div className="mx-auto max-w-2xl rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
       <div className="mb-6">
-        <h2 className="text-xl font-bold text-gray-900">Add New Employee</h2>
+        <h2 className="text-xl font-bold text-gray-900">
+          {" "}
+          {t("employeeForm.title")}
+        </h2>
         <p className="mt-1 text-sm text-gray-500">
-          Fill in the employee details below to create a new profile.
+          {t("employeeForm.description")}
         </p>
       </div>
 
@@ -108,11 +112,11 @@ function CreateEmployeePage() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              First Name
+              {t("employeeForm.firstName")}
             </label>
             <input
               type="text"
-              placeholder="John"
+              placeholder={t("employeeForm.firstNamePlaceholder")}
               value={formData.firstName}
               onChange={(event) =>
                 setFormData({
@@ -133,11 +137,11 @@ function CreateEmployeePage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Last Name
+              {t("employeeForm.lastName")}
             </label>
             <input
               type="text"
-              placeholder="Doe"
+              placeholder={t("employeeForm.lastNamePlaceholder")}
               value={formData.lastName}
               onChange={(event) =>
                 setFormData({
@@ -160,11 +164,11 @@ function CreateEmployeePage() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Email Address
+              {t("employeeForm.emailAddress")}
             </label>
             <input
               type="email"
-              placeholder="john.doe@example.com"
+              placeholder={t("employeeForm.emailPlaceholder")}
               value={formData.email}
               onChange={(event) =>
                 setFormData({
@@ -185,11 +189,11 @@ function CreateEmployeePage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Phone Number
+              {t("employeeForm.phoneNumber")}
             </label>
             <input
               type="text"
-              placeholder="+1 (555) 000-0000 (Optional)"
+              placeholder={t("employeeForm.phonePlaceholder")}
               value={formData.phone}
               onChange={(event) =>
                 setFormData({
@@ -205,11 +209,11 @@ function CreateEmployeePage() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Designation
+              {t("employeeForm.designation")}
             </label>
             <input
               type="text"
-              placeholder="Software Engineer"
+              placeholder={t("employeeForm.designationPlaceholder")}
               value={formData.designation}
               onChange={(event) =>
                 setFormData({
@@ -230,7 +234,7 @@ function CreateEmployeePage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Joining Date
+              {t("employeeForm.joiningDate")}
             </label>
             <input
               type="date"
@@ -255,7 +259,7 @@ function CreateEmployeePage() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Employment Type
+            {t("employeeForm.employmentType")}
           </label>
           <select
             value={formData.employmentType}
@@ -272,10 +276,10 @@ function CreateEmployeePage() {
                 : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
             }`}
           >
-            <option value="FULL_TIME">Full Time</option>
-            <option value="PART_TIME">Part Time</option>
-            <option value="CONTRACT">Contract</option>
-            <option value="INTERN">Intern</option>
+            <option value="FULL_TIME"> {t("employeeForm.fullTime")}</option>
+            <option value="PART_TIME">{t("employeeForm.partTime")}</option>
+            <option value="CONTRACT"> {t("employeeForm.contract")}</option>
+            <option value="INTERN">{t("employeeForm.intern")}</option>
           </select>
           {errors.employmentType && (
             <p className="text-xs text-red-600">{errors.employmentType}</p>
@@ -296,10 +300,10 @@ function CreateEmployeePage() {
               {loading ? (
                 <>
                   <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  Creating...
+                  {t("employeeForm.creating")}
                 </>
               ) : (
-                "Create Employee"
+                t("employeeForm.createEmployee")
               )}
             </button>
           </SafeRipples>

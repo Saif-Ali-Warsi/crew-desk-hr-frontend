@@ -211,5 +211,43 @@ export const ar = {
       active: "نشط",
       inactive: "غير نشط",
     },
+
+    employeeForm: {
+      title: "إضافة موظف جديد",
+      description: "أدخل بيانات الموظف أدناه لإنشاء ملف شخصي جديد.",
+
+      firstName: "الاسم الأول",
+      lastName: "اسم العائلة",
+      emailAddress: "عنوان البريد الإلكتروني",
+      phoneNumber: "رقم الهاتف",
+      designation: "المسمى الوظيفي",
+      joiningDate: "تاريخ الانضمام",
+      employmentType: "نوع التوظيف",
+
+      firstNamePlaceholder: "جون",
+      lastNamePlaceholder: "دو",
+      emailPlaceholder: "john.doe@example.com",
+      phonePlaceholder: "+1 (555) 000-0000 (اختياري)",
+      designationPlaceholder: "مهندس برمجيات",
+
+      fullTime: "دوام كامل",
+      partTime: "دوام جزئي",
+      contract: "عقد",
+      intern: "متدرب",
+
+      firstNameRequired: "الاسم الأول مطلوب.",
+      lastNameRequired: "اسم العائلة مطلوب.",
+      emailRequired: "البريد الإلكتروني مطلوب.",
+      validEmail: "يرجى إدخال عنوان بريد إلكتروني صالح.",
+      designationRequired: "المسمى الوظيفي مطلوب.",
+      joiningDateRequired: "تاريخ الانضمام مطلوب.",
+      employmentTypeRequired: "نوع التوظيف مطلوب.",
+
+      creating: "جارٍ الإنشاء...",
+      createEmployee: "إنشاء موظف",
+
+      employeeCreated: "تم إنشاء الموظف بنجاح.",
+      failedToCreate: "فشل إنشاء الموظف",
+    },
   },
 };
