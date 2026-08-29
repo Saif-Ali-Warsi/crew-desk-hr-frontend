@@ -7,7 +7,6 @@ export const ar = {
     attendance: "الحضور",
     leaves: "الإجازات",
     settings: "الإعدادات",
-    companies: "الشركات",
 
     welcome: "مرحباً",
     goodMorning: "صباح الخير",
@@ -29,39 +28,35 @@ export const ar = {
 
     profileUpdated: "تم تحديث الملف الشخصي بنجاح.",
 
-    // Dashboard
-    realTimeHrOverview: "نظرة عامة على الموارد البشرية ومؤشرات الأداء الرئيسية في الوقت الفعلي.",
-    activeTeamMembers: "أعضاء الفريق النشطون",
+    // Employees
+    employee: {
+      title: "الموظفون",
+      search: "بحث",
+      add: "إضافة",
 
-    total: "الإجمالي",
-    active: "نشط",
-    inactive: "غير نشط",
+      tableView: "عرض الجدول",
+      cardView: "عرض البطاقات",
 
-    totalJobs: "إجمالي الوظائف",
-    postings: "الوظائف المنشورة",
-    open: "مفتوحة",
-    closed: "مغلقة",
+      name: "الاسم",
+      code: "الرمز",
+      email: "البريد الإلكتروني",
+      designation: "المسمى الوظيفي",
+      status: "الحالة",
 
-    pipeline: "قائمة المرشحين",
-    totalActiveApplicants: "إجمالي المتقدمين النشطين في قائمة التوظيف",
+      noEmployeesFound: "لم يتم العثور على موظفين",
+      adjustSearch: "حاول تعديل معايير البحث أو إضافة موظف جديد.",
 
-    todaysAttendance: "حضور اليوم",
-    present: "حاضر",
-    turnoutRate: "معدل الحضور",
+      failedToLoad: "فشل تحميل الموظفين",
 
-    leavesOverview: "نظرة عامة على الإجازات",
-    timeOff: "إجازة",
-    pendingRequests: "الطلبات المعلقة",
-    requiresAction: "يتطلب إجراءً",
-    approvedRequests: "الطلبات المعتمدة",
-    approvedThisCycle: "تمت الموافقة عليها في هذه الدورة",
+      previous: "السابق",
+      next: "التالي",
+      page: "صفحة",
+      of: "من",
+    },
 
-    failedToLoadDashboard: "فشل تحميل لوحة التحكم",
-    noDashboardData: "لا توجد بيانات متاحة للوحة التحكم",
-    noMetricData: "لا توجد حالياً بيانات للمؤشرات لعرضها. يرجى تحديث الصفحة أو المحاولة مرة أخرى لاحقاً.",
-
-    openSidebar: "فتح القائمة الجانبية",
-    logout: "تسجيل الخروج",
-    user: "المستخدم",
+    status: {
+      active: "نشط",
+      inactive: "غير نشط",
+    },
   },
 };

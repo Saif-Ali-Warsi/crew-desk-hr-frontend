@@ -30,39 +30,44 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  const token = getAccessToken();
+  useEffect(() => {
+    const token = getAccessToken();
 
-  if (!token) {
-    setLoading(false);
-    return;
-  }
-
-  getMe()
-    .then((result) => {
-      if (result.success) {
-        setUser(result.data);
-      }
-    })
-    .catch((error) => {
-      console.error("Failed to restore authentication:", error);
-    })
-    .finally(() => {
+    if (!token) {
       setLoading(false);
-    });
-}, []);
+      return;
+    }
 
-useEffect(() => {
-  if (!user) {
-    return;
-  }
+    getMe()
+      .then((result) => {
+        if (result.success) {
+          setUser(result.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to restore authentication:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
-  i18n.changeLanguage(user.language);
-  applyLanguage(user.language);
+  useEffect(() => {
+    if (!user) {
+      // Reset language and direction after logout
+      i18n.changeLanguage("EN");
+      applyLanguage("EN");
+      document.documentElement.dir = "ltr";
 
-  document.documentElement.dir =
-    user.direction?.toLowerCase() || "ltr";
-}, [user]);
+      return;
+    }
+
+    // Apply user's saved language and direction
+    i18n.changeLanguage(user.language);
+    applyLanguage(user.language);
+
+    document.documentElement.dir = user.direction?.toLowerCase() || "ltr";
+  }, [user]);
 
   const logout = () => {
     removeAccessToken();
