@@ -1,11 +1,15 @@
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getJobs } from "../api/jobs";
 import type { Job, JobPagination } from "../types/job";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getJobQRCode } from "../api/jobs";
+import TableShimmerLoader from "../components/TableShimmer";
 
 function JobsPage() {
+  const { t } = useTranslation();
+
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -20,8 +24,8 @@ function JobsPage() {
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState<JobPagination | null>(null);
 
-  const [viewMode, setViewMode] = useState<"table" | "card">(
-    () => (window.innerWidth < 768 ? "card" : "table")
+  const [viewMode, setViewMode] = useState<"table" | "card">(() =>
+    window.innerWidth < 768 ? "card" : "table",
   );
 
   useEffect(() => {
@@ -49,7 +53,7 @@ function JobsPage() {
           }
         } catch (error) {
           console.error("Failed to fetch jobs:", error);
-          setError("Failed to load jobs.");
+          setError(t("jobsPage.failedToLoadJobs"));
         } finally {
           setLoading(false);
         }
@@ -68,7 +72,7 @@ function JobsPage() {
 
     try {
       await navigator.clipboard.writeText(url);
-      toast.success("Job link copied successfully.");
+      toast.success(t("jobsPage.jobLinkCopied"));
     } catch (error) {
       console.error("Failed to copy job link:", error);
     }
@@ -96,7 +100,7 @@ function JobsPage() {
       setQrJobTitle(job.title);
     } catch (error) {
       console.error("Failed to generate QR code", error);
-      toast.error("Failed to generate QR code.");
+      toast.error(t("jobsPage.failedToGenerateQr"));
     } finally {
       setIsQrLoading(false);
       setActiveJobId(null);
@@ -123,65 +127,13 @@ function JobsPage() {
   };
 
   if (loading) {
-    return (
-      <div className="space-y-6 animate-pulse">
-        <div className="flex items-center justify-between">
-          <div className="h-8 w-40 rounded-lg bg-gray-200" />
-          <div className="h-10 w-64 rounded-md bg-gray-200" />
-        </div>
-
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <table className="w-full text-left border-collapse">
-            <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-24 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-16 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-32 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-20 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-16 rounded bg-gray-200" />
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {[...Array(5)].map((_, i) => (
-                <tr key={i}>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-32 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-20 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-40 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-24 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-6 w-16 rounded-full bg-gray-200" />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
+    return <TableShimmerLoader></TableShimmerLoader>;
   }
 
   if (error) {
     return (
       <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-        <p className="font-semibold">Failed to load jobs</p>
+        <p className="font-semibold">{t("jobsPage.failedToLoadJobs")}</p>
         <p className="mt-1">{error}</p>
       </div>
     );
@@ -191,7 +143,7 @@ function JobsPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-          Jobs
+          {t("jobsPage.title")}
         </h1>
         <div className="flex items-center gap-3">
           <div className="relative w-full max-w-xs sm:w-auto">
@@ -212,7 +164,7 @@ function JobsPage() {
             </div>
             <input
               type="text"
-              placeholder="Search"
+              placeholder={t("jobsPage.search")}
               value={search}
               onChange={(event) => {
                 setSearch(event.target.value);
@@ -231,11 +183,11 @@ function JobsPage() {
                   ? "bg-indigo-50 border border-indigo-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
-              title="Table View"
+              title={t("jobsPage.tableView")}
             >
               <img
                 src="https://www.image2url.com/r2/default/images/1787238175143-4ec5690c-77ad-40fb-b362-25c2fc0e0e51.png"
-                alt="Table View"
+                alt={t("jobsPage.tableView")}
                 className={`h-4 w-4 object-contain ${
                   viewMode === "table" ? "opacity-100" : "opacity-50"
                 }`}
@@ -249,11 +201,11 @@ function JobsPage() {
                   ? "bg-indigo-50 border border-indigo-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
-              title="Card View"
+              title={t("jobsPage.cardView")}
             >
               <img
                 src="https://www.image2url.com/r2/default/images/1787238173560-730ec86e-d60d-4dbb-85ff-fc15392d1a73.png"
-                alt="Card View"
+                alt={t("jobsPage.cardView")}
                 className={`h-4 w-4 object-contain ${
                   viewMode === "card" ? "opacity-100" : "opacity-50"
                 }`}
@@ -263,7 +215,7 @@ function JobsPage() {
 
           <Link to="/jobs/new">
             <button className="cursor-pointer w-max inline-flex items-center rounded-lg border border-teal-600 bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 transition-all focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
-              + Add
+              + {t("jobsPage.add")}
             </button>
           </Link>
         </div>
@@ -287,10 +239,10 @@ function JobsPage() {
             </svg>
           </div>
           <h3 className="mt-4 text-base font-semibold text-gray-900">
-            No jobs found
+            {t("jobsPage.noJobsFound")}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            Try adjusting your search criteria or add a new job.
+            {t("jobsPage.adjustSearch")}
           </p>
         </div>
       ) : viewMode === "table" ? (
@@ -299,11 +251,11 @@ function JobsPage() {
             <table className="w-full text-left border-collapse text-sm">
               <thead className="bg-gray-50 border-b border-gray-200 text-xs uppercase font-semibold text-gray-500">
                 <tr className="text-white bg-teal-600">
-                  <th className="px-6 py-3.5">Title</th>
-                  <th className="px-6 py-3.5">Description</th>
-                  <th className="px-6 py-3.5">Location</th>
-                  <th className="px-6 py-3.5">Status</th>
-                  <th className="px-6 py-3.5">Action</th>
+                  <th className="px-6 py-3.5">{t("jobsPage.titleColumn")}</th>
+                  <th className="px-6 py-3.5">{t("jobsPage.description")}</th>
+                  <th className="px-6 py-3.5">{t("jobsPage.location")}</th>
+                  <th className="px-6 py-3.5">{t("jobsPage.status")}</th>
+                  <th className="px-6 py-3.5">{t("jobsPage.action")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 text-gray-700">
@@ -343,7 +295,7 @@ function JobsPage() {
                           onClick={() => handleCopyJobLink(job.id)}
                           className="cursor-pointer rounded-lg border border-gray-200 text-white border border-teal-600 bg-teal-600 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-teal-700 hover:border-gray-300 transition-all"
                         >
-                          Copy Job Link
+                          {t("jobsPage.copyJobLink")}
                         </button>
 
                         <button
@@ -353,8 +305,8 @@ function JobsPage() {
                           className="cursor-pointer w-full sm:w-auto text-center rounded-lg border border-gray-200 text-white border border-teal-600 bg-teal-600 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-teal-700 hover:border-gray-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {isQrLoading && activeJobId === job.id
-                            ? "Generating..."
-                            : "QR Code"}
+                            ? t("jobsPage.generating")
+                            : t("jobsPage.qrCode")}
                         </button>
                       </div>
                     </td>
@@ -381,7 +333,7 @@ function JobsPage() {
                       {job.title}
                     </Link>
                     <p className="text-xs font-medium text-gray-500">
-                      {job.location || "Remote / Unspecified"}
+                      {job.location || t("jobsPage.remoteUnspecified")}
                     </p>
                   </div>
                   <span
@@ -397,7 +349,7 @@ function JobsPage() {
                 </div>
 
                 <p className="text-xs text-gray-600 line-clamp-2 pt-1">
-                  {job.description || "No description provided."}
+                  {job.description || t("jobsPage.noDescription")}
                 </p>
               </div>
 
@@ -407,7 +359,7 @@ function JobsPage() {
                   onClick={() => handleCopyJobLink(job.id)}
                   className="cursor-pointer w-full sm:w-auto text-center rounded-lg border border-gray-200 text-white border-teal-600 bg-teal-600 px-3 py-1.5 text-xs font-medium hover:border-gray-300 transition-all"
                 >
-                  Copy Job Link
+                  {t("jobsPage.copyJobLink")}
                 </button>
 
                 <button
@@ -417,8 +369,8 @@ function JobsPage() {
                   className="cursor-pointer w-full sm:w-auto text-center rounded-lg border border-gray-200 text-white border-teal-600 bg-teal-600 px-3 py-1.5 text-xs font-medium hover:border-gray-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isQrLoading && activeJobId === job.id
-                    ? "Generating..."
-                    : "QR Code"}
+                    ? t("jobsPage.generating")
+                    : t("jobsPage.qrCode")}
                 </button>
               </div>
             </div>
@@ -434,7 +386,7 @@ function JobsPage() {
               className="cursor-pointer absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-600 transition-colors"
               onClick={handleCloseQrModal}
             >
-              <span className="sr-only">Close modal</span>
+              <span className="sr-only"> {t("jobsPage.close")}</span>
               <svg
                 className="h-5 w-5"
                 fill="none"
@@ -451,7 +403,9 @@ function JobsPage() {
             </button>
 
             <div className="text-center">
-              <h2 className="text-lg font-bold text-slate-900">Job QR Code</h2>
+              <h2 className="text-lg font-bold text-slate-900">
+                {t("jobsPage.jobQrCode")}
+              </h2>
               {qrJobTitle && (
                 <p className="mt-1 text-xs font-semibold text-[#009689]">
                   {qrJobTitle}
@@ -462,11 +416,11 @@ function JobsPage() {
             <div className="my-5 flex flex-col items-center justify-center rounded-xl border border-slate-100 bg-slate-50/70 p-4">
               <img
                 src={qrCode}
-                alt={`QR Code for ${qrJobTitle}`}
+                alt={`${t("jobsPage.qrCode")} - ${qrJobTitle}`}
                 className="h-48 w-48 rounded-lg object-contain shadow-xs bg-white p-2 border border-slate-200"
               />
               <p className="mt-3 text-center text-xs text-slate-500">
-                Share this QR code to post this job.
+                {t("jobsPage.shareQrCode")}
               </p>
               {qrJobUrl && (
                 <button
@@ -474,7 +428,7 @@ function JobsPage() {
                   onClick={handleCopyQrJobUrl}
                   className="cursor-pointer mt-2 text-xs font-medium text-teal-600 hover:underline break-all"
                 >
-                  Copy Direct Job Link
+                  {t("jobsPage.copyDirectJobLink")}
                 </button>
               )}
             </div>
@@ -498,7 +452,7 @@ function JobsPage() {
                     d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                   />
                 </svg>
-                Download QR
+                {t("jobsPage.downloadQr")}
               </button>
 
               <button
@@ -506,7 +460,7 @@ function JobsPage() {
                 onClick={handleCloseQrModal}
                 className="cursor-pointer rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
               >
-                Close
+                {t("jobsPage.close")}
               </button>
             </div>
           </div>
@@ -519,15 +473,15 @@ function JobsPage() {
           onClick={() => setPage((currentPage) => currentPage - 1)}
           className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
         >
-          Previous
+          {t("jobsPage.previous")}
         </button>
 
         <span className="text-sm text-gray-700">
-          Page{" "}
+          {t("jobsPage.page")}{" "}
           <span className="font-semibold text-gray-900">
             {pagination?.page ?? 1}
           </span>{" "}
-          of{" "}
+          {t("jobsPage.of")}
           <span className="font-semibold text-gray-900">
             {pagination?.totalPages ?? 1}
           </span>
@@ -538,7 +492,7 @@ function JobsPage() {
           onClick={() => setPage((currentPage) => currentPage + 1)}
           className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
         >
-          Next
+          {t("jobsPage.next")}
         </button>
       </div>
     </div>

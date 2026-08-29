@@ -28,7 +28,7 @@ export const ar = {
 
     profileUpdated: "تم تحديث الملف الشخصي بنجاح.",
 
-    // Employees
+
     employee: {
       title: "الموظفون",
       search: "بحث",
@@ -85,6 +85,52 @@ export const ar = {
       next: "التالي",
       page: "صفحة",
       of: "من",
+    },
+
+    jobsPage: {
+      title: "الوظائف",
+      search: "بحث",
+      add: "إضافة",
+
+      tableView: "عرض الجدول",
+      cardView: "عرض البطاقات",
+
+      titleColumn: "العنوان",
+      description: "الوصف",
+      location: "الموقع",
+      status: "الحالة",
+      action: "الإجراء",
+
+      noJobsFound: "لم يتم العثور على وظائف",
+      adjustSearch: "حاول تعديل معايير البحث أو إضافة وظيفة جديدة.",
+
+      copyJobLink: "نسخ رابط الوظيفة",
+      generating: "جارٍ الإنشاء...",
+      qrCode: "رمز QR",
+
+      jobQrCode: "رمز QR للوظيفة",
+      shareQrCode: "شارك رمز QR هذا لنشر الوظيفة.",
+      copyDirectJobLink: "نسخ رابط الوظيفة المباشر",
+      downloadQr: "تنزيل رمز QR",
+      close: "إغلاق",
+
+      remoteUnspecified: "عن بُعد / غير محدد",
+      noDescription: "لم يتم تقديم وصف.",
+
+      failedToLoadJobs: "فشل تحميل الوظائف",
+      previous: "السابق",
+      next: "التالي",
+      page: "صفحة",
+      of: "من",
+      jobLinkCopied: "تم نسخ رابط الوظيفة بنجاح.",
+      jobUrlCopied: "تم نسخ رابط الوظيفة بنجاح.",
+      failedToGenerateQr: "فشل إنشاء رمز QR.",
+
+      jobStatus: {
+        open: "مفتوحة",
+        active: "نشطة",
+        closed: "مغلقة",
+      },
     },
 
     status: {
