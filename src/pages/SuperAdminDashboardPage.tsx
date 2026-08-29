@@ -299,7 +299,7 @@ function SuperAdminDashboardPage() {
             <div>
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50/80 ring-1 ring-indigo-600/10 p-2">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-50/80 ring-1 ring-teal-600/10 p-2">
                     <img
                       src={CARD_ICONS.candidates}
                       alt="Candidates"
@@ -310,7 +310,7 @@ function SuperAdminDashboardPage() {
                     Total Candidates
                   </p>
                 </div>
-                <span className="rounded-md bg-indigo-50 px-2 py-0.5 text-[11px] font-semibold text-indigo-600 ring-1 ring-inset ring-indigo-600/20">
+                <span className="rounded-md bg-teal-50 px-2 py-0.5 text-[11px] font-semibold text-teal-600 ring-1 ring-inset ring-teal-600/20">
                   Pipeline
                 </span>
               </div>

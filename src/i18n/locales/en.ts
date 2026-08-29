@@ -249,5 +249,48 @@ export const en = {
       employeeCreated: "Employee created successfully.",
       failedToCreate: "Failed to create employee",
     },
+
+    addCandidate: {
+      title: "Add New Candidate",
+      description: "Fill in the candidate details below to create a new profile.",
+
+      firstName: "First Name",
+      lastName: "Last Name",
+      emailAddress: "Email Address",
+      phoneNumber: "Phone Number",
+      designation: "Designation",
+      joiningDate: "Joining Date",
+      jobType: "Job Type",
+      employmentType: "Employment Type",
+
+      firstNamePlaceholder: "John",
+      lastNamePlaceholder: "Doe",
+      emailPlaceholder: "john.doe@example.com",
+      phonePlaceholder: "+1 (555) 000-0000 (Optional)",
+      designationPlaceholder: "Software Engineer",
+
+      selectJob: "Select Job",
+
+      fullTime: "Full Time",
+      partTime: "Part Time",
+      contract: "Contract",
+      intern: "Intern",
+
+      jobRequired: "Job is required.",
+      firstNameRequired: "First name is required.",
+      lastNameRequired: "Last name is required.",
+      emailRequired: "Email is required.",
+      validEmail: "Please enter a valid email address.",
+      designationRequired: "Designation is required.",
+      joiningDateRequired: "Joining date is required.",
+      employmentTypeRequired: "Employment type is required.",
+
+      creating: "Creating...",
+      createCandidate: "Create Candidate",
+
+      createdSuccessfully: "Candidate created successfully.",
+      failedToCreate: "Failed to create Candidate",
+      failedToFetchJobs: "Failed to fetch jobs",
+    },
   },
 };

@@ -223,7 +223,7 @@ const handleMarkAsVerified = async () => {
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="relative flex flex-col gap-4 border-b border-gray-100 bg-gray-50/50 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-indigo-600 text-xl font-bold text-white shadow-sm">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-700 text-xl font-bold text-white shadow-sm">
               {candidate.firstName?.[0]}
               {candidate.lastName?.[0]}
             </div>
@@ -238,7 +238,7 @@ const handleMarkAsVerified = async () => {
           </div>
 
           <button
-            className="cursor-pointer absolute -top-1 right-6 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:bg-red-50 hover:text-red-600"
+            className="cursor-pointer absolute -top-1 right-6 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 hover:bg-red-50 hover:text-red-600"
             onClick={() => handleDeleteClick(candidate.id)}
           >
             Delete
@@ -255,7 +255,7 @@ const handleMarkAsVerified = async () => {
           />
 
           <Link to={`/candidates/${candidate.id}/edit`}>
-            <button className="cursor-pointer absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <button className="cursor-pointer absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
               Edit
             </button>
           </Link>
@@ -316,7 +316,7 @@ const handleMarkAsVerified = async () => {
           <Link to={`/candidates/${candidate.id}/edit`}>
             <button
               type="button"
-              className="cursor-pointer rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
+              className="cursor-pointer rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-700"
             >
               Edit Candidate
             </button>
@@ -373,7 +373,7 @@ const handleMarkAsVerified = async () => {
         type="button"
         onClick={handleGenerateOfferLetter}
         disabled={generatingOfferLetter}
-        className="cursor-pointer rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700"
+        className="cursor-pointer rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-700"
       >
       {generatingOfferLetter ? "Generating..." : "Generate Offer Letter"}
       </button>
@@ -408,7 +408,7 @@ const handleMarkAsVerified = async () => {
         type="button"
         onClick={handleHire}
         disabled={hiring}
-        className="cursor-pointer rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+        className="cursor-pointer rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {hiring ? "Hiring..." : "Hire Candidate"}
       </button>

@@ -149,7 +149,7 @@ function AttendancePage() {
       case "HALF_DAY":
         return "bg-amber-50 text-amber-700 ring-amber-600/20";
       default:
-        return "bg-indigo-50 text-indigo-700 ring-indigo-700/10";
+        return "bg-teal-50 text-teal-700 ring-teal-700/10";
     }
   };
 
@@ -183,7 +183,7 @@ function AttendancePage() {
               onClick={() => setViewMode("table")}
               className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "table"
-                  ? "bg-indigo-50 border border-indigo-200 shadow-xs"
+                  ? "bg-teal-50 border border-teal-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
               title={t("attendancePage.cardView")}
@@ -201,7 +201,7 @@ function AttendancePage() {
               onClick={() => setViewMode("card")}
               className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "card"
-                  ? "bg-indigo-50 border border-indigo-200 shadow-xs"
+                  ? "bg-teal-50 border border-teal-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
               title="Card View"
@@ -220,7 +220,7 @@ function AttendancePage() {
               <select
                 value={selectedEmployeeId}
                 onChange={(event) => setSelectedEmployeeId(event.target.value)}
-                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3.5 pr-10 text-sm font-medium text-slate-700 shadow-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3.5 pr-10 text-sm font-medium text-slate-700 shadow-sm transition-colors focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
               >
                 <option value="">{t("attendancePage.selectEmployee")}</option>
                 {availableEmployees.map((employee) => (
@@ -247,7 +247,7 @@ function AttendancePage() {
                 clockingInEmployeeId === selectedEmployeeId
               }
               onClick={() => handleClockIn(selectedEmployeeId)}
-              className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none"
+              className="inline-flex items-center justify-center rounded-lg bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none"
             >
               {clockingInEmployeeId === selectedEmployeeId ? (
                 <>

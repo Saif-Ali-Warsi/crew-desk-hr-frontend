@@ -127,7 +127,7 @@ function CreateEmployeePage() {
               className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                 errors.firstName
                   ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                  : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
               }`}
             />
             {errors.firstName && (
@@ -152,7 +152,7 @@ function CreateEmployeePage() {
               className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                 errors.lastName
                   ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                  : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
               }`}
             />
             {errors.lastName && (
@@ -179,7 +179,7 @@ function CreateEmployeePage() {
               className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                 errors.email
                   ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                  : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
               }`}
             />
             {errors.email && (
@@ -201,7 +201,7 @@ function CreateEmployeePage() {
                   phone: event.target.value,
                 })
               }
-              className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             />
           </div>
         </div>
@@ -224,7 +224,7 @@ function CreateEmployeePage() {
               className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                 errors.designation
                   ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                  : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
               }`}
             />
             {errors.designation && (
@@ -248,7 +248,7 @@ function CreateEmployeePage() {
               className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                 errors.joiningDate
                   ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                  : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
               }`}
             />
             {errors.joiningDate && (
@@ -273,7 +273,7 @@ function CreateEmployeePage() {
             className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
               errors.employmentType
                 ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
             }`}
           >
             <option value="FULL_TIME"> {t("employeeForm.fullTime")}</option>
@@ -295,7 +295,7 @@ function CreateEmployeePage() {
             <button
               type="submit"
               disabled={loading}
-              className="cursor-pointer inline-flex  items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700 focus:outline-none disabled:cursor-not-allowed disabled:bg-indigo-400"
+              className="cursor-pointer inline-flex  items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700 focus:outline-none disabled:cursor-not-allowed disabled:bg-teal-400"
             >
               {loading ? (
                 <>

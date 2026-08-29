@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { getJobs } from "../api/jobs";
 import type { Job } from "../types/job";
@@ -10,6 +11,7 @@ import {
 } from "../api/candidates";
 
 function CreateCandidatePage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [jobs, setJobs] = useState<Job[]>([]);
 
@@ -47,33 +49,33 @@ function CreateCandidatePage() {
     } = {};
 
     if (!formData.jobId) {
-      newErrors.jobId = "Job is required.";
+      newErrors.jobId = t("addCandidate.jobRequired");
     }
 
     if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required.";
+      newErrors.firstName = t("addCandidate.firstNameRequired");
     }
 
     if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required.";
+      newErrors.lastName = t("addCandidate.lastNameRequired");
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
+      newErrors.email = t("addCandidate.emailRequired");
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address.";
+      newErrors.email = t("addCandidate.validEmail");
     }
 
     if (!formData.designation?.trim()) {
-      newErrors.designation = "Designation is required.";
+      newErrors.designation = t("addCandidate.designationRequired");
     }
 
     if (!formData.joiningDate) {
-      newErrors.joiningDate = "Joining date is required.";
+      newErrors.joiningDate = t("addCandidate.joiningDateRequired");
     }
 
     if (!formData.employmentType) {
-      newErrors.employmentType = "Employment type is required.";
+      newErrors.employmentType = t("addCandidate.employmentTypeRequired");
     }
 
     setErrors(newErrors);
@@ -96,16 +98,15 @@ function CreateCandidatePage() {
         joiningDate: formData.joiningDate
           ? new Date(`${formData.joiningDate}T00:00:00`).toISOString()
           : undefined,
-          resumeUrl: formData.resumeUrl?.trim() || undefined,
+        resumeUrl: formData.resumeUrl?.trim() || undefined,
       });
 
       if (result.success) {
         navigate("/candidates");
-        toast.success("Candidate created successfully.");
+        toast.success(t("addCandidate.createdSuccessfully"));
       }
     } catch (error) {
-      console.error("Failed to create candidate:", error);
-      toast.error("Failed to create Candidate");
+      toast.error(t("addCandidate.failedToCreate"));
     } finally {
       setLoading(false);
     }
@@ -133,9 +134,11 @@ function CreateCandidatePage() {
     <div>
       <div className="mx-auto max-w-2xl rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-gray-900">Add New Candidate</h2>
+          <h2 className="text-xl font-bold text-gray-900">
+            {t("addCandidate.title")}
+          </h2>
           <p className="mt-1 text-sm text-gray-500">
-            Fill in the candidates details below to create a new profile.
+            {t("addCandidate.description")}
           </p>
         </div>
 
@@ -143,11 +146,11 @@ function CreateCandidatePage() {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                First Name
+                {t("addCandidate.firstName")}
               </label>
               <input
                 type="text"
-                placeholder="John"
+                placeholder={t("addCandidate.firstNamePlaceholder")}
                 value={formData.firstName}
                 onChange={(event) =>
                   setFormData({
@@ -158,7 +161,7 @@ function CreateCandidatePage() {
                 className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                   errors.firstName
                     ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                 }`}
               />
               {errors.firstName && (
@@ -168,11 +171,11 @@ function CreateCandidatePage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Last Name
+                {t("addCandidate.lastName")}
               </label>
               <input
                 type="text"
-                placeholder="Doe"
+                placeholder={t("addCandidate.lastNamePlaceholder")}
                 value={formData.lastName}
                 onChange={(event) =>
                   setFormData({
@@ -183,7 +186,7 @@ function CreateCandidatePage() {
                 className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                   errors.lastName
                     ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                 }`}
               />
               {errors.lastName && (
@@ -195,11 +198,11 @@ function CreateCandidatePage() {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Email Address
+                {t("addCandidate.emailAddress")}
               </label>
               <input
                 type="email"
-                placeholder="john.doe@example.com"
+                placeholder={t("addCandidate.emailPlaceholder")}
                 value={formData.email}
                 onChange={(event) =>
                   setFormData({
@@ -210,7 +213,7 @@ function CreateCandidatePage() {
                 className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                   errors.email
                     ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                 }`}
               />
               {errors.email && (
@@ -220,11 +223,11 @@ function CreateCandidatePage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Phone Number
+                {t("addCandidate.phoneNumber")}
               </label>
               <input
                 type="text"
-                placeholder="+1 (555) 000-0000 (Optional)"
+                placeholder={t("addCandidate.phonePlaceholder")}
                 value={formData.phone}
                 onChange={(event) =>
                   setFormData({
@@ -232,7 +235,7 @@ function CreateCandidatePage() {
                     phone: event.target.value,
                   })
                 }
-                className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="mt-1.5 block w-full rounded-md border border-gray-300 px-3.5 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
               />
             </div>
           </div>
@@ -240,11 +243,11 @@ function CreateCandidatePage() {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Designation
+                {t("addCandidate.designation")}
               </label>
               <input
                 type="text"
-                placeholder="Software Engineer"
+                placeholder={t("addCandidate.designationPlaceholder")}
                 value={formData.designation}
                 onChange={(event) =>
                   setFormData({
@@ -255,7 +258,7 @@ function CreateCandidatePage() {
                 className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                   errors.designation
                     ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                 }`}
               />
               {errors.designation && (
@@ -265,7 +268,7 @@ function CreateCandidatePage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Joining Date
+                {t("addCandidate.joiningDate")}
               </label>
               <input
                 type="date"
@@ -279,7 +282,7 @@ function CreateCandidatePage() {
                 className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                   errors.joiningDate
                     ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                 }`}
               />
               {errors.joiningDate && (
@@ -291,7 +294,7 @@ function CreateCandidatePage() {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Job Type
+                {t("addCandidate.jobType")}
               </label>
 
               <select
@@ -305,10 +308,10 @@ function CreateCandidatePage() {
                 className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                   errors.jobId
                     ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                 }`}
               >
-                <option value="">Select Job</option>
+                <option value="">{t("addCandidate.selectJob")}</option>
 
                 {jobs
                   .filter((job) => job.status === "OPEN")
@@ -322,7 +325,7 @@ function CreateCandidatePage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Employment Type
+                {t("addCandidate.employmentType")}
               </label>
               <select
                 value={formData.employmentType}
@@ -336,13 +339,16 @@ function CreateCandidatePage() {
                 className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
                   errors.employmentType
                     ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
                 }`}
               >
-                <option value="FULL_TIME">Full Time</option>
-                <option value="PART_TIME">Part Time</option>
-                <option value="CONTRACT">Contract</option>
-                <option value="INTERN">Intern</option>
+                <option value="FULL_TIME">{t("addCandidate.fullTime")}</option>
+
+                <option value="PART_TIME">{t("addCandidate.partTime")}</option>
+
+                <option value="CONTRACT">{t("addCandidate.contract")}</option>
+
+                <option value="INTERN">{t("addCandidate.intern")}</option>
               </select>
               {errors.employmentType && (
                 <p className="text-xs text-red-600">{errors.employmentType}</p>
@@ -354,15 +360,15 @@ function CreateCandidatePage() {
             <button
               type="submit"
               disabled={loading}
-              className="inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-indigo-400"
+              className="inline-flex w-full items-center justify-center rounded-md border border-transparent bg-teal-700 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-teal-400"
             >
               {loading ? (
                 <>
                   <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  Creating...
+                  {t("addCandidate.creating")}
                 </>
               ) : (
-                "Create Candidate"
+                t("addCandidate.createCandidate")
               )}
             </button>
           </div>

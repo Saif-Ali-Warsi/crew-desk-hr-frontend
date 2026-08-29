@@ -172,7 +172,7 @@ return (
               className={`w-full appearance-none rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 ${
                 errors.employeeId
                   ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/20"
-                  : "border-slate-300 focus:border-indigo-600 focus:ring-indigo-600/20"
+                  : "border-slate-300 focus:border-teal-600 focus:ring-teal-600/20"
               }`}
             >
               <option value="">
@@ -227,7 +227,7 @@ return (
               className={`w-full appearance-none rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 ${
                 errors.leaveType
                   ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/20"
-                  : "border-slate-300 focus:border-indigo-600 focus:ring-indigo-600/20"
+                  : "border-slate-300 focus:border-teal-600 focus:ring-teal-600/20"
               }`}
             >
               <option value="">Select leave type</option>
@@ -278,7 +278,7 @@ return (
               className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 ${
                 errors.startDate
                   ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/20"
-                  : "border-slate-300 focus:border-indigo-600 focus:ring-indigo-600/20"
+                  : "border-slate-300 focus:border-teal-600 focus:ring-teal-600/20"
               }`}
             />
             {errors.startDate && (
@@ -313,7 +313,7 @@ return (
               className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 ${
                 errors.endDate
                   ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/20"
-                  : "border-slate-300 focus:border-indigo-600 focus:ring-indigo-600/20"
+                  : "border-slate-300 focus:border-teal-600 focus:ring-teal-600/20"
               }`}
             />
             {errors.endDate && (
@@ -350,7 +350,7 @@ return (
             className={`w-full resize-none rounded-lg border bg-white p-3.5 text-sm text-slate-900 placeholder-slate-400 shadow-xs transition-colors focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 ${
               errors.reason
                 ? "border-rose-300 focus:border-rose-500 focus:ring-rose-500/20"
-                : "border-slate-300 focus:border-indigo-600 focus:ring-indigo-600/20"
+                : "border-slate-300 focus:border-teal-600 focus:ring-teal-600/20"
             }`}
           />
           <div className="mt-1.5 flex items-center justify-between gap-2">
@@ -384,7 +384,7 @@ return (
         <button
           type="submit"
           disabled={loading || employeesLoading}
-          className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:bg-indigo-400"
+          className="inline-flex items-center justify-center rounded-lg bg-teal-700 px-4 py-2.5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 disabled:cursor-not-allowed disabled:bg-teal-400"
         >
           {loading ? (
             <>

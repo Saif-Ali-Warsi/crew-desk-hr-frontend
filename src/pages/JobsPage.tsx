@@ -170,7 +170,7 @@ function JobsPage() {
                 setSearch(event.target.value);
                 setPage(1);
               }}
-              className="w-full bg-white rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full bg-white rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             />
           </div>
 
@@ -180,7 +180,7 @@ function JobsPage() {
               onClick={() => setViewMode("table")}
               className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "table"
-                  ? "bg-indigo-50 border border-indigo-200 shadow-xs"
+                  ? "bg-teal-50 border border-teal-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
               title={t("jobsPage.tableView")}
@@ -198,7 +198,7 @@ function JobsPage() {
               onClick={() => setViewMode("card")}
               className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "card"
-                  ? "bg-indigo-50 border border-indigo-200 shadow-xs"
+                  ? "bg-teal-50 border border-teal-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
               title={t("jobsPage.cardView")}
@@ -267,7 +267,7 @@ function JobsPage() {
                     <td className="px-6 py-4 font-medium text-gray-900">
                       <Link
                         to={`/jobs/${job.id}`}
-                        className="hover:text-indigo-600 transition-colors"
+                        className="hover:text-teal-600 transition-colors"
                       >
                         {job.title}
                       </Link>
@@ -328,7 +328,7 @@ function JobsPage() {
                   <div>
                     <Link
                       to={`/jobs/${job.id}`}
-                      className="text-base font-bold text-gray-900 hover:text-indigo-600 transition-colors line-clamp-1"
+                      className="text-base font-bold text-gray-900 hover:text-teal-600 transition-colors line-clamp-1"
                     >
                       {job.title}
                     </Link>
@@ -471,7 +471,7 @@ function JobsPage() {
         <button
           disabled={!pagination?.hasPrevious}
           onClick={() => setPage((currentPage) => currentPage - 1)}
-          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
         >
           {t("jobsPage.previous")}
         </button>
@@ -490,7 +490,7 @@ function JobsPage() {
         <button
           disabled={!pagination?.hasNext}
           onClick={() => setPage((currentPage) => currentPage + 1)}
-          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
         >
           {t("jobsPage.next")}
         </button>

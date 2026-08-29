@@ -155,7 +155,7 @@ function LeavesPage() {
               onClick={() => setViewMode("table")}
               className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "table"
-                  ? "bg-indigo-50 border border-indigo-200 shadow-xs"
+                  ? "bg-teal-50 border border-teal-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
               title={t("leavesPage.tableView")}
@@ -173,7 +173,7 @@ function LeavesPage() {
               onClick={() => setViewMode("card")}
               className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "card"
-                  ? "bg-indigo-50 border border-indigo-200 shadow-xs"
+                  ? "bg-teal-50 border border-teal-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
               title={t("leavesPage.cardView")}
@@ -317,7 +317,7 @@ function LeavesPage() {
                         ) : (
                           <button
                             type="button"
-                            className="cursor-pointer inline-flex items-center rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 shadow-xs hover:bg-slate-50 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none"
+                            className="cursor-pointer inline-flex items-center rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 shadow-xs hover:bg-slate-50 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none"
                           >
                             {t("leavesPage.viewDetails")}
                           </button>
@@ -343,7 +343,7 @@ function LeavesPage() {
                     <h3 className="text-base font-bold text-gray-900">
                       {leave.employee.firstName} {leave.employee.lastName}
                     </h3>
-                    <p className="text-xs font-medium text-indigo-600 mt-0.5">
+                    <p className="text-xs font-medium text-teal-600 mt-0.5">
                       {leave.leaveType}
                     </p>
                   </div>

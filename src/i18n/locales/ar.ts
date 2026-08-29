@@ -249,5 +249,48 @@ export const ar = {
       employeeCreated: "تم إنشاء الموظف بنجاح.",
       failedToCreate: "فشل إنشاء الموظف",
     },
+
+    addCandidate: {
+      title: "إضافة مرشح جديد",
+      description: "أدخل تفاصيل المرشح أدناه لإنشاء ملف شخصي جديد.",
+
+      firstName: "الاسم الأول",
+      lastName: "اسم العائلة",
+      emailAddress: "عنوان البريد الإلكتروني",
+      phoneNumber: "رقم الهاتف",
+      designation: "المسمى الوظيفي",
+      joiningDate: "تاريخ الانضمام",
+      jobType: "نوع الوظيفة",
+      employmentType: "نوع التوظيف",
+
+      firstNamePlaceholder: "محمد",
+      lastNamePlaceholder: "أحمد",
+      emailPlaceholder: "john.doe@example.com",
+      phonePlaceholder: "+1 (555) 000-0000 (اختياري)",
+      designationPlaceholder: "مهندس برمجيات",
+
+      selectJob: "اختر الوظيفة",
+
+      fullTime: "دوام كامل",
+      partTime: "دوام جزئي",
+      contract: "عقد",
+      intern: "متدرب",
+
+      jobRequired: "الوظيفة مطلوبة.",
+      firstNameRequired: "الاسم الأول مطلوب.",
+      lastNameRequired: "اسم العائلة مطلوب.",
+      emailRequired: "البريد الإلكتروني مطلوب.",
+      validEmail: "يرجى إدخال عنوان بريد إلكتروني صالح.",
+      designationRequired: "المسمى الوظيفي مطلوب.",
+      joiningDateRequired: "تاريخ الانضمام مطلوب.",
+      employmentTypeRequired: "نوع التوظيف مطلوب.",
+
+      creating: "جارٍ الإنشاء...",
+      createCandidate: "إنشاء مرشح",
+
+      createdSuccessfully: "تم إنشاء المرشح بنجاح.",
+      failedToCreate: "فشل إنشاء المرشح",
+      failedToFetchJobs: "فشل تحميل الوظائف",
+    },
   },
 };

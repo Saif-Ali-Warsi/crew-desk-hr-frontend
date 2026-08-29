@@ -144,7 +144,7 @@ function EmployeeDetailsPage() {
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="relative flex flex-col gap-4 border-b border-gray-100 bg-gray-50/50 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-indigo-600 text-xl font-bold text-white shadow-sm">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-600 text-xl font-bold text-white shadow-sm">
               {employee.firstName?.[0]}
               {employee.lastName?.[0]}
             </div>
@@ -159,7 +159,7 @@ function EmployeeDetailsPage() {
           </div>
 
           <button
-            className="absolute -top-1 right-6 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:bg-red-50 hover:text-red-600"
+            className="absolute -top-1 right-6 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 hover:bg-red-50 hover:text-red-600"
             onClick={() => handleDeleteClick(employee.id)}
           >
             Delete
@@ -176,7 +176,7 @@ function EmployeeDetailsPage() {
           />
 
           <Link to={`/employees/${employee.id}/edit`}>
-            <button className="absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <button className="absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
               Edit
             </button>
           </Link>

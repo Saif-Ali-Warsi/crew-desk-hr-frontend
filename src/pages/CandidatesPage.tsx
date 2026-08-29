@@ -113,13 +113,13 @@ function CandidatesPage() {
                   setSearch(event.target.value);
                   setPage(1);
                 }}
-                className="w-full bg-white rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="w-full bg-white rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
               />
             </div>
 
             <select
               value={status}
-              className="w-full bg-white sm:w-auto rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="w-full bg-white sm:w-auto rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
               onChange={(event) => {
                 setStatus(event.target.value as CandidateStatus | "");
                 setPage(1);
@@ -147,7 +147,7 @@ function CandidatesPage() {
               onClick={() => setViewMode("table")}
               className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "table"
-                  ? "bg-indigo-50 border border-indigo-200 shadow-xs"
+                  ? "bg-teal-50 border border-teal-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
               title="Table View"
@@ -165,7 +165,7 @@ function CandidatesPage() {
               onClick={() => setViewMode("card")}
               className={`cursor-pointer flex h-8 w-8 items-center justify-center rounded-md transition-all ${
                 viewMode === "card"
-                  ? "bg-indigo-50 border border-indigo-200 shadow-xs"
+                  ? "bg-teal-50 border border-teal-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
               title="Card View"
@@ -236,7 +236,7 @@ function CandidatesPage() {
                     <td className="px-6 py-4 font-medium text-gray-900">
                       <Link
                         to={`/candidates/${candidate.id}`}
-                        className="hover:text-indigo-600 transition-colors"
+                        className="hover:text-teal-600 transition-colors"
                       >
                         {candidate.firstName} {candidate.lastName}
                       </Link>
@@ -251,7 +251,7 @@ function CandidatesPage() {
                       {candidate.job?.title}
                     </td>
                     <td className="px-6 py-4">
-                      <span className="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-700/10 capitalize">
+                      <span className="inline-flex items-center rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-semibold text-teal-700 ring-1 ring-inset ring-teal-700/10 capitalize">
                         {candidate.status}
                       </span>
                     </td>
@@ -273,7 +273,7 @@ function CandidatesPage() {
                   <div>
                     <Link
                       to={`/candidates/${candidate.id}`}
-                      className="text-base font-bold text-gray-900 hover:text-indigo-600 transition-colors"
+                      className="text-base font-bold text-gray-900 hover:text-teal-600 transition-colors"
                     >
                       {candidate.firstName} {candidate.lastName}
                     </Link>
@@ -281,7 +281,7 @@ function CandidatesPage() {
                       {candidate.job?.title || "No Position Specified"}
                     </p>
                   </div>
-                  <span className="inline-flex items-center rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-700/10 capitalize">
+                  <span className="inline-flex items-center rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-semibold text-teal-700 ring-1 ring-inset ring-teal-700/10 capitalize">
                     {candidate.status}
                   </span>
                 </div>
@@ -314,7 +314,7 @@ function CandidatesPage() {
         <button
           disabled={!pagination?.hasPrevious}
           onClick={() => setPage((currentPage) => currentPage - 1)}
-          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
         >
           {t("candidatesPage.previous")}
         </button>
@@ -329,7 +329,7 @@ function CandidatesPage() {
         <button
           disabled={!pagination?.hasNext}
           onClick={() => setPage((currentPage) => currentPage + 1)}
-          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
         >
           {t("candidatesPage.next")}
         </button>
