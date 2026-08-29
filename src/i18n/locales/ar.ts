@@ -133,6 +133,42 @@ export const ar = {
       },
     },
 
+    attendancePage: {
+      title: "الحضور",
+
+      tableView: "عرض الجدول",
+      cardView: "عرض البطاقات",
+
+      selectEmployee: "اختر موظفًا",
+      clockIn: "تسجيل الدخول",
+      clockingIn: "جارٍ تسجيل الدخول...",
+      clockOut: "تسجيل الخروج",
+      clockingOut: "جارٍ تسجيل الخروج...",
+      completed: "مكتمل",
+
+      employee: "الموظف",
+      status: "الحالة",
+      clockInTime: "وقت الدخول",
+      clockOutTime: "وقت الخروج",
+      totalHours: "إجمالي الساعات",
+      actions: "الإجراءات",
+      hours: "الساعات",
+
+      noRecordsFound: "لم يتم العثور على سجلات الحضور",
+      noRecordsForPeriod:
+        "لا توجد سجلات متاحة للفترة المحددة.",
+
+      failedToLoadRecords: "فشل تحميل سجلات الحضور",
+      failedToLoad: "فشل تحميل الحضور.",
+    },
+
+    attendanceStatus: {
+      present: "حاضر",
+      absent: "غائب",
+      late: "متأخر",
+      halfDay: "نصف يوم",
+    },
+
     status: {
       active: "نشط",
       inactive: "غير نشط",

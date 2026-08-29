@@ -133,6 +133,42 @@ export const en = {
       },
     },
 
+    attendancePage: {
+      title: "Attendance",
+
+      tableView: "Table View",
+      cardView: "Card View",
+
+      selectEmployee: "Select Employee",
+      clockIn: "Clock In",
+      clockingIn: "Clocking In...",
+      clockOut: "Clock Out",
+      clockingOut: "Clocking Out...",
+      completed: "Completed",
+
+      employee: "Employee",
+      status: "Status",
+      clockInTime: "Clock In",
+      clockOutTime: "Clock Out",
+      totalHours: "Total Hours",
+      actions: "Actions",
+      hours: "Hours",
+
+      noRecordsFound: "No attendance records found",
+      noRecordsForPeriod:
+        "There are no log records available for the selected period.",
+
+      failedToLoadRecords: "Failed to load attendance records",
+      failedToLoad: "Failed to load attendance.",
+    },
+
+    attendanceStatus: {
+      present: "Present",
+      absent: "Absent",
+      late: "Late",
+      halfDay: "Half Day",
+    },
+
     status: {
       active: "Active",
       inactive: "Inactive",

@@ -1,11 +1,15 @@
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getAttendance, clockOut, clockIn } from "../api/attendance";
 import type { Attendance } from "../types/attendance";
 import { formatTime } from "../utils/date";
 import { getEmployees } from "../api/employees";
 import type { Employee } from "../types/employee";
+import TableShimmerLoader from "../components/TableShimmer";
 
 function AttendancePage() {
+  const { t } = useTranslation();
+
   const [attendance, setAttendance] = useState<Attendance[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -23,6 +27,21 @@ function AttendancePage() {
   const [viewMode, setViewMode] = useState<"table" | "card">(() => {
     return window.innerWidth < 768 ? "card" : "table";
   });
+
+  const getStatusLabel = (status: string) => {
+    switch (status.toUpperCase()) {
+      case "PRESENT":
+        return t("attendanceStatus.present");
+      case "ABSENT":
+        return t("attendanceStatus.absent");
+      case "LATE":
+        return t("attendanceStatus.late");
+      case "HALF_DAY":
+        return t("attendanceStatus.halfDay");
+      default:
+        return status;
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,7 +63,7 @@ function AttendancePage() {
         }
       } catch (error) {
         console.error("Failed to fetch attendance:", error);
-        setError("Failed to load attendance.");
+        setError(t("attendancePage.failedToLoad"));
       } finally {
         setLoading(false);
       }
@@ -135,69 +154,17 @@ function AttendancePage() {
   };
 
   if (loading) {
-    return (
-      <div className="space-y-6 animate-pulse">
-        <div className="h-8 w-40 rounded-lg bg-gray-200" />
-
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <table className="w-full text-left border-collapse">
-            <thead className="border-b border-gray-200 bg-gray-50">
-              <tr>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-32 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-20 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-20 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-20 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-24 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="ml-auto h-4 w-16 rounded bg-gray-200" />
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {[...Array(5)].map((_, i) => (
-                <tr key={i}>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-40 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-6 w-20 rounded-full bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-16 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-16 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-16 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="ml-auto h-6 w-16 rounded bg-gray-200" />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
+    return <TableShimmerLoader></TableShimmerLoader>;
   }
 
   if (error) {
     return (
       <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-        <p className="font-semibold">Failed to load attendance records</p>
-        <p className="mt-1">{error}</p>
+        <p className="font-semibold">
+          {" "}
+          {t("attendancePage.failedToLoadRecords")}
+        </p>
+        <p className="mt-1">{t(`attendancePage.${error}`)}</p>
       </div>
     );
   }
@@ -206,11 +173,10 @@ function AttendancePage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-          Attendance
+          {t("attendancePage.title")}
         </h1>
 
         <div className="flex items-center gap-3">
-       
           <div className="flex items-center rounded-lg border border-gray-200 bg-white p-1 shadow-xs">
             <button
               type="button"
@@ -220,11 +186,11 @@ function AttendancePage() {
                   ? "bg-indigo-50 border border-indigo-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
-              title="Table View"
+              title={t("attendancePage.cardView")}
             >
               <img
                 src="https://www.image2url.com/r2/default/images/1787238175143-4ec5690c-77ad-40fb-b362-25c2fc0e0e51.png"
-                alt="Table View"
+                alt={t("attendancePage.tableView")}
                 className={`h-4 w-4 object-contain ${
                   viewMode === "table" ? "opacity-100" : "opacity-50"
                 }`}
@@ -249,14 +215,14 @@ function AttendancePage() {
               />
             </button>
           </div>
-             <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <div className="relative flex sm:flex-row sm:items-center gap-3 max-w-md">
               <select
                 value={selectedEmployeeId}
                 onChange={(event) => setSelectedEmployeeId(event.target.value)}
                 className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3.5 pr-10 text-sm font-medium text-slate-700 shadow-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
               >
-                <option value="">Select Employee</option>
+                <option value="">{t("attendancePage.selectEmployee")}</option>
                 {availableEmployees.map((employee) => (
                   <option key={employee.id} value={employee.id}>
                     {employee.firstName} {employee.lastName}
@@ -304,10 +270,10 @@ function AttendancePage() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     ></path>
                   </svg>
-                  Clocking In...
+                  t("attendancePage.clockingIn")
                 </>
               ) : (
-                "Clock In"
+                t("attendancePage.clockIn")
               )}
             </button>
           </div>
@@ -332,10 +298,10 @@ function AttendancePage() {
             </svg>
           </div>
           <h3 className="mt-4 text-base font-semibold text-gray-900">
-            No attendance records found
+            {t("attendancePage.noRecordsFound")}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            There are no log records available for the selected period.
+            {t("attendancePage.noRecordsForPeriod")}
           </p>
         </div>
       ) : viewMode === "table" ? (
@@ -344,12 +310,22 @@ function AttendancePage() {
             <table className="w-full border-collapse text-left text-sm">
               <thead className="border-b border-gray-200 bg-gray-50 text-xs font-semibold uppercase text-gray-500">
                 <tr className="text-white bg-teal-600">
-                  <th className="px-6 py-3.5">Employee</th>
-                  <th className="px-6 py-3.5">Status</th>
-                  <th className="px-6 py-3.5">Clock In</th>
-                  <th className="px-6 py-3.5">Clock Out</th>
-                  <th className="px-6 py-3.5">Total Hours</th>
-                  <th className="px-6 py-3.5 text-right">Actions</th>
+                  <th className="px-6 py-3.5">
+                    {t("attendancePage.employee")}
+                  </th>
+                  <th className="px-6 py-3.5">{t("attendancePage.status")}</th>
+                  <th className="px-6 py-3.5">
+                    {t("attendancePage.clockInTime")}
+                  </th>
+                  <th className="px-6 py-3.5">
+                    {t("attendancePage.clockOutTime")}
+                  </th>
+                  <th className="px-6 py-3.5">
+                    {t("attendancePage.totalHours")}
+                  </th>
+                  <th className="px-6 py-3.5 text-right">
+                    {t("attendancePage.actions")}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 text-gray-700">
@@ -372,7 +348,7 @@ function AttendancePage() {
                           record.status,
                         )}`}
                       >
-                        {record.status.toLowerCase().replace("_", " ")}
+                        {getStatusLabel(record.status)}
                       </span>
                     </td>
                     <td className="px-6 py-4 font-mono text-xs text-gray-600">
@@ -383,7 +359,9 @@ function AttendancePage() {
                     </td>
                     <td className="px-6 py-4 font-medium text-gray-900">
                       {record.totalHours
-                        ? `${Math.floor(Number(record.totalHours) * 10) / 10} hrs`
+                        ? `${Math.floor(Number(record.totalHours) * 10) / 10} ${t(
+                            "attendancePage.hours",
+                          )}`
                         : "—"}
                     </td>
 
@@ -396,12 +374,12 @@ function AttendancePage() {
                           className="cursor-pointer inline-flex items-center rounded-md bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-500 transition-colors"
                         >
                           {clockingOutEmployeeId === record.employeeId
-                            ? "Clocking Out..."
-                            : "Clock Out"}
+                            ? t("attendancePage.clockingOut")
+                            : t("attendancePage.clockOut")}
                         </button>
                       ) : (
                         <span className="text-xs font-medium text-gray-400">
-                          Completed
+                          {t("attendancePage.completed")}
                         </span>
                       )}
                     </td>
@@ -433,14 +411,14 @@ function AttendancePage() {
                       record.status,
                     )}`}
                   >
-                    {record.status.toLowerCase().replace("_", " ")}
+                    {getStatusLabel(record.status)}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-3 gap-2 rounded-lg bg-gray-50 p-3 text-center">
                   <div>
                     <p className="text-[10px] font-semibold uppercase text-gray-400">
-                      Clock In
+                      {t("attendancePage.clockInTime")}
                     </p>
                     <p className="mt-0.5 font-mono text-xs font-medium text-gray-700">
                       {formatTime(record.clockIn)}
@@ -448,7 +426,7 @@ function AttendancePage() {
                   </div>
                   <div>
                     <p className="text-[10px] font-semibold uppercase text-gray-400">
-                      Clock Out
+                      {t("attendancePage.clockOutTime")}
                     </p>
                     <p className="mt-0.5 font-mono text-xs font-medium text-gray-700">
                       {formatTime(record.clockOut)}
@@ -456,11 +434,13 @@ function AttendancePage() {
                   </div>
                   <div>
                     <p className="text-[10px] font-semibold uppercase text-gray-400">
-                      Hours
+                      {t("attendancePage.hours")}
                     </p>
                     <p className="mt-0.5 font-mono text-xs font-medium text-gray-900">
                       {record.totalHours
-                        ? `${Math.floor(Number(record.totalHours) * 10) / 10}h`
+                        ? `${Math.floor(Number(record.totalHours) * 10) / 10} ${t(
+                            "attendancePage.hours",
+                          )}`
                         : "—"}
                     </p>
                   </div>
@@ -476,12 +456,12 @@ function AttendancePage() {
                     className="cursor-pointer w-full text-center rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-500 transition-colors"
                   >
                     {clockingOutEmployeeId === record.employeeId
-                      ? "Clocking Out..."
-                      : "Clock Out"}
+                      ? t("attendancePage.clockingOut")
+                      : t("attendancePage.clockOut")}
                   </button>
                 ) : (
                   <span className="w-full text-center text-xs font-medium text-gray-400 py-1">
-                    Completed
+                  {t("attendancePage.completed")}
                   </span>
                 )}
               </div>

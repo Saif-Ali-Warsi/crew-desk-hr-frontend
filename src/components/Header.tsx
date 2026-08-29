@@ -103,7 +103,7 @@ function Header({ companyName, onMenuToggle }: HeaderProps) {
 
           <div className="flex items-center gap-2.5 pl-1">
             {user?.role !== "SUPER_ADMIN" && (
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-white font-bold text-xs ring-2 ring-teal-500/20 shadow-xs">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-teal-700 text-white font-bold text-xs ring-2 ring-teal-500/20 shadow-xs">
                 {firstName.charAt(0).toUpperCase()}
                 {lastName.charAt(0).toUpperCase()}
               </div>
