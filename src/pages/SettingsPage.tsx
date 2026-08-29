@@ -29,7 +29,7 @@ function SettingsPage() {
         lastName: user.lastName || "",
         username: user.username || "",
         email: user.email || "",
-       language: user.language || "EN",
+        language: user.language || "EN",
       });
       setLoading(false);
     }
@@ -44,17 +44,17 @@ function SettingsPage() {
   };
 
   const handleLanguageChange = async (
-  event: React.ChangeEvent<HTMLSelectElement>
-) => {
-  const language = event.target.value as "EN" | "AR";
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    const language = event.target.value as "EN" | "AR";
 
-  setFormData((prev) => ({
-    ...prev,
-    language,
-  }));
+    setFormData((prev) => ({
+      ...prev,
+      language,
+    }));
 
-  await applyLanguage(language);
-};
+    await applyLanguage(language);
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -120,7 +120,7 @@ function SettingsPage() {
       <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-xs transition-all">
         <div className="border-b border-slate-100 bg-gradient-to-r from-teal-50/50 via-slate-50/30 to-white p-6 sm:px-8">
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
-            <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-900 text-xl font-bold text-white ring-4 ring-teal-500/10 shadow-sm">
+            <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-teal-700 text-xl font-bold text-white ring-4 ring-teal-500/10 shadow-sm">
               {initials}
             </div>
             <div>
@@ -233,18 +233,18 @@ function SettingsPage() {
 
               <div>
                 <label className="mb-1.5 block text-xs font-semibold text-slate-700">
-  Language
-</label>
+                  Language
+                </label>
 
-<select
-  name="language"
-  value={formData.language}
-  onChange={handleLanguageChange}
-  className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-medium text-slate-900 outline-none transition-all hover:border-slate-300 focus:border-[#009689] focus:ring-4 focus:ring-teal-500/10"
->
-  <option value="EN">English</option>
-  <option value="AR">العربية</option>
-</select>
+                <select
+                  name="language"
+                  value={formData.language}
+                  onChange={handleLanguageChange}
+                  className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm font-medium text-slate-900 outline-none transition-all hover:border-slate-300 focus:border-[#009689] focus:ring-4 focus:ring-teal-500/10"
+                >
+                  <option value="EN">English</option>
+                  <option value="AR">العربية</option>
+                </select>
               </div>
             </div>
           </div>
@@ -313,7 +313,7 @@ function SettingsPage() {
             <button
               type="submit"
               disabled={saving}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#009689] px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-teal-700 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+              className="cursor-pointer inline-flex items-center justify-center gap-2 rounded-xl bg-[#009689] px-6 py-2.5 text-sm font-semibold text-white shadow-xs transition-all hover:bg-teal-700 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {saving ? (
                 <>
