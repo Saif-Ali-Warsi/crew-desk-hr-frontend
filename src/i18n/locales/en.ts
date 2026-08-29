@@ -169,6 +169,44 @@ export const en = {
       halfDay: "Half Day",
     },
 
+    leavesPage: {
+      title: "Leaves",
+
+      tableView: "Table View",
+      cardView: "Card View",
+      applyLeave: "Apply Leave",
+
+      employee: "Employee",
+      leaveType: "Leave Type",
+      startDate: "Start Date",
+      endDate: "End Date",
+      reason: "Reason",
+      status: "Status",
+      action: "Action",
+
+      noLeavesFound: "No leaves data found",
+      adjustSearch: "Try adjusting your search criteria or refresh the page.",
+
+      failedToLoadLeaves: "Failed to load leaves",
+
+      processing: "Processing...",
+      approve: "Approve",
+      reject: "Reject",
+      viewDetails: "View Details",
+
+      na: "N/A",
+
+      leaveApproved: "Leave approved successfully.",
+      leaveRejected: "Leave rejected successfully.",
+
+      leaveStatus: {
+        approved: "Approved",
+        active: "Active",
+        rejected: "Rejected",
+        pending: "Pending",
+      },
+    },
+
     status: {
       active: "Active",
       inactive: "Inactive",

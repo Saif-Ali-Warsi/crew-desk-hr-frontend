@@ -169,6 +169,44 @@ export const ar = {
       halfDay: "نصف يوم",
     },
 
+    leavesPage: {
+      title: "الإجازات",
+
+      tableView: "عرض الجدول",
+      cardView: "عرض البطاقات",
+      applyLeave: "تقديم طلب إجازة",
+
+      employee: "الموظف",
+      leaveType: "نوع الإجازة",
+      startDate: "تاريخ البدء",
+      endDate: "تاريخ الانتهاء",
+      reason: "السبب",
+      status: "الحالة",
+      action: "الإجراء",
+
+      noLeavesFound: "لم يتم العثور على بيانات الإجازات",
+      adjustSearch: "حاول تعديل معايير البحث أو تحديث الصفحة.",
+
+      failedToLoadLeaves: "فشل تحميل الإجازات",
+
+      processing: "جارٍ المعالجة...",
+      approve: "موافقة",
+      reject: "رفض",
+      viewDetails: "عرض التفاصيل",
+
+      na: "غير متوفر",
+
+      leaveApproved: "تمت الموافقة على طلب الإجازة بنجاح.",
+      leaveRejected: "تم رفض طلب الإجازة بنجاح.",
+
+      leaveStatus: {
+        approved: "موافق عليها",
+        active: "نشطة",
+        rejected: "مرفوضة",
+        pending: "قيد الانتظار",
+      },
+    },
+
     status: {
       active: "نشط",
       inactive: "غير نشط",

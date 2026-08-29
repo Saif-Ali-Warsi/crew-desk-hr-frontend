@@ -3,13 +3,19 @@ import { getLeaves, approveLeave, rejectLeave } from "../api/leave";
 import type { Leave } from "../types/leave";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import TableShimmerLoader from "../components/TableShimmer";
+import { useTranslation } from "react-i18next";
 
 function LeavesPage() {
+  const { t } = useTranslation();
+
   const [leaves, setLeaves] = useState<Leave[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [processingLeaveId, setProcessingLeaveId] = useState<string | null>(null);
+  const [processingLeaveId, setProcessingLeaveId] = useState<string | null>(
+    null,
+  );
 
   const [viewMode, setViewMode] = useState<"table" | "card">(() => {
     return window.innerWidth < 768 ? "card" : "table";
@@ -37,7 +43,7 @@ function LeavesPage() {
         }
       } catch (error) {
         console.error("Failed to fetch leaves:", error);
-        setError("Failed to load leave requests.");
+        setError("failedToLoadLeaves");
       } finally {
         setLoading(false);
       }
@@ -72,7 +78,14 @@ function LeavesPage() {
 
       if (result.success) {
         await fetchLeaves();
-        toast.success(`Leave ${action}ed Successfully`);
+        toast.success(
+          t("leavesPage.leaveActionSuccess", {
+            action:
+              action === "approve"
+                ? t("leavesPage.approve")
+                : t("leavesPage.reject"),
+          }),
+        );
       }
     } catch (error) {
       console.error(`Failed to ${action} leave:`, error);
@@ -96,65 +109,33 @@ function LeavesPage() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="space-y-6 animate-pulse">
-        <div className="flex items-center justify-between">
-          <div className="h-8 w-40 rounded-lg bg-gray-200" />
-        </div>
+  const getStatusLabel = (status: string) => {
+    switch (status.toUpperCase()) {
+      case "APPROVED":
+        return t("leavesPage.leaveStatus.approved");
 
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <table className="w-full border-collapse text-left">
-            <thead className="border-b border-gray-200 bg-gray-50">
-              <tr>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-24 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-16 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-32 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-20 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-16 rounded bg-gray-200" />
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {[...Array(5)].map((_, i) => (
-                <tr key={i}>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-32 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-20 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-40 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-24 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-6 w-16 rounded-full bg-gray-200" />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
+      case "ACTIVE":
+        return t("leavesPage.leaveStatus.active");
+
+      case "REJECTED":
+        return t("leavesPage.leaveStatus.rejected");
+
+      case "PENDING":
+        return t("leavesPage.leaveStatus.pending");
+
+      default:
+        return status;
+    }
+  };
+
+  if (loading) {
+    return <TableShimmerLoader></TableShimmerLoader>;
   }
 
   if (error) {
     return (
       <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-        <p className="font-semibold">Failed to load leaves</p>
+        <p className="font-semibold">{t("leavesPage.failedToLoadLeaves")}</p>
         <p className="mt-1">{error}</p>
       </div>
     );
@@ -164,7 +145,7 @@ function LeavesPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-          Leaves
+          {t("leavesPage.title")}
         </h1>
 
         <div className="flex items-center gap-3">
@@ -177,11 +158,11 @@ function LeavesPage() {
                   ? "bg-indigo-50 border border-indigo-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
-              title="Table View"
+              title={t("leavesPage.tableView")}
             >
               <img
                 src="https://www.image2url.com/r2/default/images/1787238175143-4ec5690c-77ad-40fb-b362-25c2fc0e0e51.png"
-                alt="Table View"
+                alt={t("leavesPage.tableView")}
                 className={`h-4 w-4 object-contain ${
                   viewMode === "table" ? "opacity-100" : "opacity-50"
                 }`}
@@ -195,11 +176,11 @@ function LeavesPage() {
                   ? "bg-indigo-50 border border-indigo-200 shadow-xs"
                   : "hover:bg-gray-100"
               }`}
-              title="Card View"
+              title={t("leavesPage.cardView")}
             >
               <img
                 src="https://www.image2url.com/r2/default/images/1787238173560-730ec86e-d60d-4dbb-85ff-fc15392d1a73.png"
-                alt="Card View"
+                alt={t("leavesPage.cardView")}
                 className={`h-4 w-4 object-contain ${
                   viewMode === "card" ? "opacity-100" : "opacity-50"
                 }`}
@@ -213,7 +194,7 @@ function LeavesPage() {
               onClick={() => navigate("/leaves/new")}
               className="cursor-pointer w-max inline-flex items-center rounded-lg border border-teal-600 bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 transition-all focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
             >
-              + Apply Leave
+              + {t("leavesPage.applyLeave")}
             </button>
           )}
         </div>
@@ -237,10 +218,10 @@ function LeavesPage() {
             </svg>
           </div>
           <h3 className="mt-4 text-base font-semibold text-gray-900">
-            No leaves data found
+            {t("leavesPage.noLeavesFound")}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            Try adjusting your search criteria or refresh the page.
+            {t("leavesPage.adjustSearch")}
           </p>
         </div>
       ) : viewMode === "table" ? (
@@ -249,13 +230,21 @@ function LeavesPage() {
             <table className="w-full border-collapse text-left text-sm">
               <thead className="border-b border-gray-200 bg-gray-50 text-xs font-semibold uppercase text-gray-500">
                 <tr className="text-white bg-teal-600">
-                  <th className="px-6 py-3.5">Employee</th>
-                  <th className="px-6 py-3.5">Leave type</th>
-                  <th className="px-6 py-3.5">Start Date</th>
-                  <th className="px-6 py-3.5">End Date</th>
-                  <th className="px-6 py-3.5">Reason</th>
-                  <th className="px-6 py-3.5">Status</th>
-                  <th className="px-6 py-3.5 text-right">Action</th>
+                  <th className="px-6 py-3.5">{t("leavesPage.employee")}</th>
+
+                  <th className="px-6 py-3.5">{t("leavesPage.leaveType")}</th>
+
+                  <th className="px-6 py-3.5">{t("leavesPage.startDate")}</th>
+
+                  <th className="px-6 py-3.5">{t("leavesPage.endDate")}</th>
+
+                  <th className="px-6 py-3.5">{t("leavesPage.reason")}</th>
+
+                  <th className="px-6 py-3.5">{t("leavesPage.status")}</th>
+
+                  <th className="px-6 py-3.5 text-right">
+                    {t("leavesPage.action")}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 text-gray-700">
@@ -273,23 +262,26 @@ function LeavesPage() {
                     <td className="px-6 py-4 font-mono text-xs">
                       {leave.startDate
                         ? new Date(leave.startDate).toLocaleDateString()
-                        : "N/A"}
+                        : t("leavesPage.na")}
                     </td>
                     <td className="px-6 py-4 font-mono text-xs">
                       {leave.endDate
                         ? new Date(leave.endDate).toLocaleDateString()
-                        : "N/A"}
+                        : t("leavesPage.na")}
                     </td>
-                    <td className="px-6 py-4 max-w-xs truncate" title={leave.reason}>
+                    <td
+                      className="px-6 py-4 max-w-xs truncate"
+                      title={leave.reason}
+                    >
                       {leave.reason}
                     </td>
                     <td className="px-6 py-4">
                       <span
                         className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ring-1 ring-inset ${getStatusBadge(
-                          leave.status
+                          leave.status,
                         )}`}
                       >
-                        {leave.status?.toLowerCase()}
+                        {getStatusLabel(leave.status)}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -305,8 +297,8 @@ function LeavesPage() {
                               className="cursor-pointer inline-flex items-center rounded-lg bg-emerald-50 px-2.5 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-100 active:bg-emerald-200 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none"
                             >
                               {processingLeaveId === leave.id
-                                ? "Processing..."
-                                : "Approve"}
+                                ? t("leavesPage.processing")
+                                : t("leavesPage.approve")}
                             </button>
 
                             <button
@@ -318,8 +310,8 @@ function LeavesPage() {
                               className="cursor-pointer inline-flex items-center rounded-lg bg-rose-50 px-2.5 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100 active:bg-rose-200 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none"
                             >
                               {processingLeaveId === leave.id
-                                ? "Processing..."
-                                : "Reject"}
+                                ? t("leavesPage.processing")
+                                : t("leavesPage.reject")}
                             </button>
                           </>
                         ) : (
@@ -327,7 +319,7 @@ function LeavesPage() {
                             type="button"
                             className="cursor-pointer inline-flex items-center rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 shadow-xs hover:bg-slate-50 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none"
                           >
-                            View Details
+                            {t("leavesPage.viewDetails")}
                           </button>
                         )}
                       </div>
@@ -357,10 +349,10 @@ function LeavesPage() {
                   </div>
                   <span
                     className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ring-1 ring-inset ${getStatusBadge(
-                      leave.status
+                      leave.status,
                     )}`}
                   >
-                    {leave.status?.toLowerCase()}
+                    {getStatusLabel(leave.status)}
                   </span>
                 </div>
 
@@ -409,8 +401,8 @@ function LeavesPage() {
                       className="cursor-pointer flex-1 text-center rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-100 transition-colors disabled:opacity-50"
                     >
                       {processingLeaveId === leave.id
-                        ? "Processing..."
-                        : "Approve"}
+                        ? t("leavesPage.processing")
+                        : t("leavesPage.approve")}
                     </button>
 
                     <button
@@ -420,8 +412,8 @@ function LeavesPage() {
                       className="cursor-pointer flex-1 text-center rounded-lg bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100 transition-colors disabled:opacity-50"
                     >
                       {processingLeaveId === leave.id
-                        ? "Processing..."
-                        : "Reject"}
+                        ? t("leavesPage.processing")
+                        : t("leavesPage.reject")}
                     </button>
                   </>
                 ) : (
@@ -429,7 +421,7 @@ function LeavesPage() {
                     type="button"
                     className="cursor-pointer w-full text-center rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 transition-colors"
                   >
-                    View Details
+                    {t("leavesPage.viewDetails")}
                   </button>
                 )}
               </div>
