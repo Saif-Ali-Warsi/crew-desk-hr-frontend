@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getCandidates } from "../api/candidates";
 import type {
@@ -6,8 +7,11 @@ import type {
   CandidateStatus,
 } from "../types/candidate";
 import { Link } from "react-router-dom";
+import TableShimmerLoader from "../components/TableShimmer";
 
 function CandidatesPage() {
+  const { t } = useTranslation();
+
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -65,62 +69,13 @@ function CandidatesPage() {
   }, [search, page, status]);
 
   if (loading) {
-    return (
-      <div className="space-y-6 animate-pulse">
-        <div className="h-8 w-40 rounded-lg bg-gray-200" />
-
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <table className="w-full text-left border-collapse">
-            <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-24 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-32 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-24 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-28 rounded bg-gray-200" />
-                </th>
-                <th className="px-6 py-3.5">
-                  <div className="h-4 w-16 rounded bg-gray-200" />
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {[...Array(5)].map((_, i) => (
-                <tr key={i}>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-32 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-40 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-24 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-32 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-6 w-20 rounded-full bg-gray-200" />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
+    return <TableShimmerLoader></TableShimmerLoader>;
   }
 
   if (error) {
     return (
       <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-        <p className="font-semibold">Failed to load candidates</p>
+        <p className="font-semibold">{t("candidatesPage.failedToLoad")}</p>
         <p className="mt-1">{error}</p>
       </div>
     );
@@ -130,57 +85,61 @@ function CandidatesPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-          Candidates
+          {t("candidatesPage.title")}
         </h1>
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-3">
-        <div className="relative w-full max-w-xs sm:w-auto">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <svg
-                className="h-4 w-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
+            <div className="relative w-full max-w-xs sm:w-auto">
+              <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <svg
+                  className="h-4 w-4 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+              <input
+                type="text"
+                placeholder={t("candidatesPage.search")}
+                value={search}
+                onChange={(event) => {
+                  setSearch(event.target.value);
+                  setPage(1);
+                }}
+                className="w-full bg-white rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              />
             </div>
-            <input
-              type="text"
-              placeholder="Search"
-              value={search}
+
+            <select
+              value={status}
+              className="w-full bg-white sm:w-auto rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
               onChange={(event) => {
-                setSearch(event.target.value);
+                setStatus(event.target.value as CandidateStatus | "");
                 setPage(1);
               }}
-              className="w-full bg-white rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            />
-          </div>
+            >
+              <option value="">{t("candidatesPage.allStatuses")}</option>
 
-          <select
-            value={status}
-            className="w-full bg-white sm:w-auto rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-            onChange={(event) => {
-              setStatus(event.target.value as CandidateStatus | "");
-              setPage(1);
-            }}
-          >
-            <option value="">All Statuses</option>
-            <option value="APPLIED">Applied</option>
-            <option value="SCREENING">Screening</option>
-            <option value="INTERVIEW">Interview</option>
-            <option value="OFFER">Offer</option>
-            <option value="HIRED">Hired</option>
-            <option value="REJECTED">Rejected</option>
-          </select>
+              <option value="APPLIED">{t("candidatesPage.applied")}</option>
 
+              <option value="SCREENING">{t("candidatesPage.screening")}</option>
+
+              <option value="INTERVIEW">{t("candidatesPage.interview")}</option>
+
+              <option value="OFFER">{t("candidatesPage.offer")}</option>
+
+              <option value="HIRED">{t("candidatesPage.hired")}</option>
+
+              <option value="REJECTED">{t("candidatesPage.rejected")}</option>
+            </select>
           </div>
-  
 
           <div className="flex items-center rounded-lg border border-gray-200 bg-white p-1 shadow-xs">
             <button
@@ -222,8 +181,8 @@ function CandidatesPage() {
           </div>
 
           <Link to="/candidates/new">
-             <button className="cursor-pointer w-max inline-flex items-center rounded-lg border border-teal-600 bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 transition-all focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
-              + Add
+            <button className="cursor-pointer w-max inline-flex items-center rounded-lg border border-teal-600 bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 transition-all focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+              + {t("candidatesPage.add")}
             </button>
           </Link>
         </div>
@@ -247,10 +206,10 @@ function CandidatesPage() {
             </svg>
           </div>
           <h3 className="mt-4 text-base font-semibold text-gray-900">
-            No candidates found
+            {t("candidatesPage.noCandidatesFound")}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            There are currently no candidates available in the pipeline.
+            {t("candidatesPage.adjustSearch")}
           </p>
         </div>
       ) : viewMode === "table" ? (
@@ -259,11 +218,13 @@ function CandidatesPage() {
             <table className="w-full text-left border-collapse text-sm">
               <thead className="bg-gray-50 border-b border-gray-200 text-xs uppercase font-semibold text-gray-500">
                 <tr className="text-white bg-teal-600">
-                  <th className="px-6 py-3.5">Name</th>
-                  <th className="px-6 py-3.5">Email</th>
-                  <th className="px-6 py-3.5">Designation</th>
-                  <th className="px-6 py-3.5">Applied For</th>
-                  <th className="px-6 py-3.5">Status</th>
+                  <th className="px-6 py-3.5">{t("candidatesPage.name")}</th>
+                  <th className="px-6 py-3.5">{t("candidatesPage.email")}</th>
+                  <th className="px-6 py-3.5">
+                    {t("candidatesPage.designation")}
+                  </th>
+                  <th className="px-6 py-3.5">{t("candidatesPage.job")}</th>
+                  <th className="px-6 py-3.5">{t("candidatesPage.status")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 text-gray-700">
@@ -327,12 +288,20 @@ function CandidatesPage() {
 
                 <div className="space-y-1.5 pt-2 text-xs text-gray-600 border-t border-gray-100">
                   <div className="flex justify-between">
-                    <span className="text-gray-400 font-medium">Designation</span>
-                    <span className="font-semibold text-gray-800">{candidate.designation ?? "N/A"}</span>
+                    <span className="text-gray-400 font-medium">
+                      {t("candidatesPage.designation")}
+                    </span>
+                    <span className="font-semibold text-gray-800">
+                      {candidate.designation ?? t("notAvailable")}
+                    </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400 font-medium">Email</span>
-                    <span className="font-semibold text-gray-800 truncate max-w-[180px]">{candidate.email}</span>
+                    <span className="text-gray-400 font-medium">
+                      {t("candidatesPage.email")}
+                    </span>
+                    <span className="font-semibold text-gray-800 truncate max-w-[180px]">
+                      {candidate.email}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -347,26 +316,22 @@ function CandidatesPage() {
           onClick={() => setPage((currentPage) => currentPage - 1)}
           className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
         >
-          Previous
+          {t("candidatesPage.previous")}
         </button>
-
-        <span className="text-sm text-gray-700">
-          Page{" "}
-          <span className="font-semibold text-gray-900">
-            {pagination?.page ?? 1}
-          </span>{" "}
-          of{" "}
-          <span className="font-semibold text-gray-900">
-            {pagination?.totalPages ?? 1}
-          </span>
+        {t("candidatesPage.page")}{" "}
+        <span className="font-semibold text-gray-900">
+          {pagination?.page ?? 1}
+        </span>{" "}
+        {t("candidatesPage.of")}{" "}
+        <span className="font-semibold text-gray-900">
+          {pagination?.totalPages ?? 1}
         </span>
-
         <button
           disabled={!pagination?.hasNext}
           onClick={() => setPage((currentPage) => currentPage + 1)}
           className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
         >
-          Next
+          {t("candidatesPage.next")}
         </button>
       </div>
     </div>

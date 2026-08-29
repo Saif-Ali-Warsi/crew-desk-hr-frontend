@@ -54,6 +54,39 @@ export const ar = {
       of: "من",
     },
 
+    candidatesPage: {
+      title: "المرشحون",
+      search: "بحث",
+      add: "إضافة",
+
+      tableView: "عرض الجدول",
+      cardView: "عرض البطاقات",
+
+      name: "الاسم",
+      email: "البريد الإلكتروني",
+      designation: "المسمى الوظيفي",
+      job: "الوظيفة",
+      status: "الحالة",
+
+      allStatuses: "جميع الحالات",
+      applied: "تم التقديم",
+      screening: "قيد الفحص",
+      interview: "المقابلة",
+      offer: "عرض وظيفي",
+      hired: "تم التوظيف",
+      rejected: "مرفوض",
+
+      noCandidatesFound: "لم يتم العثور على مرشحين",
+      adjustSearch: "حاول تعديل معايير البحث أو إضافة مرشح جديد.",
+
+      failedToLoad: "فشل تحميل المرشحين",
+
+      previous: "السابق",
+      next: "التالي",
+      page: "صفحة",
+      of: "من",
+    },
+
     status: {
       active: "نشط",
       inactive: "غير نشط",
