@@ -340,22 +340,26 @@ function EmployeesPage() {
         <button
           disabled={!pagination?.hasPrevious}
           onClick={() => setPage((currentPage) => currentPage - 1)}
-          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 text-white bg-teal-600 px-3.5 py-2 text-sm font-medium shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-teal-700"
         >
           {t("employee.previous")}
         </button>
-        {t("employee.page")}{" "}
-        <span className="font-semibold text-gray-900">
-          {pagination?.page ?? 1}
-        </span>{" "}
-        {t("employee.of")}{" "}
-        <span className="font-semibold text-gray-900">
-          {pagination?.totalPages ?? 1}
+
+        <span className="text-sm text-gray-700">
+          {t("employee.page")}{" "}
+          <span className="font-semibold text-gray-900">
+            {pagination?.page ?? 1}
+          </span>{" "}
+          {t("employee.of")}{" "}
+          <span className="font-semibold text-gray-900">
+            {pagination?.totalPages ?? 1}
+          </span>
         </span>
+
         <button
           disabled={!pagination?.hasNext}
           onClick={() => setPage((currentPage) => currentPage + 1)}
-          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 text-white bg-teal-600 px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 text-white bg-teal-600 px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-teal-700"
         >
           {t("employee.next")}
         </button>

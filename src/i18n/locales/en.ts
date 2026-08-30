@@ -28,6 +28,40 @@ export const en = {
 
     profileUpdated: "Profile updated successfully.",
 
+    // Dashboard
+    realTimeHrOverview: "Real time HR overview",
+    activeTeamMembers: "Active Team Members",
+
+    total: "Total",
+    active: "Active",
+    inactive: "Inactive",
+
+    totalJobs: "Total Jobs",
+    postings: "Postings",
+    open: "Open",
+    closed: "Closed",
+
+    pipeline: "Pipeline",
+    totalActiveApplicants:
+      "Total active applicants in recruitment pipeline",
+
+    todaysAttendance: "Today's Attendance",
+    present: "Present",
+    turnoutRate: "Turnout Rate",
+
+    leavesOverview: "Leaves Overview",
+    timeOff: "Time Off",
+
+    pendingRequests: "Pending Requests",
+    requiresAction: "Requires action",
+
+    approvedRequests: "Approved Requests",
+    approvedThisCycle: "Approved this cycle",
+
+    failedToLoadDashboard: "Failed to load Dashboard",
+    noDashboardData: "No dashboard data available",
+    noMetricData: "There is no metric data to display.",
+
     employee: {
       title: "Employees",
       search: "Search",

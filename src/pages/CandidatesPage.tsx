@@ -116,29 +116,44 @@ function CandidatesPage() {
                 className="w-full bg-white rounded-lg border border-gray-300 pl-9 pr-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
               />
             </div>
+            <div className="relative flex sm:flex-row sm:items-center gap-3 max-w-md">
+              <select
+                value={status}
+                className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3.5 pr-10 text-sm font-medium text-slate-700 shadow-sm transition-colors focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                onChange={(event) => {
+                  setStatus(event.target.value as CandidateStatus | "");
+                  setPage(1);
+                }}
+              >
+                <option value="">{t("candidatesPage.allStatuses")}</option>
 
-            <select
-              value={status}
-              className="w-full bg-white sm:w-auto rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
-              onChange={(event) => {
-                setStatus(event.target.value as CandidateStatus | "");
-                setPage(1);
-              }}
-            >
-              <option value="">{t("candidatesPage.allStatuses")}</option>
+                <option value="APPLIED">{t("candidatesPage.applied")}</option>
 
-              <option value="APPLIED">{t("candidatesPage.applied")}</option>
+                <option value="SCREENING">
+                  {t("candidatesPage.screening")}
+                </option>
 
-              <option value="SCREENING">{t("candidatesPage.screening")}</option>
+                <option value="INTERVIEW">
+                  {t("candidatesPage.interview")}
+                </option>
 
-              <option value="INTERVIEW">{t("candidatesPage.interview")}</option>
+                <option value="OFFER">{t("candidatesPage.offer")}</option>
 
-              <option value="OFFER">{t("candidatesPage.offer")}</option>
+                <option value="HIRED">{t("candidatesPage.hired")}</option>
 
-              <option value="HIRED">{t("candidatesPage.hired")}</option>
+                <option value="REJECTED">{t("candidatesPage.rejected")}</option>
+              </select>
 
-              <option value="REJECTED">{t("candidatesPage.rejected")}</option>
-            </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400">
+                <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
 
           <div className="flex items-center rounded-lg border border-gray-200 bg-white p-1 shadow-xs">
@@ -314,22 +329,26 @@ function CandidatesPage() {
         <button
           disabled={!pagination?.hasPrevious}
           onClick={() => setPage((currentPage) => currentPage - 1)}
-          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 text-white bg-teal-600 px-3.5 py-2 text-sm font-medium shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-teal-700"
         >
           {t("candidatesPage.previous")}
         </button>
-        {t("candidatesPage.page")}{" "}
-        <span className="font-semibold text-gray-900">
-          {pagination?.page ?? 1}
-        </span>{" "}
-        {t("candidatesPage.of")}{" "}
-        <span className="font-semibold text-gray-900">
-          {pagination?.totalPages ?? 1}
+
+        <span className="text-sm text-gray-700">
+          {t("candidatesPage.page")}{" "}
+          <span className="font-semibold text-gray-900">
+            {pagination?.page ?? 1}
+          </span>{" "}
+          {t("candidatesPage.of")}{" "}
+          <span className="font-semibold text-gray-900">
+            {pagination?.totalPages ?? 1}
+          </span>
         </span>
+
         <button
           disabled={!pagination?.hasNext}
           onClick={() => setPage((currentPage) => currentPage + 1)}
-          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 bg-white px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white"
+          className="cursor-pointer inline-flex items-center rounded-md border border-gray-300 text-white bg-teal-600 px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-teal-700"
         >
           {t("candidatesPage.next")}
         </button>

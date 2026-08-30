@@ -28,6 +28,40 @@ export const ar = {
 
     profileUpdated: "تم تحديث الملف الشخصي بنجاح.",
 
+    // Dashboard
+    realTimeHrOverview: "نظرة عامة فورية على الموارد البشرية",
+    activeTeamMembers: "أعضاء الفريق النشطون",
+
+    total: "الإجمالي",
+    active: "نشط",
+    inactive: "غير نشط",
+
+    totalJobs: "إجمالي الوظائف",
+    postings: "إعلانات الوظائف",
+    open: "مفتوحة",
+    closed: "مغلقة",
+
+    pipeline: "مسار التوظيف",
+    totalActiveApplicants:
+      "إجمالي المتقدمين النشطين في مسار التوظيف",
+
+    todaysAttendance: "حضور اليوم",
+    present: "حاضر",
+    turnoutRate: "نسبة الحضور",
+
+    leavesOverview: "نظرة عامة على الإجازات",
+    timeOff: "الإجازات",
+
+    pendingRequests: "الطلبات المعلقة",
+    requiresAction: "يتطلب إجراءً",
+
+    approvedRequests: "الطلبات الموافق عليها",
+    approvedThisCycle: "تمت الموافقة عليها خلال هذه الدورة",
+
+    failedToLoadDashboard: "فشل تحميل لوحة التحكم",
+    noDashboardData: "لا تتوفر بيانات لوحة التحكم",
+    noMetricData: "لا توجد بيانات لعرضها.",
+
 
     employee: {
       title: "الموظفون",

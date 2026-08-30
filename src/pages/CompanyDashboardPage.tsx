@@ -147,14 +147,16 @@ function CompanyDashboardPage() {
             </div>
             <div className="mt-5 border-t border-slate-100 pt-3 flex items-center justify-between text-xs">
               <span className="text-slate-600">
-                {t("active")}:
+                {t("active")} :
                 <strong className="font-semibold text-emerald-600">
+                  {" "}
                   {dashboard.activeEmployees}
                 </strong>
               </span>
               <span className="text-slate-400">
-                {t("inactive")}:
+                {t("inactive")} :
                 <strong className="font-medium text-slate-500">
+                  {" "}
                   {dashboard.inactiveEmployees}
                 </strong>
               </span>
@@ -189,14 +191,16 @@ function CompanyDashboardPage() {
             </div>
             <div className="mt-5 border-t border-slate-100 pt-3 flex items-center justify-between text-xs">
               <span className="text-slate-600">
-                {t("open")}:
+                {t("open")} :
                 <strong className="font-semibold text-sky-600">
+                  {" "}
                   {dashboard.openJobs}
                 </strong>
               </span>
               <span className="text-slate-400">
-                {t("closed")}:
+                {t("closed")} :
                 <strong className="font-medium text-slate-500">
+                  {" "}
                   {dashboard.closedJobs}
                 </strong>
               </span>
