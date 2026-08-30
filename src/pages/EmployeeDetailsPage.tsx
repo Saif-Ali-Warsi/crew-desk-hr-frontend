@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getEmployeeById } from "../api/employees";
@@ -8,6 +9,7 @@ import ConfirmModal from "../components/ConfirmModel";
 import { toast } from "react-toastify";
 
 function EmployeeDetailsPage() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
 
   const [employee, setEmployee] = useState<Employee | null>(null);
@@ -23,7 +25,7 @@ function EmployeeDetailsPage() {
 
   useEffect(() => {
     if (!id) {
-      setError("Employee ID is missing.");
+      setError(t("employeeDetails.employeeIdMissing"));
       setLoading(false);
       return;
     }
@@ -37,7 +39,7 @@ function EmployeeDetailsPage() {
         }
       } catch (error) {
         console.error("Failed to fetch employee:", error);
-        setError("Failed to load employee.");
+        setError(t("employeeDetails.failedToLoad"));
       } finally {
         setLoading(false);
       }
@@ -61,10 +63,10 @@ function EmployeeDetailsPage() {
       setIsDeleteModalOpen(false);
       setSelectedEmployeeId(null);
       navigate("/employees");
-      toast.success("Employee deleted successfully");
+      toast.success(t("employeeDetails.deleteSuccess"));
     } catch (error) {
       console.error(error);
-      toast.success("Failed to delete");
+      toast.error(t("employeeDetails.deleteFailed"));
     } finally {
       setIsDeleting(false);
     }
@@ -98,7 +100,9 @@ function EmployeeDetailsPage() {
   if (error) {
     return (
       <div className="mx-auto max-w-4xl rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-        <p className="font-semibold">Failed to load employee details</p>
+        <p className="font-semibold">
+          {t("employeeDetails.failedToLoadDetails")}
+        </p>
         <p className="mt-1">{error}</p>
       </div>
     );
@@ -123,11 +127,10 @@ function EmployeeDetailsPage() {
           </svg>
         </div>
         <h3 className="mt-4 text-base font-semibold text-gray-900">
-          Employee not found
+          {t("employeeDetails.employeeNotFound")}
         </h3>
         <p className="mt-1 text-sm text-gray-500">
-          The employee record you are looking for does not exist or has been
-          removed.
+          {t("employeeDetails.employeeNotFoundDescription")}
         </p>
       </div>
     );
@@ -137,19 +140,19 @@ function EmployeeDetailsPage() {
     <div className="mx-auto max-w-4xl space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-          Employee Profile
+          {t("employeeDetails.title")}
         </h1>
       </div>
 
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="relative flex flex-col gap-4 border-b border-gray-100 bg-gray-50/50 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-600 text-xl font-bold text-white shadow-sm">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-600 text-xl uppercase font-bold text-white shadow-sm">
               {employee.firstName?.[0]}
               {employee.lastName?.[0]}
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">
+              <h2 className="text-xl capitalize font-bold text-gray-900">
                 {employee.firstName} {employee.lastName}
               </h2>
               <p className="text-sm font-medium text-gray-500">
@@ -159,25 +162,25 @@ function EmployeeDetailsPage() {
           </div>
 
           <button
-            className="absolute -top-1 right-6 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 hover:bg-red-50 hover:text-red-600"
+            className="cursor-pointer absolute -top-1 right-6 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 hover:bg-red-50 hover:text-red-600"
             onClick={() => handleDeleteClick(employee.id)}
           >
-            Delete
+            {t("employeeDetails.delete")}
           </button>
 
           <ConfirmModal
             isOpen={isDeleteModalOpen}
-            title="Delete Employee"
-            message="Are you sure you want to delete this employee? This action cannot be undone."
-            confirmLabel="Delete"
+            title={t("employeeDetails.deleteEmployee")}
+            message={t("employeeDetails.deleteConfirmation")}
+            confirmLabel={t("employeeDetails.delete")}
             isLoading={isDeleting}
             onConfirm={handleConfirmDelete}
             onClose={() => setIsDeleteModalOpen(false)}
           />
 
           <Link to={`/employees/${employee.id}/edit`}>
-            <button className="absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
-              Edit
+            <button className="cursor-pointer absolute -top-1 right-24 z-10 inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+              {t("employeeDetails.edit")}
             </button>
           </Link>
 
@@ -195,7 +198,7 @@ function EmployeeDetailsPage() {
         <div className="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2">
           <div>
             <dt className="text-xs font-medium uppercase tracking-wider text-gray-400">
-              Employee Code
+              {t("employeeDetails.employeeCode")}
             </dt>
             <dd className="mt-1 text-sm font-semibold text-gray-900">
               {employee.employeeCode}
@@ -204,7 +207,7 @@ function EmployeeDetailsPage() {
 
           <div>
             <dt className="text-xs font-medium uppercase tracking-wider text-gray-400">
-              Email Address
+              {t("employeeDetails.emailAddress")}
             </dt>
             <dd className="mt-1 text-sm font-medium text-gray-900">
               {employee.email}
@@ -213,16 +216,16 @@ function EmployeeDetailsPage() {
 
           <div>
             <dt className="text-xs font-medium uppercase tracking-wider text-gray-400">
-              Phone Number
+              {t("employeeDetails.phoneNumber")}
             </dt>
             <dd className="mt-1 text-sm font-medium text-gray-900">
-              {employee.phone ?? "N/A"}
+              {employee.phone ?? t("employeeDetails.na")}
             </dd>
           </div>
 
           <div>
             <dt className="text-xs font-medium uppercase tracking-wider text-gray-400">
-              Employment Type
+              {t("employeeDetails.employmentType")}
             </dt>
             <dd className="mt-1 text-sm font-medium text-gray-900 capitalize">
               {employee.employmentType}
@@ -231,7 +234,7 @@ function EmployeeDetailsPage() {
 
           <div>
             <dt className="text-xs font-medium uppercase tracking-wider text-gray-400">
-              Joining Date
+              {t("employeeDetails.joiningDate")}
             </dt>
             <dd className="mt-1 text-sm font-medium text-gray-900">
               {new Date(employee.joiningDate).toLocaleDateString()}

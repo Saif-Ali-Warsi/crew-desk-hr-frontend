@@ -320,7 +320,7 @@ function EditEmployeePage() {
         </div>
 
         <div className="pt-3">
-          <button type="submit" disabled={loading} className="inline-flex w-full items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-teal-400">
+          <button type="submit" disabled={loading} className="cursor-pointer inline-flex w-full items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-teal-400">
             {loading ? "Updating..." : "Update Employee"}
           </button>
         </div>

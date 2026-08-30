@@ -88,6 +88,36 @@ export const ar = {
       of: "من",
     },
 
+    employeeDetails: {
+      title: "ملف الموظف",
+
+      delete: "حذف",
+      edit: "تعديل",
+
+      deleteEmployee: "حذف الموظف",
+      deleteConfirmation:
+        "هل أنت متأكد من رغبتك في حذف هذا الموظف؟ لا يمكن التراجع عن هذا الإجراء.",
+
+      employeeCode: "رمز الموظف",
+      emailAddress: "عنوان البريد الإلكتروني",
+      phoneNumber: "رقم الهاتف",
+      employmentType: "نوع التوظيف",
+      joiningDate: "تاريخ الانضمام",
+
+      employeeNotFound: "لم يتم العثور على الموظف",
+      employeeNotFoundDescription:
+        "سجل الموظف الذي تبحث عنه غير موجود أو تمت إزالته.",
+
+      failedToLoadDetails: "فشل تحميل تفاصيل الموظف",
+      failedToLoad: "فشل تحميل الموظف.",
+
+      employeeIdMissing: "معرّف الموظف مفقود.",
+
+      deleteSuccess: "تم حذف الموظف بنجاح",
+      deleteFailed: "فشل الحذف",
+      na: "غير متوفر",
+    },
+
     candidatesPage: {
       title: "المرشحون",
       search: "بحث",

@@ -87,6 +87,36 @@ export const en = {
       of: "of",
     },
 
+    employeeDetails: {
+      title: "Employee Profile",
+
+      delete: "Delete",
+      edit: "Edit",
+
+      deleteEmployee: "Delete Employee",
+      deleteConfirmation:
+        "Are you sure you want to delete this employee? This action cannot be undone.",
+
+      employeeCode: "Employee Code",
+      emailAddress: "Email Address",
+      phoneNumber: "Phone Number",
+      employmentType: "Employment Type",
+      joiningDate: "Joining Date",
+
+      employeeNotFound: "Employee not found",
+      employeeNotFoundDescription:
+        "The employee record you are looking for does not exist or has been removed.",
+
+      failedToLoadDetails: "Failed to load employee details",
+      failedToLoad: "Failed to load employee.",
+
+      employeeIdMissing: "Employee ID is missing.",
+
+      deleteSuccess: "Employee deleted successfully",
+      deleteFailed: "Failed to delete",
+      na: "N/A",
+    },
+
     candidatesPage: {
       title: "Candidates",
       search: "Search",
