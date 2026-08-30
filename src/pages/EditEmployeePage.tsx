@@ -6,8 +6,11 @@ import {
   type CreateEmployeePayload,
 } from "../api/employees";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function EditEmployeePage() {
+  const { t } = useTranslation();
+
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -43,29 +46,29 @@ function EditEmployeePage() {
     } = {};
 
     if (!formData.firstName.trim()) {
-      newErrors.firstName = "First name is required.";
+      newErrors.firstName = t("employeeForm.firstNameRequired");
     }
 
     if (!formData.lastName.trim()) {
-      newErrors.lastName = "Last name is required.";
+      newErrors.lastName = t("employeeForm.lastNameRequired");
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
+      newErrors.email = t("employeeForm.emailRequired");
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address.";
+      newErrors.email = t("employeeForm.validEmail");
     }
 
     if (!formData.designation.trim()) {
-      newErrors.designation = "Designation is required.";
+      newErrors.designation = t("employeeForm.designationRequired");
     }
 
     if (!formData.joiningDate) {
-      newErrors.joiningDate = "Joining date is required.";
+      newErrors.joiningDate = t("employeeForm.joiningDateRequired");
     }
 
     if (!formData.employmentType) {
-      newErrors.employmentType = "Employment type is required.";
+      newErrors.employmentType = t("employeeForm.employmentTypeRequired");
     }
 
     setErrors(newErrors);
@@ -97,13 +100,14 @@ function EditEmployeePage() {
         }
       } catch (error) {
         console.error("Failed to fetch employee:", error);
+        toast.error(t("employeeForm.failedToLoad"));
       } finally {
         setLoading(false);
       }
     };
 
     fetchEmployee();
-  }, [id]);
+  }, [id, t]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -122,11 +126,11 @@ function EditEmployeePage() {
 
       if (result.success) {
         navigate(`/employees/${id}`);
-        toast.success("Employee updated successfully")
+        toast.success(t("employeeForm.employeeUpdated"));
       }
     } catch (error) {
       console.error("Failed to update employee:", error);
-        toast.error("Failed to update employee")
+      toast.error(t("employeeForm.failedToUpdate"));
     } finally {
       setLoading(false);
     }
@@ -135,9 +139,12 @@ function EditEmployeePage() {
   return (
     <div className="mx-auto max-w-2xl rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
       <div className="mb-6">
-        <h2 className="text-xl font-bold text-gray-900">Edit Employee</h2>
+        <h2 className="text-xl font-bold text-gray-900">
+          {t("employeeForm.editTitle")}
+        </h2>
+
         <p className="mt-1 text-sm text-gray-500">
-          Fill in the employee details below to edit employee details.
+          {t("employeeForm.editDescription")}
         </p>
       </div>
 
@@ -145,11 +152,12 @@ function EditEmployeePage() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              First Name
+              {t("employeeForm.firstName")}
             </label>
+
             <input
               type="text"
-              placeholder="John"
+              placeholder={t("employeeForm.firstNamePlaceholder")}
               value={formData.firstName}
               onChange={(event) =>
                 setFormData({
@@ -163,6 +171,7 @@ function EditEmployeePage() {
                   : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
               }`}
             />
+
             {errors.firstName && (
               <p className="text-xs text-red-600">{errors.firstName}</p>
             )}
@@ -170,11 +179,12 @@ function EditEmployeePage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Last Name
+              {t("employeeForm.lastName")}
             </label>
+
             <input
               type="text"
-              placeholder="Doe"
+              placeholder={t("employeeForm.lastNamePlaceholder")}
               value={formData.lastName}
               onChange={(event) =>
                 setFormData({
@@ -188,6 +198,7 @@ function EditEmployeePage() {
                   : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
               }`}
             />
+
             {errors.lastName && (
               <p className="text-xs text-red-600">{errors.lastName}</p>
             )}
@@ -197,11 +208,12 @@ function EditEmployeePage() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Email Address
+              {t("employeeForm.emailAddress")}
             </label>
+
             <input
               type="email"
-              placeholder="john.doe@example.com"
+              placeholder={t("employeeForm.emailPlaceholder")}
               value={formData.email}
               onChange={(event) =>
                 setFormData({
@@ -215,6 +227,7 @@ function EditEmployeePage() {
                   : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
               }`}
             />
+
             {errors.email && (
               <p className="text-xs text-red-600">{errors.email}</p>
             )}
@@ -222,11 +235,12 @@ function EditEmployeePage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Phone Number
+              {t("employeeForm.phoneNumber")}
             </label>
+
             <input
               type="text"
-              placeholder="+1 (555) 000-0000 (Optional)"
+              placeholder={t("employeeForm.phonePlaceholder")}
               value={formData.phone}
               onChange={(event) =>
                 setFormData({
@@ -242,11 +256,12 @@ function EditEmployeePage() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Designation
+              {t("employeeForm.designation")}
             </label>
+
             <input
               type="text"
-              placeholder="Software Engineer"
+              placeholder={t("employeeForm.designationPlaceholder")}
               value={formData.designation}
               onChange={(event) =>
                 setFormData({
@@ -260,6 +275,7 @@ function EditEmployeePage() {
                   : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
               }`}
             />
+
             {errors.designation && (
               <p className="text-xs text-red-600">{errors.designation}</p>
             )}
@@ -267,8 +283,9 @@ function EditEmployeePage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700">
-              Joining Date
+              {t("employeeForm.joiningDate")}
             </label>
+
             <input
               type="date"
               value={formData.joiningDate}
@@ -284,6 +301,7 @@ function EditEmployeePage() {
                   : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
               }`}
             />
+
             {errors.joiningDate && (
               <p className="text-xs text-red-600">{errors.joiningDate}</p>
             )}
@@ -292,36 +310,58 @@ function EditEmployeePage() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Employment Type
+            {t("employeeForm.employmentType")}
           </label>
-          <select
-            value={formData.employmentType}
-            onChange={(event) =>
-              setFormData({
-                ...formData,
-                employmentType: event.target
-                  .value as CreateEmployeePayload["employmentType"],
-              })
-            }
-            className={`mt-1 block w-full rounded-md border px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-1 ${
-              errors.employmentType
-                ? "border-red-500 focus:border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
-            }`}
-          >
-            <option value="FULL_TIME">Full Time</option>
-            <option value="PART_TIME">Part Time</option>
-            <option value="CONTRACT">Contract</option>
-            <option value="INTERN">Intern</option>
-          </select>
+          <div className="relative flex sm:flex-row sm:items-center gap-3 max-w-md">
+            <select
+              value={formData.employmentType}
+              onChange={(event) =>
+                setFormData({
+                  ...formData,
+                  employmentType: event.target
+                    .value as CreateEmployeePayload["employmentType"],
+                })
+              }
+              className={`w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pl-3.5 pr-10 text-sm font-medium text-slate-700 shadow-sm transition-colors focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400 ${
+                errors.employmentType
+                  ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                  : "border-gray-300 focus:border-teal-500 focus:ring-teal-500"
+              }`}
+            >
+              <option value="FULL_TIME">{t("employeeForm.fullTime")}</option>
+
+              <option value="PART_TIME">{t("employeeForm.partTime")}</option>
+
+              <option value="CONTRACT">{t("employeeForm.contract")}</option>
+
+              <option value="INTERN">{t("employeeForm.intern")}</option>
+            </select>
+
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400">
+              <svg className="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+
           {errors.employmentType && (
             <p className="text-xs text-red-600">{errors.employmentType}</p>
           )}
         </div>
 
         <div className="pt-3">
-          <button type="submit" disabled={loading} className="cursor-pointer inline-flex w-full items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-teal-400">
-            {loading ? "Updating..." : "Update Employee"}
+          <button
+            type="submit"
+            disabled={loading}
+            className="cursor-pointer inline-flex w-full items-center justify-center rounded-md border border-transparent bg-teal-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:bg-teal-400"
+          >
+            {loading
+              ? t("employeeForm.updating")
+              : t("employeeForm.updateEmployee")}
           </button>
         </div>
       </form>

@@ -278,7 +278,9 @@ export const en = {
 
     employeeForm: {
       title: "Add New Employee",
+      editTitle: "Edit Employee",
       description: "Fill in the employee details below to create a new profile.",
+      editDescription: "Fill in the employee details below to edit employee details.",
 
       firstName: "First Name",
       lastName: "Last Name",
@@ -312,6 +314,13 @@ export const en = {
 
       employeeCreated: "Employee created successfully.",
       failedToCreate: "Failed to create employee",
+
+      updating: "Updating...",
+      updateEmployee: "Update Employee",
+      employeeUpdated: "Employee updated successfully.",
+      failedToUpdate: "Failed to update employee",
+
+      failedToLoad: "Failed to load employee.",
     },
 
     addCandidate: {

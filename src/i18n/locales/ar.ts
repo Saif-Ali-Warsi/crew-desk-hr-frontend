@@ -278,7 +278,9 @@ export const ar = {
 
     employeeForm: {
       title: "إضافة موظف جديد",
+      editTitle: "تعديل الموظف",
       description: "أدخل بيانات الموظف أدناه لإنشاء ملف شخصي جديد.",
+      editDescription: "أدخل بيانات الموظف أدناه لتعديل بيانات الموظف.",
 
       firstName: "الاسم الأول",
       lastName: "اسم العائلة",
@@ -312,6 +314,13 @@ export const ar = {
 
       employeeCreated: "تم إنشاء الموظف بنجاح.",
       failedToCreate: "فشل إنشاء الموظف",
+
+      updating: "جارٍ التحديث...",
+      updateEmployee: "تحديث الموظف",
+      employeeUpdated: "تم تحديث الموظف بنجاح.",
+      failedToUpdate: "فشل تحديث الموظف",
+
+      failedToLoad: "فشل تحميل الموظف.",
     },
 
     addCandidate: {
