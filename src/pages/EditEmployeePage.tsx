@@ -312,7 +312,7 @@ function EditEmployeePage() {
           <label className="block text-sm font-medium text-gray-700">
             {t("employeeForm.employmentType")}
           </label>
-          <div className="relative flex sm:flex-row sm:items-center gap-3 max-w-md">
+          <div className="relative flex sm:flex-row sm:items-center gap-3">
             <select
               value={formData.employmentType}
               onChange={(event) =>

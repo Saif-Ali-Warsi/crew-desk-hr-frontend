@@ -188,15 +188,13 @@ function LeavesPage() {
             </button>
           </div>
 
-          {leaves.length > 0 && (
-            <button
-              type="button"
-              onClick={() => navigate("/leaves/new")}
-              className="cursor-pointer w-max inline-flex items-center rounded-lg border border-teal-600 bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 transition-all focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
-            >
-              + {t("leavesPage.applyLeave")}
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => navigate("/leaves/new")}
+            className="cursor-pointer w-max inline-flex items-center rounded-lg border border-teal-600 bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-700 transition-all focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+          >
+            + {t("leavesPage.applyLeave")}
+          </button>
         </div>
       </div>
 
