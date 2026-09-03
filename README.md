@@ -1,6 +1,6 @@
 <div align="center">
 
-# CrewDesk HR
+# Crew Desk HR
 
 ### Modern HR Management System built with React 19
 
@@ -9,7 +9,7 @@ A full-featured Human Resource Management System designed to streamline employee
 <br>
 
 <p>
-  <a href="https://saif-ali-warsi.github.io/crew-desk-hr-frontend/" target="_blank">
+  <a href="https://saif-ali-warsi.github.io/crew-desk-hr-frontend/#/login" target="_blank">
     <img src="https://img.shields.io/badge/🌐_Live_Demo-Visit_Now-12daa8?style=for-the-badge" alt="Live Demo"/>
   </a>
 
@@ -22,7 +22,7 @@ A full-featured Human Resource Management System designed to streamline employee
 
 ---
 
-##  Features
+## Features
 
 <table>
 <tr>
@@ -42,7 +42,7 @@ A full-featured Human Resource Management System designed to streamline employee
 
 <td width="50%">
 
-###  Leave Management
+### 📅 Leave Management
 
 - Leave Requests
 - Apply Leave
@@ -58,7 +58,7 @@ A full-featured Human Resource Management System designed to streamline employee
 <tr>
 <td width="50%">
 
-###  Recruitment
+### 💼 Recruitment
 
 - Job Management
 - Create Job
@@ -73,7 +73,7 @@ A full-featured Human Resource Management System designed to streamline employee
 
 <td width="50%">
 
-###  Hiring & Documents
+### 📄 Hiring & Documents
 
 - Candidate Screening
 - Interview Stage
@@ -90,9 +90,49 @@ A full-featured Human Resource Management System designed to streamline employee
 
 ---
 
-# Recruitment Flow
+## Application Screenshots
 
-CrewDesk HR provides a complete candidate recruitment workflow:
+### Dashboard
+
+<p align="center">
+  <img src="https://www.image2url.com/r2/default/images/1788453226991-0ea8f9bf-d66e-4a9b-8210-a777eb4aa758.png" alt="Crew Desk HR Dashboard" width="900"/>
+</p>
+
+### Employee Management
+
+<p align="center">
+  <img src="https://www.image2url.com/r2/default/images/1788453240963-59e89f40-a648-440c-800d-86f361c910a6.png" alt="Crew Desk HR Employees Page" width="900"/>
+</p>
+
+### Candidate Management
+
+<p align="center">
+  <img src="https://www.image2url.com/r2/default/images/1788453218044-29f246b5-2894-472c-ba4c-53590db3ff5c.png" alt="Crew Desk HR Candidates Page" width="900"/>
+</p>
+
+### Candidate Profile
+
+<p align="center">
+  <img src="https://www.image2url.com/r2/default/images/1788453222548-bbc3ff97-2f5c-4cf2-a67c-549fc6b19303.png" alt="Crew Desk HR Candidate Profile" width="900"/>
+</p>
+
+### Job Management
+
+<p align="center">
+  <img src="https://www.image2url.com/r2/default/images/1788453247974-4cb3a226-75d3-4bfe-9df7-d34d516bbcb3.png" alt="Crew Desk HR Jobs Page" width="900"/>
+</p>
+
+### Settings
+
+<p align="center">
+  <img src="https://www.image2url.com/r2/default/images/1788453268646-e79e93d6-7078-44ad-9c15-7805835796ec.png" alt="Crew Desk HR Settings Page" width="900"/>
+</p>
+
+---
+
+## Recruitment Flow
+
+Crew Desk HR provides a complete candidate recruitment workflow:
 
 ```text
 Public Job
